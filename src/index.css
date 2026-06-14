@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f1115;
+  --color-surface: #1a1d23;
+  --color-primary: #d4af37;
+  --color-primary-dark: #b8860b;
+  --color-secondary: #cd7f32;
+  --color-accent: #ffd700;
+  --color-text-main: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-border: #2d333d;
+}
+
+:root {
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.metallic-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #f9e29c 50%, #b8860b 100%);
+}
+
+.metallic-bronze {
+  background: linear-gradient(135deg, #cd7f32 0%, #efa55d 50%, #8b4513 100%);
+}
+
+.gritty-bg {
+  background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+}
