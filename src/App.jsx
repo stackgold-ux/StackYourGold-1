@@ -58,7 +58,7 @@ function App() {
             <a href="#shop" className="hover:text-primary transition-colors">Bullion</a>
             <a href="#club" className="hover:text-primary transition-colors text-accent">Stack Squad</a>
             <a href="#legacy" className="hover:text-primary transition-colors">Legacy</a>
-            <a href="#swag" className="hover:text-primary transition-colors">Swag</a>
+            <a href="#swag" className="hover:text-primary transition-colors">Stack Swag</a>
             <a href="#education" className="hover:text-primary transition-colors">Stack School</a>
           </div>
 
@@ -91,7 +91,7 @@ function App() {
             <a href="#shop" onClick={() => setIsMenuOpen(false)}>Bullion</a>
             <a href="#club" onClick={() => setIsMenuOpen(false)}>Stack Squad</a>
             <a href="#legacy" onClick={() => setIsMenuOpen(false)}>Legacy</a>
-            <a href="#swag" onClick={() => setIsMenuOpen(false)}>Swag</a>
+            <a href="#swag" onClick={() => setIsMenuOpen(false)}>Stack Swag</a>
             <a href="#education" onClick={() => setIsMenuOpen(false)}>Stack School</a>
           </div>
         </div>
@@ -119,11 +119,10 @@ function App() {
           <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="max-w-2xl text-center md:text-left">
               <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8">
-                The World is <span className="text-primary italic">Fragile</span>. Your Wealth Shouldn't Be.
+                From Grams to Kilos, You're in control.
               </h1>
               <p className="text-xl text-text-muted mb-12 max-w-xl mx-auto md:mx-0">
-                Shift your family's labor into tangible, generational gold and silver. 
-                Transparent pricing, the **Stack Squad** automated accumulation, and custom legacy pieces.
+                Your Stack, Your Way, Always
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
                 <a href="#shop" className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all">
