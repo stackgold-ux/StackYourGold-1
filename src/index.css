@@ -35,3 +35,11 @@ body {
 .gritty-bg {
   background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
 }
+
+.text-glow-accent {
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.text-glow-primary {
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}

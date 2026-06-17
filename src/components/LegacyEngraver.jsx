@@ -9,11 +9,20 @@ const LegacyEngraver = () => {
     <section className="py-20 px-4 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 className="text-4xl font-black uppercase tracking-tighter text-primary italic mb-6">Legacy Engraving Customizer</h2>
-          <p className="text-text-muted mb-8">
-            Create a timeless heirloom. Customize your 1oz Gold or Silver bars with family crests, 
-            significant dates, or messages of wisdom for the next generation.
-          </p>
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-primary italic mb-8 leading-tight">
+            Don't Just Save Money. <br />
+            <span className="text-white">Carve Your Family Name in It.</span>
+          </h2>
+          <div className="space-y-6 text-text-muted mb-10 text-lg">
+            <p>
+              Gold and silver are eternal. Turn your financial assets into priceless family heirlooms. 
+              Our precision engraving program allows you to custom-etch family names, crests, dates, 
+              or personal messages onto premium silver and gold bars.
+            </p>
+            <p className="font-bold italic text-white">
+              Pass down an asset they will never want to sell.
+            </p>
+          </div>
           
           <div className="space-y-6">
             <div>

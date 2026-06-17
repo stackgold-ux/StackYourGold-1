@@ -13,8 +13,10 @@ const SwagShop = () => {
     <section className="py-20 px-4 max-w-7xl mx-auto">
       <div className="flex justify-between items-end mb-12">
         <div>
-          <h2 className="text-4xl font-black uppercase tracking-tighter text-secondary italic">Stack Swag</h2>
-          <p className="text-text-muted mt-2">High-quality lifestyle gear for the disciplined stacker.</p>
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-secondary italic mb-4">Wear the Standard</h2>
+          <p className="text-text-muted text-lg max-w-2xl">
+            We don't just stack gold; we wear our values. Curated premium apparel and EDC gear designed to spark deep conversations about generational wealth.
+          </p>
         </div>
       </div>
 
