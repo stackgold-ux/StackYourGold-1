@@ -90,6 +90,9 @@ const BullionShop = ({ spotPrices, addToCart }) => {
         <div>
           <h2 className="text-4xl font-black uppercase tracking-tighter text-primary italic">Custom Stacking Shop</h2>
           <p className="text-text-muted mt-2">Pick your metal, set your budget ($25 to $9,999), and we calculate your physical weight at exactly 15% over live spot.</p>
+          <p className="text-xs text-text-muted mt-3 italic text-primary/80">
+            * All orders will be packaged as close to spot price as possible at time of order. We utilize metal grain to fill orders in or to supply micro orders unless otherwise specified.
+          </p>
         </div>
         <div className="flex items-center text-accent text-sm font-bold bg-accent/10 px-4 py-2 rounded border border-accent/20">
           <ShieldCheck size={18} className="mr-2" />
@@ -231,7 +234,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
       <div className="bg-surface border border-border rounded-2xl p-6 md:p-8">
         <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-6 italic border-b border-border pb-4 flex items-center">
           <Info size={22} className="mr-2 text-primary" />
-          Rounds, Bars and Coins Specifications
+          Rounds, Bars and Coins
         </h3>
         
         <div className="space-y-4">
