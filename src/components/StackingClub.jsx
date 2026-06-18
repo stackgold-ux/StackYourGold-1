@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Check, ArrowRight, Sliders, DollarSign } from 'lucide-react';
 import LogoGold from '../assets/logo-gold.jpg';
 import LogoSilver from '../assets/logo-silver.jpg';
-import ImgSilver from '../assets/IMG_0596.jpeg';
-import ImgGold from '../assets/IMG_0597.jpeg';
+import ImgGold from '../assets/IMG_0596.jpeg';
+import ImgSilver from '../assets/IMG_0597.jpeg';
 import ImgPlatinum from '../assets/IMG_0598.jpeg';
 import ImgStrategist from '../assets/IMG_0600.jpeg';
 
