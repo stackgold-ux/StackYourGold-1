@@ -54,3 +54,24 @@ To run the Wix integration in development mode:
 npm run dev
 ```
 The `wixClient.js` includes built-in mock fallbacks. If your API keys are invalid or missing, the dashboard will still function using high-fidelity mock data, allowing for UI/UX testing without backend dependency.
+
+## 7. OAuth Client Ledger (Multi-Channel Separation)
+
+To ensure secure session separation, customized redirect URI configurations, and independent analytics, **Stack Your Gold** utilizes separate Wix OAuth Clients for each storefront layer:
+
+### Channel 1: Web Frontend Storefront (Vercel)
+*   **Wix OAuth App Name:** `SYG - Web Frontend Client`
+*   **Wix App ID (Client ID):** `18601ea3-2a39-47b3-ac68-fc1a7d7b9428`
+*   **Status:** **ACTIVE & LIVE** (Configured as the default browser fallback in `src/utils/wixClient.js`).
+*   **Allowed Redirect URIs:** 
+    *   `http://localhost:3000` (Local testing)
+    *   `https://code-livid-theta.vercel.app` (Live Vercel Sandbox)
+    *   `https://stackyourgold.com` (Target Custom Domain)
+
+### Channel 2: Native Mobile Application (Future iOS / Android)
+*   **Wix OAuth App Name:** `SYG - Native App`
+*   **Wix App ID (Client ID):** `215c25bb-91c1-4c26-9093-c4225e97660f`
+*   **Status:** **PENDING IMPLEMENTATION** (Reserved strictly for native mobile codebase injection).
+*   **Allowed Redirect URIs:** 
+    *   `stackyourgold://oauth-callback` (Deep-link scheme for iOS/Android sessions)
+
