@@ -4,8 +4,8 @@
  */
 
 const WIX_CONFIG = {
-  clientId: 'd2e3f13a-6914-470f-b572-eeea3cb0e925', // Stripped 'user' if it was there
-  apiToken: '3LuAarTroNpB-UQ',
+  clientId: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_WIX_CLIENT_ID) || '18601ea3-2a39-47b3-ac68-fc1a7d7b9428', // Uses the newly generated Wix Client ID or Vercel env variable
+  apiToken: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_WIX_API_TOKEN) || '3LuAarTroNpB-UQ',
   baseUrl: 'https://www.wixapis.com'
 };
 
