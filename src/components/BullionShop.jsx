@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { ShoppingCart, ShieldCheck, ChevronDown, ChevronUp, DollarSign, Info } from 'lucide-react';
+import ImgGold from '../assets/IMG_0596.jpeg';
+import ImgSilver from '../assets/IMG_0597.jpeg';
+import ImgSurprise from '../assets/IMG_0605.jpeg';
 
 const BullionShop = ({ spotPrices, addToCart }) => {
   const [amounts, setAmounts] = useState({
@@ -17,9 +20,9 @@ const BullionShop = ({ spotPrices, addToCart }) => {
   const [openTab, setOpenTab] = useState(null);
 
   const images = {
-    gold: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&q=80&w=400',
-    silver: 'https://images.unsplash.com/photo-1589182397057-b82d519d0031?auto=format&fit=crop&q=80&w=400',
-    copper: 'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&q=80&w=400'
+    gold: ImgGold,
+    silver: ImgSilver,
+    copper: ImgSurprise
   };
 
   const presetAmounts = [25, 50, 100, 250, 500, 1000, 2500, 5000];
@@ -55,12 +58,14 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
     const product = {
       id: `${metal}-solo-${amount}-${Date.now()}`,
-      name: `${metal.charAt(0).toUpperCase() + metal.slice(1)} Solo Stack`,
+      name: metal === 'copper' ? 'Surprise Sack Solo Stack' : `${metal.charAt(0).toUpperCase() + metal.slice(1)} Solo Stack`,
       type: metal,
       weight: weightLabel,
       image: images[metal],
       price: amount.toFixed(2),
-      description: `One-time physical ${metal} bullion purchase. Direct-to-vault allocation.`
+      description: metal === 'copper'
+        ? 'Surprise metals (Gold/Silver mix) as close to value at purchase as possible.'
+        : `One-time physical ${metal} bullion purchase. Direct-to-vault allocation.`
     };
 
     addToCart(product);
@@ -79,8 +84,8 @@ const BullionShop = ({ spotPrices, addToCart }) => {
     },
     {
       id: 'copper',
-      title: 'Copper Rounds, Bars & Coins',
-      description: 'Industrial utility meets tangible wealth. Copper is an essential industrial asset with surging global demand. We fulfill copper stacking orders using highly polished 1oz Copper Bullets/Rounds, 10oz Bars, or 1lb pure bullion bars. Stacking copper offers a robust, tangible, and high-volume entry point into hard assets, perfectly suited for long-term vaulting and emergency barter.'
+      title: 'Surprise Sack (Gold/Silver Mix)',
+      description: "Can’t decide between Gold and Silver? Let us customize a surprise mixture of high-purity precious metals for your budget. We fulfill all Surprise Sack orders with a carefully optimized combination of fine gold and silver coins, bars, or rounds, mapped as closely as possible to the exact real-time spot value at your time of purchase."
     }
   ];
 
@@ -122,10 +127,12 @@ const BullionShop = ({ spotPrices, addToCart }) => {
               <div className="p-6 flex-grow flex flex-col justify-between">
                 <div>
                   <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-2 italic">
-                    {metal === 'gold' ? '🏆 Gold Solo Stack' : metal === 'silver' ? '🥈 Silver Solo Stack' : '🥉 Copper Solo Stack'}
+                    {metal === 'gold' ? '🏆 Gold Solo Stack' : metal === 'silver' ? '🥈 Silver Solo Stack' : '🎁 Surprise Sack'}
                   </h3>
                   <p className="text-text-muted text-sm mb-6">
-                    Fulfilling using premium physical {metal} coins, bars, and rounds.
+                    {metal === 'gold' ? 'Fulfilling using premium physical gold coins, bars, and rounds.' : 
+                     metal === 'silver' ? 'Fulfilling using premium physical silver coins, bars, and rounds.' : 
+                     'Surprise metals (Gold/Silver mix) as close to value at purchase as possible.'}
                   </p>
 
                   {/* Standard Presets */}
