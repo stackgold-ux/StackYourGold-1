@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { Check, ArrowRight, Sliders, DollarSign } from 'lucide-react';
 import LogoGold from '../assets/logo-gold.jpg';
 import LogoSilver from '../assets/logo-silver.jpg';
+import ImgSilver from '../assets/IMG_0596.jpeg';
+import ImgGold from '../assets/IMG_0597.jpeg';
+import ImgPlatinum from '../assets/IMG_0598.jpeg';
+import ImgStrategist from '../assets/IMG_0600.jpeg';
 
 const StackingClub = ({ addToCart }) => {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -22,10 +26,10 @@ const StackingClub = ({ addToCart }) => {
     
     addToCart({
       id: `squad-strategist-${strategistBudget}-${allocationSlider}`,
-      name: `Stack Squad: The Strategists Tier ($${strategistBudget}/mo - ${goldRatio}% Gold / ${silverRatio}% Silver)`,
+      name: `Stack Squad: The Strategists Tier (${strategistBudget}/mo - ${goldRatio}% Gold / ${silverRatio}% Silver)`,
       price: parseFloat(strategistBudget),
       type: 'subscription',
-      image: goldRatio >= 50 ? LogoGold : LogoSilver,
+      image: ImgStrategist,
       description: `Custom stacking strategy: ${goldRatio}% Gold, ${silverRatio}% Silver.`
     });
   };
@@ -35,6 +39,7 @@ const StackingClub = ({ addToCart }) => {
       id: 'silver', 
       name: 'The Silver Tier', 
       amount: 24.99, 
+      image: ImgSilver,
       perks: [
         'High-purity physical metals accumulated monthly',
         'Discreet insured shipping once thresholds met',
@@ -46,6 +51,7 @@ const StackingClub = ({ addToCart }) => {
       id: 'gold', 
       name: 'The Gold Tier', 
       amount: 49.99, 
+      image: ImgGold,
       perks: [
         'Increased metal accumulation speed',
         'Prioritized monthly allocation',
@@ -59,6 +65,7 @@ const StackingClub = ({ addToCart }) => {
       id: 'platinum', 
       name: 'The Platinum Tier', 
       amount: 99.99, 
+      image: ImgPlatinum,
       perks: [
         'Maximum priority metal allocation',
         'Priority shipping',
@@ -77,7 +84,9 @@ const StackingClub = ({ addToCart }) => {
       id: `squad-${plan.id}-${selection.toLowerCase()}`,
       name: `Stack Squad: ${plan.name} (${selection})`,
       price: plan.amount,
-      type: 'subscription'
+      type: 'subscription',
+      image: plan.image,
+      description: `Stack Squad subscription customized with ${selection}.`
     });
   };
 
@@ -135,6 +144,14 @@ const StackingClub = ({ addToCart }) => {
               
               <h3 className="text-2xl font-black mb-1 uppercase italic tracking-tight">{plan.name}</h3>
               <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-6">{plan.perfect}</p>
+              
+              <div className="mb-6 h-48 rounded-2xl overflow-hidden border border-border/50 bg-background/50">
+                <img 
+                  src={plan.image} 
+                  alt={plan.name} 
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </div>
               
               <div className="mb-8">
                 <span className="text-5xl font-black text-primary">${plan.amount}</span>
@@ -207,6 +224,14 @@ const StackingClub = ({ addToCart }) => {
                 <p className="text-lg text-text-muted mb-8 max-w-md">
                   For those wanting full, active control of their precious metals future. Define your budget, dial in your ratio, and we'll handle the rest.
                 </p>
+
+                <div className="mb-8 h-48 max-w-md rounded-3xl overflow-hidden border border-border/50 bg-background/50">
+                  <img 
+                    src={ImgStrategist} 
+                    alt="Custom Stacking Strategy" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
                 <div className="space-y-8">
                   <div>
