@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
+import { shopifyClient } from '../utils/shopifyClient';
 
 const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
   const [step, setStep] = useState(1);
@@ -46,6 +47,15 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
       console.log('[WIX] Sync complete.');
     } catch {
       console.warn('[WIX] Sync failed, but order is safe in local storage.');
+    }
+
+    // Shopify Sync Integration
+    try {
+      console.log('[SHOPIFY] Synchronizing order with Shopify Storefront backend...');
+      await shopifyClient.syncOrder(orderData);
+      console.log('[SHOPIFY] Sync complete.');
+    } catch {
+      console.warn('[SHOPIFY] Sync failed, but order is safe in local storage.');
     }
     
     console.log('---------------------------------');

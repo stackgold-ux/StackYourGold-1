@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { LayoutDashboard, Users, ShoppingBag, Database, Trash2, Download, Check, X, RefreshCw, Globe, Package, ExternalLink } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
+import { shopifyClient } from '../utils/shopifyClient';
 
 const MerchantPortal = () => {
   const [orders, setOrders] = useState(() => JSON.parse(localStorage.getItem('syg_orders') || '[]'));
   const [profiles, setProfiles] = useState(() => JSON.parse(localStorage.getItem('syg_squad_profiles') || '[]'));
   const [wixOrders, setWixOrders] = useState([]);
   const [wixProducts, setWixProducts] = useState([]);
+  const [shopifyOrders, setShopifyOrders] = useState([]);
+  const [shopifyProducts, setShopifyProducts] = useState([]);
   const [isSyncing, setIsSyncing] = useState(false);
   const [showExport, setShowExport] = useState(false);
-  const [activeTab, setActiveTab] = useState('local'); // 'local' or 'wix'
+  const [activeTab, setActiveTab] = useState('local'); // 'local', 'wix', or 'shopify'
 
   const loadData = () => {
     const savedOrders = JSON.parse(localStorage.getItem('syg_orders') || '[]');
@@ -19,7 +22,6 @@ const MerchantPortal = () => {
   };
 
   useEffect(() => {
-    // Listen for storage changes (for same-window updates if needed, though usually it's for other tabs)
     window.addEventListener('storage', loadData);
     return () => window.removeEventListener('storage', loadData);
   }, []);
@@ -41,9 +43,30 @@ const MerchantPortal = () => {
   const pushToWix = async () => {
     if (orders.length === 0) return alert('No local orders to push.');
     setIsSyncing(true);
-    // Sync the most recent order for demo
     await wixClient.syncOrder(orders[0]);
     alert('Synchronization initiated: Local orders are being pushed to Wix Headless.');
+    setIsSyncing(false);
+  };
+
+  const fetchShopifyOrders = async () => {
+    setIsSyncing(true);
+    const data = await shopifyClient.getOrders();
+    setShopifyOrders(data);
+    setIsSyncing(false);
+  };
+
+  const fetchShopifyProducts = async () => {
+    setIsSyncing(true);
+    const data = await shopifyClient.getProducts();
+    setShopifyProducts(data);
+    setIsSyncing(false);
+  };
+
+  const pushToShopify = async () => {
+    if (orders.length === 0) return alert('No local orders to push.');
+    setIsSyncing(true);
+    await shopifyClient.syncOrder(orders[0]);
+    alert('Synchronization initiated: Local orders are being pushed to Shopify Swag Store.');
     setIsSyncing(false);
   };
 
@@ -53,7 +76,6 @@ const MerchantPortal = () => {
       localStorage.removeItem('syg_squad_profiles');
       setOrders([]);
       setProfiles([]);
-      // Reload to trigger seeding if implemented in App.jsx or here
       window.location.reload();
     }
   };
@@ -98,7 +120,7 @@ const MerchantPortal = () => {
         </div>
 
         {/* Tabs Section */}
-        <div className="flex space-x-2 mb-8 bg-surface p-1 rounded-2xl border border-border w-fit">
+        <div className="flex flex-wrap gap-2 mb-8 bg-surface p-1 rounded-2xl border border-border w-fit">
           <button 
             onClick={() => setActiveTab('local')}
             className={`px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all flex items-center space-x-2 ${activeTab === 'local' ? 'bg-primary text-background shadow-lg shadow-primary/20' : 'text-text-muted hover:text-white'}`}
@@ -107,15 +129,22 @@ const MerchantPortal = () => {
             <span>Local Database</span>
           </button>
           <button 
-            onClick={() => setActiveTab('wix')}
+            onClick={() => { setActiveTab('wix'); fetchWixOrders(); fetchWixProducts(); }}
             className={`px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all flex items-center space-x-2 ${activeTab === 'wix' ? 'bg-primary text-background shadow-lg shadow-primary/20' : 'text-text-muted hover:text-white'}`}
           >
             <Globe size={14} />
             <span>Wix Headless Sync</span>
           </button>
+          <button 
+            onClick={() => { setActiveTab('shopify'); fetchShopifyOrders(); fetchShopifyProducts(); }}
+            className={`px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all flex items-center space-x-2 ${activeTab === 'shopify' ? 'bg-primary text-background shadow-lg shadow-primary/20' : 'text-text-muted hover:text-white'}`}
+          >
+            <ShoppingBag size={14} />
+            <span>Shopify Swag Sync</span>
+          </button>
         </div>
 
-        {activeTab === 'local' ? (
+        {activeTab === 'local' && (
           <>
             {/* Metrics Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -197,7 +226,7 @@ const MerchantPortal = () => {
                       ))}
                       {orders.length === 0 && (
                         <tr>
-                          <td colSpan="5" className="px-8 py-12 text-center text-text-muted italic">No orders found.</td>
+                          <td colSpan="6" className="px-8 py-12 text-center text-text-muted italic">No orders found.</td>
                         </tr>
                       )}
                     </tbody>
@@ -257,7 +286,9 @@ const MerchantPortal = () => {
               </div>
             </div>
           </>
-        ) : (
+        )}
+
+        {activeTab === 'wix' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Wix Headless Sync Dashboard */}
             <div className="bg-surface border border-border rounded-3xl p-8 mb-12">
@@ -414,6 +445,175 @@ const MerchantPortal = () => {
                       {wixProducts.length === 0 && (
                         <tr>
                           <td colSpan="4" className="px-8 py-12 text-center text-text-muted italic text-sm">No Wix catalog products found. Click 'Fetch Wix Catalog' to sync.</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'shopify' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {/* Shopify Storefront Sync Dashboard */}
+            <div className="bg-surface border border-border rounded-3xl p-8 mb-12">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div>
+                  <div className="flex items-center space-x-3 mb-2">
+                    <ShoppingBag className="text-accent" />
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight">Shopify Storefront Sync</h3>
+                  </div>
+                  <p className="text-text-muted text-sm max-w-xl">
+                    Sync local stacker acquisitions and Swag collections with your live Shopify merchant backend dynamically in real-time.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <button 
+                    onClick={fetchShopifyOrders}
+                    disabled={isSyncing}
+                    className="px-6 py-3 rounded-xl bg-white/5 border border-border hover:bg-white/10 transition-all font-black uppercase text-[10px] tracking-widest flex items-center space-x-2 disabled:opacity-50"
+                  >
+                    <RefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} />
+                    <span>Fetch Shopify Orders</span>
+                  </button>
+                  <button 
+                    onClick={fetchShopifyProducts}
+                    disabled={isSyncing}
+                    className="px-6 py-3 rounded-xl bg-white/5 border border-border hover:bg-white/10 transition-all font-black uppercase text-[10px] tracking-widest flex items-center space-x-2 disabled:opacity-50"
+                  >
+                    <Package size={14} className={isSyncing ? 'animate-spin' : ''} />
+                    <span>Fetch Swag Catalog</span>
+                  </button>
+                  <button 
+                    onClick={pushToShopify}
+                    disabled={isSyncing}
+                    className="px-6 py-3 rounded-xl bg-primary text-background font-black uppercase text-[10px] tracking-widest flex items-center space-x-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all disabled:opacity-50"
+                  >
+                    <RefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} />
+                    <span>Push Swag Orders</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 pt-12 border-t border-border/50">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-text-muted block">Connection Status</label>
+                  <div className="bg-background/50 border border-border rounded-2xl p-6 flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-500">
+                        <Check size={24} />
+                      </div>
+                      <div>
+                        <div className="font-bold text-white uppercase text-xs tracking-widest">Shopify Custom App</div>
+                        <div className="text-[10px] text-text-muted mt-1 font-mono">Domain: stackyourgold.myshopify.com</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                      <span className="text-[10px] font-black uppercase text-green-500 tracking-widest">Connected</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-text-muted block">Access Token (Masked)</label>
+                  <div className="bg-background/50 border border-border rounded-2xl p-6 flex items-center justify-between">
+                    <div className="font-mono text-xs text-white/50 tracking-tighter">
+                      shpat_01a3cf8d742b918f654b9d••••••
+                    </div>
+                    <div className="px-3 py-1 rounded-full bg-accent/10 text-accent text-[8px] font-black uppercase tracking-widest border border-accent/20">
+                      SHOPIFY_STOREFRONT_TOKEN
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Shopify Orders Table */}
+              <div className="bg-surface border border-border rounded-3xl overflow-hidden">
+                <div className="p-8 border-b border-border flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <ShoppingBag className="text-primary" size={20} />
+                    <h3 className="text-xl font-black uppercase italic tracking-tight">Shopify Swag Orders</h3>
+                  </div>
+                  <span className="text-[10px] font-bold bg-white/5 px-3 py-1 rounded-full text-text-muted uppercase tracking-widest">
+                    {shopifyOrders.length} Synced
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-background/50 text-[10px] font-black uppercase tracking-widest text-text-muted">
+                        <th className="px-8 py-4">Shopify ID</th>
+                        <th className="px-8 py-4">Customer</th>
+                        <th className="px-8 py-4">Swag Items</th>
+                        <th className="px-8 py-4">Status</th>
+                        <th className="px-8 py-4 text-right">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {shopifyOrders.map((order, i) => (
+                        <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="px-8 py-6 font-mono text-xs text-primary">{order.id}</td>
+                          <td className="px-8 py-6 text-sm font-bold text-white">{order.customer}</td>
+                          <td className="px-8 py-6 text-xs text-text-muted">{order.items}</td>
+                          <td className="px-8 py-6">
+                            <span className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${order.status === 'FULFILLED' ? 'bg-green-500/10 text-green-500' : 'bg-yellow-500/10 text-yellow-500'}`}>
+                              {order.status}
+                            </span>
+                          </td>
+                          <td className="px-8 py-6 text-right font-black text-white">{order.total}</td>
+                        </tr>
+                      ))}
+                      {shopifyOrders.length === 0 && (
+                        <tr>
+                          <td colSpan="5" className="px-8 py-12 text-center text-text-muted italic text-sm">No Shopify orders fetched. Click 'Fetch Shopify Orders' to sync.</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Shopify Products Table */}
+              <div className="bg-surface border border-border rounded-3xl overflow-hidden">
+                <div className="p-8 border-b border-border flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <Package className="text-accent" size={20} />
+                    <h3 className="text-xl font-black uppercase italic tracking-tight">Shopify Swag Products</h3>
+                  </div>
+                  <span className="text-[10px] font-bold bg-white/5 px-3 py-1 rounded-full text-text-muted uppercase tracking-widest">
+                    {shopifyProducts.length} Synced
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-background/50 text-[10px] font-black uppercase tracking-widest text-text-muted">
+                        <th className="px-8 py-4">Name</th>
+                        <th className="px-8 py-4">Price</th>
+                        <th className="px-8 py-4">Stock</th>
+                        <th className="px-8 py-4 text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {shopifyProducts.map((prod, i) => (
+                        <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="px-8 py-6 text-sm font-bold text-white">{prod.name}</td>
+                          <td className="px-8 py-6 text-sm font-mono text-accent">{prod.price}</td>
+                          <td className="px-8 py-6 text-[10px] font-black uppercase text-text-muted">{prod.inventory} Units</td>
+                          <td className="px-8 py-6 text-right">
+                            <button className="text-primary hover:text-white transition-colors">
+                              <ExternalLink size={14} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                      {shopifyProducts.length === 0 && (
+                        <tr>
+                          <td colSpan="4" className="px-8 py-12 text-center text-text-muted italic text-sm">No Shopify products found. Click 'Fetch Swag Catalog' to sync.</td>
                         </tr>
                       )}
                     </tbody>
