@@ -30,7 +30,7 @@ const SwagShop = ({ addToCart }) => {
       id: 'swag-4', 
       name: 'SYG Gold Drip Beanie', 
       price: 25, 
-      image: 'https://images.unsplash.com/photo-1576871337622-98d48d435353?auto=format&fit=crop&q=80&w=400', 
+      image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=400', 
       description: 'Drip Gold Circle Logo Knit Beanie | Embroidered. Keep your head warm and your assets physical.', 
       etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
     },
