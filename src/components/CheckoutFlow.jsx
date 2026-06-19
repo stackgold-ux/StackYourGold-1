@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
 
 const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
+  const containerRef = useRef(null);
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    // Smoothly scroll the checkout modal into the center of the viewport on mount
+    // This is vital for full-height embedded iframe execution environments (like Wix iframe embeds)
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,8 +39,8 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
   };
 
   const triggerOrderNotification = async (orderData) => {
-    // Placeholder endpoints for external integrations
-    const SLACK_WEBHOOK_URL = ''; 
+    // Read notification webhook URL from environment variables (Slack, Discord, Twilio, etc.)
+    const WEBHOOK_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_NOTIFICATION_WEBHOOK_URL) || '';
 
     console.log('--- ORDER NOTIFICATION SYSTEM ---');
     console.log('Order ID:', orderData.orderId);
@@ -60,9 +69,45 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
     
     console.log('---------------------------------');
 
-    // Example logic for Slack:
-    if (SLACK_WEBHOOK_URL) {
-      // await fetch(SLACK_WEBHOOK_URL, { method: 'POST', body: JSON.stringify({ text: `🚀 New Order ${orderData.orderId}: ${orderData.totalAmount}` }) });
+    // Live Webhook Dispatcher (Supports Slack and Discord Rich Embed Cards)
+    if (WEBHOOK_URL) {
+      try {
+        let payload = {};
+        const isDiscord = WEBHOOK_URL.includes('discord.com') || WEBHOOK_URL.includes('discordapp.com');
+
+        if (isDiscord) {
+          payload = {
+            embeds: [{
+              title: "🚀 New Wealth Order Secured!",
+              color: 13411387, // Gold Color hex: #cca43b
+              fields: [
+                { name: "Order ID", value: orderData.orderId, inline: true },
+                { name: "Customer", value: orderData.customerName, inline: true },
+                { name: "Email", value: orderData.customerEmail, inline: true },
+                { name: "Amount", value: `${orderData.totalAmount.toFixed(2)}`, inline: true },
+                { name: "Payment Method", value: orderData.paymentMethod.toUpperCase(), inline: true },
+                { name: "Status", value: orderData.status, inline: true }
+              ],
+              timestamp: orderData.date,
+              footer: { text: "Your Future. Your Stack. Your Legacy." }
+            }]
+          };
+        } else {
+          // Default Slack payload formatting
+          payload = {
+            text: `🚀 *New Wealth Order Secured!*\n*Order ID:* ${orderData.orderId}\n*Customer:* ${orderData.customerName}\n*Email:* ${orderData.customerEmail}\n*Amount:* ${orderData.totalAmount.toFixed(2)}\n*Method:* ${orderData.paymentMethod.toUpperCase()}\n*Status:* ${orderData.status}`
+          };
+        }
+
+        await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        console.log('[NOTIFICATION] Real-time webhook notification dispatched successfully.');
+      } catch (error) {
+        console.warn('[NOTIFICATION] Webhook dispatch failed:', error.message);
+      }
     }
   };
 
@@ -156,7 +201,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
     const orderId = lastOrder?.orderId || 'SYG-XXXX';
 
     return (
-      <div className="bg-surface p-12 rounded-3xl border border-primary/30 text-center max-w-2xl mx-auto shadow-2xl">
+      <div ref={containerRef} className="bg-surface p-12 rounded-3xl border border-primary/30 text-center max-w-2xl mx-auto shadow-2xl">
         <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 className="text-primary" size={48} />
         </div>
@@ -213,7 +258,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
   }
 
   return (
-    <div className="bg-surface rounded-3xl border border-border overflow-hidden max-w-4xl mx-auto shadow-2xl">
+    <div ref={containerRef} className="bg-surface rounded-3xl border border-border overflow-hidden max-w-4xl mx-auto shadow-2xl">
       <div className="flex border-b border-border bg-background/30">
         {[1, 2, 3].map((s) => (
           <div 

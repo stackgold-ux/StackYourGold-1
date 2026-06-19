@@ -114,7 +114,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-text-main gritty-bg selection:bg-primary selection:text-background">
+    <div className="min-h-screen bg-background text-text-main gritty-bg selection:bg-primary selection:text-background relative">
       <SpotTicker />
       
       {/* Navigation */}
@@ -178,8 +178,8 @@ function App() {
 
       {/* Modal for Checkout */}
       {isCheckoutOpen && (
-        <div className="fixed inset-0 z-[60] bg-background/95 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div className="absolute inset-x-0 top-0 min-h-full z-[60] bg-background/95 backdrop-blur-sm flex items-start justify-center p-4 pt-12 md:pt-24 pb-24">
+          <div className="w-full max-w-4xl">
             <CheckoutFlow 
               cart={cart} 
               onComplete={() => {
