@@ -2,10 +2,54 @@ import { ShoppingBag } from 'lucide-react';
 
 const SwagShop = ({ addToCart }) => {
   const items = [
-    { id: 'swag-1', name: 'Stacker Elite Hoodie', price: 65, image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=400', description: 'Premium heavy-weight hoodie for the serious stacker.', etsyUrl: 'https://www.etsy.com/' },
-    { id: 'swag-2', name: 'Sound Money Tee', price: 32, image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=400', description: 'Classic fit tee with a message that resonates.', etsyUrl: 'https://www.etsy.com/' },
-    { id: 'swag-3', name: 'Legacy Trucker Cap', price: 28, image: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=400', description: 'Breathable mesh back with premium embroidered logo.', etsyUrl: 'https://www.etsy.com/' },
-    { id: 'swag-4', name: 'Bullion Master Bottle', price: 45, image: 'https://images.unsplash.com/photo-1602143399827-bd95ef6f7397?auto=format&fit=crop&q=80&w=400', description: 'Double-walled vacuum insulated for the ultimate hydration.', etsyUrl: 'https://www.etsy.com/' },
+    { 
+      id: 'swag-1', 
+      name: 'SYG Drip Logo Tee', 
+      price: 32, 
+      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=400', 
+      description: 'Stack Squad Gold Drip Logo T-shirt | Melted Metallic Emblem. Available in Black, white, grey, ivory, khaki.', 
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
+    },
+    { 
+      id: 'swag-2', 
+      name: 'AU/AG Heavy Metal Tee', 
+      price: 32, 
+      image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=400', 
+      description: 'AC/DC Lightning Logo T-shirt | Rock Band Graphic Tee, Metallic Gold Silver.', 
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
+    },
+    { 
+      id: 'swag-3', 
+      name: '.999 Fine Womens Tank', 
+      price: 28, 
+      image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=400', 
+      description: 'Stack Your Gold Womens Tank .999 Fine. Sleek, stylish and sound money certified.', 
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
+    },
+    { 
+      id: 'swag-4', 
+      name: 'SYG Gold Drip Beanie', 
+      price: 25, 
+      image: 'https://images.unsplash.com/photo-1576871337622-98d48d435353?auto=format&fit=crop&q=80&w=400', 
+      description: 'Drip Gold Circle Logo Knit Beanie | Embroidered. Keep your head warm and your assets physical.', 
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
+    },
+    { 
+      id: 'swag-5', 
+      name: 'SYG Drip Toddler Tee', 
+      price: 22, 
+      image: 'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&q=80&w=400', 
+      description: 'Dripping Gold Monogram - Stack Your Gold - infant Tee | Melting Logo Baby Shirt.', 
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
+    },
+    { 
+      id: 'swag-6', 
+      name: 'Stealth Stack Fanny Pack', 
+      price: 35, 
+      image: 'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=400', 
+      description: 'Gold Drip Fanny Pack – White Waist Bag With Emblem, USA Assembled.', 
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
+    },
   ];
 
   return (
@@ -19,7 +63,7 @@ const SwagShop = ({ addToCart }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {items.map(item => (
           <div key={item.id} className="group cursor-pointer">
             <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4 bg-surface border border-border group-hover:border-secondary transition-all">
@@ -37,7 +81,7 @@ const SwagShop = ({ addToCart }) => {
               </div>
             </div>
             <h3 className="font-bold text-lg">{item.name}</h3>
-            <p className="text-secondary font-mono">${item.price}</p>
+            <p className="text-secondary font-mono">${item.price.toFixed(2)}</p>
           </div>
         ))}
       </div>
