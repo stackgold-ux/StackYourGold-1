@@ -132,12 +132,12 @@ function App() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
-            <a href="#shop" className="hover:text-primary transition-colors">Bullion</a>
             <a href="#club" className="hover:text-primary transition-colors text-accent">Stack Squad</a>
-            <a href="#about" className="hover:text-primary transition-colors">About Us</a>
-            <a href="#legacy" className="hover:text-primary transition-colors">Legacy</a>
+            <a href="#shop" className="hover:text-primary transition-colors">Bullion</a>
             <a href="#swag" className="hover:text-primary transition-colors">Stack Swag</a>
+            <a href="#legacy" className="hover:text-primary transition-colors">Legacy</a>
             <a href="#education" className="hover:text-primary transition-colors">Stack School</a>
+            <a href="#about" className="hover:text-primary transition-colors">About Us</a>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -166,12 +166,12 @@ function App() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden">
           <div className="flex flex-col space-y-6 text-2xl font-black uppercase italic">
-            <a href="#shop" onClick={() => setIsMenuOpen(false)}>Bullion</a>
             <a href="#club" onClick={() => setIsMenuOpen(false)}>Stack Squad</a>
-            <a href="#about" onClick={() => setIsMenuOpen(false)}>About Us</a>
-            <a href="#legacy" onClick={() => setIsMenuOpen(false)}>Legacy</a>
+            <a href="#shop" onClick={() => setIsMenuOpen(false)}>Bullion</a>
             <a href="#swag" onClick={() => setIsMenuOpen(false)}>Stack Swag</a>
+            <a href="#legacy" onClick={() => setIsMenuOpen(false)}>Legacy</a>
             <a href="#education" onClick={() => setIsMenuOpen(false)}>Stack School</a>
+            <a href="#about" onClick={() => setIsMenuOpen(false)}>About Us</a>
           </div>
         </div>
       )}
@@ -301,8 +301,8 @@ function App() {
 
         <div id="club"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>
         <div id="shop"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="legacy"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
         <div id="swag"><SwagShop addToCart={addToCart} /></div>
+        <div id="legacy"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
         <div id="education"><EducationalHub /></div>
         <AboutUs />
 
