@@ -210,7 +210,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
                     }`}
                   >
                     <ShoppingCart size={18} className="mr-2" />
-                    Solo Stack {metal} • ${(isValid ? currentAmount : 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    Solo Stack {metal === 'copper' ? 'Surprise Sack' : metal.charAt(0).toUpperCase() + metal.slice(1)} • ${(isValid ? currentAmount : 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </button>
                 </div>
               </div>
