@@ -12,18 +12,15 @@ const AboutUs = () => {
             </h2>
             
             <div className="space-y-6 text-text-muted text-lg leading-relaxed">
-              <h4 className="text-xl font-black uppercase italic tracking-widest text-white">About Stack Your Gold</h4>
+              <h4 className="text-xl font-black uppercase italic tracking-widest text-white">About Stack Your Gold™</h4>
               <p>
-                Stack Your Gold isn’t just a business—it’s a passion born from necessity. Our ownership team is made up of two families coming together to educate and build a better future.
+                Stack Your Gold™ and our sister initiative, Stack Your Silver™, are more than just business names—they are a passion born from necessity. Our ownership team is made up of two families coming together to educate and build a better future.
               </p>
               <p>
                 We’ve spent a lot of time thinking about the lessons we want to pass on to the next generation, including our own combined 10 children. Financial education often comes too late. Many of us weren’t taught how to build wealth, preserve purchasing power, or think long-term about our financial future.
               </p>
               <p>
-                Our goal is to make precious metals accessible to everyone, regardless of income level or experience. We are committed to giving everyone access to physical bullion through flexible purchasing options and affordable subscription programs. 
-              </p>
-              <p>
-                To ensure every order builds a real micro-stack, we utilize grain-weight options to fill order gaps that others leave open, making the most of every dollar you invest.
+                Whether you select gold coins or opt to build Your Stack™ via our flexible monthly subscription program, our mission is to make real physical bullion ownership accessible to everyone. Through our proprietary Micro Metal™ stacking program, we utilize fractional grain weights to fill order gaps that standard dealers leave completely empty, making the most of every dollar you invest.
               </p>
               <p className="font-bold text-white italic">
                 Wealth isn’t built overnight. It’s built overtime, consistently.

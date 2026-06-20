@@ -115,7 +115,7 @@ const SwagShop = () => {
       price: 28.00, 
       image: Img0653, 
       images: [Img0653],
-      description: 'Stack Your Gold Womens Tank .999 Fine. Sleek, stylish and sound money certified.', 
+      description: 'Stack Your Gold™ Womens Tank .999 Fine. Sleek, stylish and sound money certified.', 
       etsyUrl: 'https://www.etsy.com/shop/StackYourGold' 
     },
     { 

@@ -134,7 +134,7 @@ function App() {
               <img src={LogoSilver} alt="SYS Silver Logo" className="w-10 h-10 object-contain -ml-4 mt-4 border-2 border-background rounded-full" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-black uppercase italic tracking-tighter leading-none">Stack Your Gold</span>
+              <span className="text-xl font-black uppercase italic tracking-tighter leading-none">Stack Your Gold™</span>
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Solidify Your Legacy</span>
             </div>
           </div>
@@ -384,7 +384,7 @@ function App() {
               <div className="flex items-center space-x-4 mb-6">
                 <img src={LogoGold} alt="SYG Logo" className="w-12 h-12" />
                 <div className="flex flex-col">
-                  <span className="text-xl font-black uppercase italic tracking-tighter leading-none">Stack Your Gold</span>
+                  <span className="text-xl font-black uppercase italic tracking-tighter leading-none">Stack Your Gold™</span>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-primary mt-1">The New Standard</span>
                 </div>
               </div>
@@ -450,7 +450,7 @@ function App() {
           <div className="pt-10 border-t border-border/50 flex flex-col md:flex-row justify-between items-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">
             <div className="flex items-center space-x-6">
               <img src={LogoSilver} alt="SYS Logo" className="w-10 h-10 opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all cursor-crosshair" />
-              <p>© 2026 Stack Your Gold. All rights reserved.</p>
+              <p>© 2026 Stack Your Gold™. All rights reserved.</p>
               {isMerchantActive && (
                 <button 
                   onClick={() => {

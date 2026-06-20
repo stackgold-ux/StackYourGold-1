@@ -128,7 +128,7 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
               
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-widest">1 OZ {metal.toUpperCase()} .9999 FINE</p>
-                <p className="text-[10px] opacity-40 mt-1 uppercase tracking-tighter italic">Stack Your Gold Mint</p>
+                <p className="text-[10px] opacity-40 mt-1 uppercase tracking-tighter italic">Stack Your Gold™ Mint</p>
               </div>
             </div>
             
