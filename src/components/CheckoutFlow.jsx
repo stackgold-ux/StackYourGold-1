@@ -117,6 +117,12 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
         alert('Please fill out all shipping details, including your Phone Number.');
         return;
       }
+      // Validate 10-digit phone number with area code
+      const digitsOnly = formData.phone.replace(/\D/g, '');
+      if (digitsOnly.length !== 10) {
+        alert('Please enter a valid 10-digit phone number including your 3-digit area code (e.g., 510-999-4653).');
+        return;
+      }
       if (formData.createAccount && (!formData.username || !formData.password)) {
         alert('Please provide a username and password to create your account.');
         return;
@@ -284,7 +290,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
             <div className="grid grid-cols-2 gap-4">
               <input name="name" placeholder="Full Name" onChange={handleInputChange} value={formData.name} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
               <input name="email" placeholder="Email Address" onChange={handleInputChange} value={formData.email} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
-              <input name="phone" placeholder="Phone Number" onChange={handleInputChange} value={formData.phone} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
+              <input type="tel" name="phone" placeholder="Phone Number (10-digit: e.g. 510-999-4653)" onChange={handleInputChange} value={formData.phone} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
               <input name="address" placeholder="Shipping Address" onChange={handleInputChange} value={formData.address} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
               <input name="city" placeholder="City" onChange={handleInputChange} value={formData.city} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary text-white" />
               <input name="zip" placeholder="Zip Code" onChange={handleInputChange} value={formData.zip} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary text-white" />
