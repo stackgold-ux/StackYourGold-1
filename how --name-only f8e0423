@@ -1,0 +1,1083 @@
+         "node": ">=0.10.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/extend": {[m
+[32m+[m[32m      "version": "3.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/extend/-/extend-3.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==",[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+     "node_modules/fast-deep-equal": {[m
+       "version": "3.1.3",[m
+       "resolved": "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz",[m
+[36m@@ -1834,6 +2034,46 @@[m
+       "integrity": "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==",[m
+       "license": "ISC"[m
+     },[m
+[32m+[m[32m    "node_modules/hast-util-to-jsx-runtime": {[m
+[32m+[m[32m      "version": "2.3.6",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/hast-util-to-jsx-runtime/-/hast-util-to-jsx-runtime-2.3.6.tgz",[m
+[32m+[m[32m      "integrity": "sha512-zl6s8LwNyo1P9uw+XJGvZtdFF1GdAkOg8ujOw+4Pyb76874fLps4ueHXDhXWdk6YHQ6OgUtinliG7RsYvCbbBg==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/estree": "^1.0.0",[m
+[32m+[m[32m        "@types/hast": "^3.0.0",[m
+[32m+[m[32m        "@types/unist": "^3.0.0",[m
+[32m+[m[32m        "comma-separated-tokens": "^2.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "estree-util-is-identifier-name": "^3.0.0",[m
+[32m+[m[32m        "hast-util-whitespace": "^3.0.0",[m
+[32m+[m[32m        "mdast-util-mdx-expression": "^2.0.0",[m
+[32m+[m[32m        "mdast-util-mdx-jsx": "^3.0.0",[m
+[32m+[m[32m        "mdast-util-mdxjs-esm": "^2.0.0",[m
+[32m+[m[32m        "property-information": "^7.0.0",[m
+[32m+[m[32m        "space-separated-tokens": "^2.0.0",[m
+[32m+[m[32m        "style-to-js": "^1.0.0",[m
+[32m+[m[32m        "unist-util-position": "^5.0.0",[m
+[32m+[m[32m        "vfile-message": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/hast-util-whitespace": {[m
+[32m+[m[32m      "version": "3.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/hast-util-whitespace/-/hast-util-whitespace-3.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/hast": "^3.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/hermes-estree": {[m
+       "version": "0.25.1",[m
+       "resolved": "https://registry.npmjs.org/hermes-estree/-/hermes-estree-0.25.1.tgz",[m
+[36m@@ -1851,6 +2091,16 @@[m
+         "hermes-estree": "0.25.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/html-url-attributes": {[m
+[32m+[m[32m      "version": "3.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/html-url-attributes/-/html-url-attributes-3.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ol6UPyBWqsrO6EJySPz2O7ZSr856WDrEzM5zMqp+FJJLGMW35cLYmmZnl0vztAZxRUoNZJFTCohfjuIJ8I4QBQ==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/ignore": {[m
+       "version": "5.3.2",[m
+       "resolved": "https://registry.npmjs.org/ignore/-/ignore-5.3.2.tgz",[m
+[36m@@ -1871,6 +2121,46 @@[m
+         "node": ">=0.8.19"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/inline-style-parser": {[m
+[32m+[m[32m      "version": "0.2.7",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/inline-style-parser/-/inline-style-parser-0.2.7.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Nb2ctOyNR8DqQoR0OwRG95uNWIC0C1lCgf5Naz5H6Ji72KZ8OcFZLz2P5sNgwlyoJ8Yif11oMuYs5pBQa86csA==",[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/is-alphabetical": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-alphabetical/-/is-alphabetical-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-FWyyY60MeTNyeSRpkM2Iry0G9hpr7/9kD40mD/cGQEuilcZYS4okz8SN2Q6rLCJ8gbCt6fN+rC+6tMGS99LaxQ==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "github",[m
+[32m+[m[32m        "url": "https://github.com/sponsors/wooorm"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/is-alphanumerical": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-alphanumerical/-/is-alphanumerical-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-hmbYhX/9MUMF5uh7tOXyK/n0ZvWpad5caBA17GsC6vyuCqaWliRG5K1qS9inmUhEMaOBIW7/whAnSwveW/LtZw==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "is-alphabetical": "^2.0.0",[m
+[32m+[m[32m        "is-decimal": "^2.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "github",[m
+[32m+[m[32m        "url": "https://github.com/sponsors/wooorm"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/is-decimal": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-decimal/-/is-decimal-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-AAB9hiomQs5DXWcRB1rqsxGUstbRroFOPPVAomNk/3XHR5JyEZChOyTWe2oayKnsSsr/kcGqF+z6yuH6HHpN0A==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "github",[m
+[32m+[m[32m        "url": "https://github.com/sponsors/wooorm"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/is-extglob": {[m
+       "version": "2.1.1",[m
+       "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",[m
+[36m@@ -1894,6 +2184,28 @@[m
+         "node": ">=0.10.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/is-hexadecimal": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-hexadecimal/-/is-hexadecimal-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "github",[m
+[32m+[m[32m        "url": "https://github.com/sponsors/wooorm"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/is-plain-obj": {[m
+[32m+[m[32m      "version": "4.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-4.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "url": "https://github.com/sponsors/sindresorhus"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/isexe": {[m
+       "version": "2.0.0",[m
+       "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",[m
+[36m@@ -2265,6 +2577,16 @@[m
+         "url": "https://github.com/sponsors/sindresorhus"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/longest-streak": {[m
+[32m+[m[32m      "version": "3.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/longest-streak/-/longest-streak-3.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "github",[m
+[32m+[m[32m        "url": "https://github.com/sponsors/wooorm"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/lru-cache": {[m
+       "version": "5.1.1",[m
+       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-5.1.1.tgz",[m
+[36m@@ -2293,99 +2615,693 @@[m
+         "@jridgewell/sourcemap-codec": "^1.5.5"[m
+       }[m
+     },[m
+[31m-    "node_modules/minimatch": {[m
+[31m-      "version": "10.2.5",[m
+[31m-      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-10.2.5.tgz",[m
+[31m-      "integrity": "sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "BlueOak-1.0.0",[m
+[31m-      "dependencies": {[m
+[31m-        "brace-expansion": "^5.0.5"[m
+[31m-      },[m
+[31m-      "engines": {[m
+[31m-        "node": "18 || 20 || >=22"[m
+[32m+[m[32m    "node_modules/mdast-util-from-markdown": {[m
+[32m+[m[32m      "version": "2.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-from-markdown/-/mdast-util-from-markdown-2.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-W4mAWTvSlKvf8L6J+VN9yLSqQ9AOAAvHuoDAmPkz4dHf553m5gVj2ejadHJhoJmcmxEnOv6Pa8XJhpxE93kb8Q==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "@types/unist": "^3.0.0",[m
+[32m+[m[32m        "decode-named-character-reference": "^1.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "mdast-util-to-string": "^4.0.0",[m
+[32m+[m[32m        "micromark": "^4.0.0",[m
+[32m+[m[32m        "micromark-util-decode-numeric-character-reference": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-decode-string": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-normalize-identifier": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0",[m
+[32m+[m[32m        "unist-util-stringify-position": "^4.0.0"[m
+       },[m
+       "funding": {[m
+[31m-        "url": "https://github.com/sponsors/isaacs"[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+       }[m
+     },[m
+[31m-    "node_modules/motion-dom": {[m
+[31m-      "version": "12.40.0",[m
+[31m-      "resolved": "https://registry.npmjs.org/motion-dom/-/motion-dom-12.40.0.tgz",[m
+[31m-      "integrity": "sha512-HxU3ZaBwNPVQUBQf1xxgq+7JrPNZvjLVxgbpEZL7RrWJnsxOf0/OM+yrHG9ogLQ31Do/r57Oz2gQWPK+6q62mg==",[m
+[32m+[m[32m    "node_modules/mdast-util-mdx-expression": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-mdx-expression/-/mdast-util-mdx-expression-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-J6f+9hUp+ldTZqKRSg7Vw5V6MqjATc+3E4gf3CFNcuZNWD8XdyI6zQ8GqH7f8169MM6P7hMBRDVGnn7oHB9kXQ==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+[31m-        "motion-utils": "^12.39.0"[m
+[32m+[m[32m        "@types/estree-jsx": "^1.0.0",[m
+[32m+[m[32m        "@types/hast": "^3.0.0",[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "mdast-util-from-markdown": "^2.0.0",[m
+[32m+[m[32m        "mdast-util-to-markdown": "^2.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+       }[m
+     },[m
+[31m-    "node_modules/motion-utils": {[m
+[31m-      "version": "12.39.0",[m
+[31m-      "resolved": "https://registry.npmjs.org/motion-utils/-/motion-utils-12.39.0.tgz",[m
+[31m-      "integrity": "sha512-8nadJAJjTtqRkmRF36FoJTrywK9nnFmnPwnSMyxaOCU7GDjN9RTMJIxx9De8ErM+vpPhMccr/6fo5WciyQLnMQ==",[m
+[31m-      "license": "MIT"[m
+[31m-    },[m
+[31m-    "node_modules/ms": {[m
+[31m-      "version": "2.1.3",[m
+[31m-      "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",[m
+[31m-      "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT"[m
+[31m-    },[m
+[31m-    "node_modules/nanoid": {[m
+[31m-      "version": "3.3.12",[m
+[31m-      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.12.tgz",[m
+[31m-      "integrity": "sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==",[m
+[31m-      "funding": [[m
+[31m-        {[m
+[31m-          "type": "github",[m
+[31m-          "url": "https://github.com/sponsors/ai"[m
+[31m-        }[m
+[31m-      ],[m
+[31m-      "license": "MIT",[m
+[31m-      "bin": {[m
+[31m-        "nanoid": "bin/nanoid.cjs"[m
+[32m+[m[32m    "node_modules/mdast-util-mdx-jsx": {[m
+[32m+[m[32m      "version": "3.2.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-mdx-jsx/-/mdast-util-mdx-jsx-3.2.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-lj/z8v0r6ZtsN/cGNNtemmmfoLAFZnjMbNyLzBafjzikOM+glrjNHPlf6lQDOTccj9n5b0PPihEBbhneMyGs1Q==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/estree-jsx": "^1.0.0",[m
+[32m+[m[32m        "@types/hast": "^3.0.0",[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "@types/unist": "^3.0.0",[m
+[32m+[m[32m        "ccount": "^2.0.0",[m
+[32m+[m[32m        "devlop": "^1.1.0",[m
+[32m+[m[32m        "mdast-util-from-markdown": "^2.0.0",[m
+[32m+[m[32m        "mdast-util-to-markdown": "^2.0.0",[m
+[32m+[m[32m        "parse-entities": "^4.0.0",[m
+[32m+[m[32m        "stringify-entities": "^4.0.0",[m
+[32m+[m[32m        "unist-util-stringify-position": "^4.0.0",[m
+[32m+[m[32m        "vfile-message": "^4.0.0"[m
+       },[m
+[31m-      "engines": {[m
+[31m-        "node": "^10 || ^12 || ^13.7 || ^14 || >=15.0.1"[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+       }[m
+     },[m
+[31m-    "node_modules/natural-compare": {[m
+[31m-      "version": "1.4.0",[m
+[31m-      "resolved": "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz",[m
+[31m-      "integrity": "sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==",[m
+[31m-      "dev": true,[m
+[31m-      "license": "MIT"[m
+[31m-    },[m
+[31m-    "node_modules/node-releases": {[m
+[31m-      "version": "2.0.47",[m
+[31m-      "resolved": "https://registry.npmjs.org/node-releases/-/node-releases-2.0.47.tgz",[m
+[31m-      "integrity": "sha512-Uzmd6LXpouKo8EUK68IjH4+E01w/hXyV3R3g/geCJo+rXLNfh1xucB+LOzYEOQPSiUK3h/xZf0cQGcSsmyL2Og==",[m
+[31m-      "dev": true,[m
+[32m+[m[32m    "node_modules/mdast-util-mdxjs-esm": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-mdxjs-esm/-/mdast-util-mdxjs-esm-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-EcmOpxsZ96CvlP03NghtH1EsLtr0n9Tm4lPUJUBccV9RwUOneqSycg19n5HGzCf+10LozMRSObtVr3ee1WoHtg==",[m
+       "license": "MIT",[m
+[31m-      "engines": {[m
+[31m-        "node": ">=18"[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/estree-jsx": "^1.0.0",[m
+[32m+[m[32m        "@types/hast": "^3.0.0",[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "mdast-util-from-markdown": "^2.0.0",[m
+[32m+[m[32m        "mdast-util-to-markdown": "^2.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+       }[m
+     },[m
+[31m-    "node_modules/optionator": {[m
+[31m-      "version": "0.9.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/optionator/-/optionator-0.9.4.tgz",[m
+[31m-      "integrity": "sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==",[m
+[31m-      "dev": true,[m
+[32m+[m[32m    "node_modules/mdast-util-phrasing": {[m
+[32m+[m[32m      "version": "4.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-phrasing/-/mdast-util-phrasing-4.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-TqICwyvJJpBwvGAMZjj4J2n0X8QWp21b9l0o7eXyVJ25YNWYbJDVIyD1bZXE6WtV6RmKJVYmQAKWa0zWOABz2w==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+[31m-        "deep-is": "^0.1.3",[m
+[31m-        "fast-levenshtein": "^2.0.6",[m
+[31m-        "levn": "^0.4.1",[m
+[31m-        "prelude-ls": "^1.2.1",[m
+[31m-        "type-check": "^0.4.0",[m
+[31m-        "word-wrap": "^1.2.5"[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "unist-util-is": "^6.0.0"[m
+       },[m
+[31m-      "engines": {[m
+[31m-        "node": ">= 0.8.0"[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+       }[m
+     },[m
+[31m-    "node_modules/p-limit": {[m
+[31m-      "version": "3.1.0",[m
+[32m+[m[32m    "node_modules/mdast-util-to-hast": {[m
+[32m+[m[32m      "version": "13.2.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-to-hast/-/mdast-util-to-hast-13.2.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-cctsq2wp5vTsLIcaymblUriiTcZd0CwWtCbLvrOzYCDZoWyMNV8sZ7krj09FSnsiJi3WVsHLM4k6Dq/yaPyCXA==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/hast": "^3.0.0",[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "@ungap/structured-clone": "^1.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "micromark-util-sanitize-uri": "^2.0.0",[m
+[32m+[m[32m        "trim-lines": "^3.0.0",[m
+[32m+[m[32m        "unist-util-position": "^5.0.0",[m
+[32m+[m[32m        "unist-util-visit": "^5.0.0",[m
+[32m+[m[32m        "vfile": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/mdast-util-to-markdown": {[m
+[32m+[m[32m      "version": "2.1.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-to-markdown/-/mdast-util-to-markdown-2.1.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-xj68wMTvGXVOKonmog6LwyJKrYXZPvlwabaryTjLh9LuvovB/KAH+kvi8Gjj+7rJjsFi23nkUxRQv1KqSroMqA==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "@types/unist": "^3.0.0",[m
+[32m+[m[32m        "longest-streak": "^3.0.0",[m
+[32m+[m[32m        "mdast-util-phrasing": "^4.0.0",[m
+[32m+[m[32m        "mdast-util-to-string": "^4.0.0",[m
+[32m+[m[32m        "micromark-util-classify-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-decode-string": "^2.0.0",[m
+[32m+[m[32m        "unist-util-visit": "^5.0.0",[m
+[32m+[m[32m        "zwitch": "^2.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/mdast-util-to-string": {[m
+[32m+[m[32m      "version": "4.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mdast-util-to-string/-/mdast-util-to-string-4.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/mdast": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark": {[m
+[32m+[m[32m      "version": "4.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark/-/micromark-4.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-zpe98Q6kvavpCr1NPVSCMebCKfD7CA2NqZ+rykeNhONIJBpc1tFKt9hucLGwha3jNTNI8lHpctWJWoimVF4PfA==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/debug": "^4.0.0",[m
+[32m+[m[32m        "debug": "^4.0.0",[m
+[32m+[m[32m        "decode-named-character-reference": "^1.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "micromark-core-commonmark": "^2.0.0",[m
+[32m+[m[32m        "micromark-factory-space": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-chunked": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-combine-extensions": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-decode-numeric-character-reference": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-encode": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-normalize-identifier": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-resolve-all": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-sanitize-uri": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-subtokenize": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-core-commonmark": {[m
+[32m+[m[32m      "version": "2.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-core-commonmark/-/micromark-core-commonmark-2.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "decode-named-character-reference": "^1.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "micromark-factory-destination": "^2.0.0",[m
+[32m+[m[32m        "micromark-factory-label": "^2.0.0",[m
+[32m+[m[32m        "micromark-factory-space": "^2.0.0",[m
+[32m+[m[32m        "micromark-factory-title": "^2.0.0",[m
+[32m+[m[32m        "micromark-factory-whitespace": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-chunked": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-classify-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-html-tag-name": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-normalize-identifier": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-resolve-all": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-subtokenize": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-factory-destination": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-factory-destination/-/micromark-factory-destination-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Xe6rDdJlkmbFRExpTOmRj9N3MaWmbAgdpSrBQvCFqhezUn4AHqJHbaEnfbVYYiexVSs//tqOdY/DxhjdCiJnIA==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-factory-label": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-factory-label/-/micromark-factory-label-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-VFMekyQExqIW7xIChcXn4ok29YE3rnuyveW3wZQWWqF4Nv9Wk5rgJ99KzPvHjkmPXF93FXIbBp6YdW3t71/7Vg==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-factory-space": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-factory-space/-/micromark-factory-space-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-zRkxjtBxxLd2Sc0d+fbnEunsTj46SWXgXciZmHq0kDYGnck/ZSGj9/wULTV95uoeYiK5hRXP2mJ98Uo4cq/LQg==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-factory-title": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-factory-title/-/micromark-factory-title-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-5bZ+3CjhAd9eChYTHsjy6TGxpOFSKgKKJPJxr293jTbfry2KDoWkhBb6TcPVB4NmzaPhMs1Frm9AZH7OD4Cjzw==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-factory-space": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-factory-whitespace": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-factory-whitespace/-/micromark-factory-whitespace-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Ob0nuZ3PKt/n0hORHyvoD9uZhr+Za8sFoP+OnMcnWK5lngSzALgQYKMr9RJVOWLqQYuyn6ulqGWSXdwf6F80lQ==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-factory-space": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-character": {[m
+[32m+[m[32m      "version": "2.1.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-character/-/micromark-util-character-2.1.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-wv8tdUTJ3thSFFFJKtpYKOYiGP2+v96Hvk4Tu8KpCAsTMs6yi+nVmGh1syvSCsaxz45J6Jbw+9DD6g97+NV67Q==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-chunked": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-chunked/-/micromark-util-chunked-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-QUNFEOPELfmvv+4xiNg2sRYeS/P84pTW0TCgP5zc9FpXetHY0ab7SxKyAQCNCc1eK0459uoLI1y5oO5Vc1dbhA==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-classify-character": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-classify-character/-/micromark-util-classify-character-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-K0kHzM6afW/MbeWYWLjoHQv1sgg2Q9EccHEDzSkxiP/EaagNzCm7T/WMKZ3rjMbvIpvBiZgwR3dKMygtA4mG1Q==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-combine-extensions": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-combine-extensions/-/micromark-util-combine-extensions-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-OnAnH8Ujmy59JcyZw8JSbK9cGpdVY44NKgSM7E9Eh7DiLS2E9RNQf0dONaGDzEG9yjEl5hcqeIsj4hfRkLH/Bg==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-chunked": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-decode-numeric-character-reference": {[m
+[32m+[m[32m      "version": "2.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-decode-numeric-character-reference/-/micromark-util-decode-numeric-character-reference-2.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ccUbYk6CwVdkmCQMyr64dXz42EfHGkPQlBj5p7YVGzq8I7CtjXZJrubAYezf7Rp+bjPseiROqe7G6foFd+lEuw==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-decode-string": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-decode-string/-/micromark-util-decode-string-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-nDV/77Fj6eH1ynwscYTOsbK7rR//Uj0bZXBwJZRfaLEJ1iGBR6kIfNmlNqaqJf649EP0F3NWNdeJi03elllNUQ==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "decode-named-character-reference": "^1.0.0",[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-decode-numeric-character-reference": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-encode": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-encode/-/micromark-util-encode-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-c3cVx2y4KqUnwopcO9b/SCdo2O67LwJJ/UyqGfbigahfegL9myoEFoDYZgkT7f36T0bLrM9hZTAaAyH+PCAXjw==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-html-tag-name": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-html-tag-name/-/micromark-util-html-tag-name-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-2cNEiYDhCWKI+Gs9T0Tiysk136SnR13hhO8yW6BGNyhOC4qYFnwF1nKfD3HFAIXA5c45RrIG1ub11GiXeYd1xA==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-normalize-identifier": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-normalize-identifier/-/micromark-util-normalize-identifier-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-sxPqmo70LyARJs0w2UclACPUUEqltCkJ6PhKdMIDuJ3gSf/Q+/GIe3WKl0Ijb/GyH9lOpUkRAO2wp0GVkLvS9Q==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-resolve-all": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-resolve-all/-/micromark-util-resolve-all-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-VdQyxFWFT2/FGJgwQnJYbe1jjQoNTS4RjglmSjTUlpUMa95Htx9NHeYW4rGDJzbjvCsl9eLjMQwGeElsqmzcHg==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-sanitize-uri": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-sanitize-uri/-/micromark-util-sanitize-uri-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-9N9IomZ/YuGGZZmQec1MbgxtlgougxTodVwDzzEouPKo3qFWvymFHWcnDi2vzV1ff6kas9ucW+o3yzJK9YB1AQ==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "micromark-util-character": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-encode": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-subtokenize": {[m
+[32m+[m[32m      "version": "2.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-subtokenize/-/micromark-util-subtokenize-2.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-XQLu552iSctvnEcgXw6+Sx75GflAPNED1qx7eBJ+wydBb2KCbRZe+NwvIEEMM83uml1+2WSXpBAcp9IUCgCYWA==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "micromark-util-chunked": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-symbol": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-symbol": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-symbol/-/micromark-util-symbol-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-vs5t8Apaud9N28kgCrRUdEed4UJ+wWNvicHLPxCa9ENlYuAY31M0ETy5y1vA33YoNPDFTghEbnh6efaE8h4x0Q==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/micromark-util-types": {[m
+[32m+[m[32m      "version": "2.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/micromark-util-types/-/micromark-util-types-2.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Yw0ECSpJoViF1qTU4DC6NwtC4aWGt1EkzaQB8KPPyCRR8z9TWeV0HbEFGTO+ZY1wB22zmxnJqhPyTpOVCpeHTA==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "GitHub Sponsors",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/unifiedjs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "OpenCollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/unified"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/minimatch": {[m
+[32m+[m[32m      "version": "10.2.5",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-10.2.5.tgz",[m
+[32m+[m[32m      "integrity": "sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==",[m
+[32m+[m[32m      "dev": true,[m
+[32m+[m[32m      "license": "BlueOak-1.0.0",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "brace-expansion": "^5.0.5"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": "18 || 20 || >=22"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "url": "https://github.com/sponsors/isaacs"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/motion-dom": {[m
+[32m+[m[32m      "version": "12.40.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/motion-dom/-/motion-dom-12.40.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-HxU3ZaBwNPVQUBQf1xxgq+7JrPNZvjLVxgbpEZL7RrWJnsxOf0/OM+yrHG9ogLQ31Do/r57Oz2gQWPK+6q62mg==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "motion-utils": "^12.39.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/motion-utils": {[m
+[32m+[m[32m      "version": "12.39.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/motion-utils/-/motion-utils-12.39.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-8nadJAJjTtqRkmRF36FoJTrywK9nnFmnPwnSMyxaOCU7GDjN9RTMJIxx9De8ErM+vpPhMccr/6fo5WciyQLnMQ==",[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/ms": {[m
+[32m+[m[32m      "version": "2.1.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/nanoid": {[m
+[32m+[m[32m      "version": "3.3.12",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.12.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "github",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/ai"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "nanoid": "bin/nanoid.cjs"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": "^10 || ^12 || ^13.7 || ^14 || >=15.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/natural-compare": {[m
+[32m+[m[32m      "version": "1.4.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==",[m
+[32m+[m[32m      "dev": true,[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/node-releases": {[m
+[32m+[m[32m      "version": "2.0.47",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/node-releases/-/node-releases-2.0.47.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Uzmd6LXpouKo8EUK68IjH4+E01w/hXyV3R3g/geCJo+rXLNfh1xucB+LOzYEOQPSiUK3h/xZf0cQGcSsmyL2Og==",[m
+[32m+[m[32m      "dev": true,[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=18"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/optionator": {[m
+[32m+[m[32m      "version": "0.9.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/optionator/-/optionator-0.9.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==",[m
+[32m+[m[32m      "dev": true,[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "deep-is": "^0.1.3",[m
+[32m+[m[32m        "fast-levenshtein": "^2.0.6",[m
+[32m+[m[32m        "levn": "^0.4.1",[m
+[32m+[m[32m        "prelude-ls": "^1.2.1",[m
+[32m+[m[32m        "type-check": "^0.4.0",[m
+[32m+[m[32m        "word-wrap": "^1.2.5"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 0.8.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/p-limit": {[m
+[32m+[m[32m      "version": "3.1.0",[m
+       "resolved": "https://registry.npmjs.org/p-limit/-/p-limit-3.1.0.tgz",[m
+       "integrity": "sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==",[m
+       "dev": true,[m
+[36m@@ -2416,6 +3332,31 @@[m
+         "url": "https://github.com/sponsors/sindresorhus"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/parse-entities": {[m
+[32m+[m[32m      "version": "4.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/parse-entities/-/parse-entities-4.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-GG2AQYWoLgL877gQIKeRPGO1xF9+eG1ujIb5soS5gPvLQ1y2o8FL90w2QWNdf9I361Mpp7726c+lj3U0qK1uGw==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/unist": "^2.0.0",[m
+[32m+[m[32m        "character-entities-legacy": "^3.0.0",[m
+[32m+[m[32m        "character-reference-invalid": "^2.0.0",[m
+[32m+[m[32m        "decode-named-character-reference": "^1.0.0",[m
+[32m+[m[32m        "is-alphanumerical": "^2.0.0",[m
+[32m+[m[32m        "is-decimal": "^2.0.0",[m
+[32m+[m[32m        "is-hexadecimal": "^2.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "github",[m
+[32m+[m[32m        "url": "https://github.com/sponsors/wooorm"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/parse-entities/node_modules/@types/unist": {[m
+[32m+[m[32m      "version": "2.0.11",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@types/unist/-/unist-2.0.11.tgz",[m
+[32m+[m[32m      "integrity": "sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==",[m
+[32m+[m[32m      "license": "MIT"[m
+[32m+[m[32m    },[m
+     "node_modules/path-exists": {[m
+       "version": "4.0.0",[m
+       "resolved": "https://registry.npmjs.org/path-exists/-/path-exists-4.0.0.tgz",[m
+[36m@@ -2482,6 +3423,19 @@[m
+         "node": "^10 || ^12 || >=14"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/postcss-selector-parser": {[m
+[32m+[m[32m      "version": "6.0.10",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.0.10.tgz",[m
+[32m+[m[32m      "integrity": "sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "cssesc": "^3.0.0",[m
+[32m+[m[32m        "util-deprecate": "^1.0.2"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=4"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/postcss-value-parser": {[m
+       "version": "4.2.0",[m
+       "resolved": "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz",[m
+[36m@@ -2499,6 +3453,16 @@[m
+         "node": ">= 0.8.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/property-information": {[m
+[32m+[m[32m      "version": "7.2.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/property-information/-/property-information-7.2.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-IAtzIB6sUiWaJYrX9smp3V46pBGbBeLFRGdh25kg1334VcBlD8HzhPeNIWQH9zhGmo2itIe25EHt9dQP7G5hmg==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "github",[m
+[32m+[m[32m        "url": "https://github.com/sponsors/wooorm"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/punycode": {[m
+       "version": "2.3.1",[m
+       "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz",[m
+[36m@@ -2530,6 +3494,66 @@[m
+         "react": "^19.2.7"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/react-markdown": {[m
+[32m+[m[32m      "version": "10.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/react-markdown/-/react-markdown-10.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-qKxVopLT/TyA6BX3Ue5NwabOsAzm0Q7kAPwq6L+wWDwisYs7R8vZ0nRXqq6rkueboxpkjvLGU9fWifiX/ZZFxQ==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/hast": "^3.0.0",[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "devlop": "^1.0.0",[m
+[32m+[m[32m        "hast-util-to-jsx-runtime": "^2.0.0",[m
+[32m+[m[32m        "html-url-attributes": "^3.0.0",[m
+[32m+[m[32m        "mdast-util-to-hast": "^13.0.0",[m
+[32m+[m[32m        "remark-parse": "^11.0.0",[m
+[32m+[m[32m        "remark-rehype": "^11.0.0",[m
+[32m+[m[32m        "unified": "^11.0.0",[m
+[32m+[m[32m        "unist-util-visit": "^5.0.0",[m
+[32m+[m[32m        "vfile": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "peerDependencies": {[m
+[32m+[m[32m        "@types/react": ">=18",[m
+[32m+[m[32m        "react": ">=18"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/remark-parse": {[m
+[32m+[m[32m      "version": "11.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/remark-parse/-/remark-parse-11.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-FCxlKLNGknS5ba/1lmpYijMUzX2esxW5xQqjWxw2eHFfS2MSdaHVINFmhjo+qN1WhZhNimq0dZATN9pH0IDrpA==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "mdast-util-from-markdown": "^2.0.0",[m
+[32m+[m[32m        "micromark-util-types": "^2.0.0",[m
+[32m+[m[32m        "unified": "^11.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/remark-rehype": {[m
+[32m+[m[32m      "version": "11.1.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/remark-rehype/-/remark-rehype-11.1.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Dh7l57ianaEoIpzbp0PC9UKAdCSVklD8E5Rpw7ETfbTl3FqcOOgq5q2LVDhgGCkaBv7p24JXikPdvhhmHvKMsw==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@types/hast": "^3.0.0",[m
+[32m+[m[32m        "@types/mdast": "^4.0.0",[m
+[32m+[m[32m        "mdast-util-to-hast": "^13.0.0",[m
+[32m+[m[32m        "unified": "^11.0.0",[m
+[32m+[m[32m        "vfile": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/unified"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/rolldown": {[m
+       "version": "1.0.3",[m
+       "resolved": "https://registry.npmjs.org/rolldown/-/rolldown-1.0.3.tgz",[m
+[36m@@ -2611,6 +3635,48 @@[m
+         "node": ">=0.10.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/space-separated-tokens": {[m
+[32m+[m[32m      "version": "2.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/space-separated-tokens/-/space-separated-tokens-2.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==",[m
+[32m+[m[32m      "license": "MIT",[m
+[32m+[m[32m 

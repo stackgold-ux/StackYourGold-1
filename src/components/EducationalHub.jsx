@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { BookOpen, Users, Key, Landmark, X, Award, Shield, ChevronRight, ArrowLeft } from 'lucide-react';
+import { BookOpen, Users, Key, Landmark, X, Award, Shield, ChevronRight, ArrowLeft, History, Gem, Scale, TrendingUp, Wallet, Anchor, Map } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Import blog contents using Vite's glob import
@@ -18,40 +18,114 @@ const EducationalHub = () => {
     { 
       id: '7stop',
       title: 'The 7 Stops to Generational Wealth', 
-      icon: Award, 
+      icon: Map, 
       category: 'Premium Strategy',
       desc: 'The definitive 7-step journey from fragile paper assets to an unbreakable family legacy.',
       blogPath: '../blogs/7stop.md'
     },
     { 
       id: 'fiat-trap',
-      title: 'The Fiat Trap: Why Gold is the Only Real Money', 
+      title: 'Fiat vs. Hard Money', 
       icon: Landmark, 
       category: 'Sound Money',
-      desc: 'Discover how paper currency is designed to lose value and why physical metal is the ultimate shield.',
+      desc: 'Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor.',
       blogPath: '../blogs/1_fiat_vs_hard_money.md'
     },
     { 
+      id: 'budgeting',
+      title: 'The 10% Wealth Shield', 
+      icon: Wallet, 
+      category: 'Sound Money',
+      desc: "How to budget for your family's financial citadel by converting paper into physical protection.",
+      blogPath: '../blogs/2_budgeting_10_percent_shield.md'
+    },
+    { 
+      id: 'gold-vs-silver',
+      title: 'Gold vs. Silver Comparison', 
+      icon: Scale, 
+      category: 'Sound Money',
+      desc: "Settle the debate: critical differences and strategic advantages of both gold and silver.",
+      blogPath: '../blogs/3_gold_vs_silver_comparison.md'
+    },
+    { 
+      id: 'dca-superpower',
+      title: 'The DCA Stacking Superpower', 
+      icon: TrendingUp, 
+      category: 'Sound Money',
+      desc: 'Why timing the market is a losing game and how consistent stackers win in the long run.',
+      blogPath: '../blogs/4_dca_stacking_superpower.md'
+    },
+    { 
+      id: 'legacy-passing',
+      title: 'Passing the Torch', 
+      icon: Users, 
+      category: 'Family',
+      desc: 'How physical metals bypass bureaucratic gridlock and estate delays for private wealth transfer.',
+      blogPath: '../blogs/5_legacy_passing_wealth.md'
+    },
+    { 
+      id: 'ratio-trading',
+      title: 'The Gold-to-Silver Ratio', 
+      icon: Gem, 
+      category: 'Sound Money',
+      desc: 'The mathematical secret to multiplying your ounces for free without spending new capital.',
+      blogPath: '../blogs/6_gold_silver_ratio_trading.md'
+    },
+    { 
       id: 'iraq-gold',
-      title: 'The $20 Million Smuggled Gold Scandal', 
+      title: 'The $20M Smuggled Gold Scandal', 
       icon: Shield, 
       category: 'High Intrigue',
-      desc: 'The true story of covert operatives, military cargo planes, and the looted vaults of Baghdad.',
+      desc: 'The true story of covert operatives and looted vaults during the 2003 invasion of Baghdad.',
       blogPath: '../blogs/8_cia_iraq_gold_heist.md'
     },
     { 
-      id: 'kids-stacking',
-      title: 'Teaching Your Kids to Stack: Generational Wealth 101', 
-      icon: Users, 
-      category: 'Family',
-      desc: 'Practical strategies for introducing your children to real assets and financial responsibility.'
+      id: 'hunt-brothers',
+      title: 'The Day the Silver Market Broke', 
+      icon: History, 
+      category: 'High Intrigue',
+      desc: 'How two Texas oil billionaires nearly cornered the global silver supply in 1980.',
+      blogPath: '../blogs/9_hunt_brothers_silver_thursday.md'
     },
     { 
-      id: 'custody',
-      title: 'Custody vs. Convenience: How to Store Your Bullion', 
-      icon: Key, 
-      category: 'Security',
-      desc: 'Expert guide on home safes, bank vaults, and third-party storage solutions for your growing stack.'
+      id: 'nazi-gold',
+      title: 'The Shadow of Nazi Gold', 
+      icon: History, 
+      category: 'High Intrigue',
+      desc: 'The dark history of WWII looted bullion, secret vaults, and the Swiss connection.',
+      blogPath: '../blogs/10_nazi_gold_secret_vaults.md'
+    },
+    { 
+      id: 'fort-knox',
+      title: 'Inside Fort Knox', 
+      icon: Landmark, 
+      category: 'High Intrigue',
+      desc: 'Separating myths from reality at the US Bullion Depository and the sovereign truth.',
+      blogPath: '../blogs/11_fort_knox_conspiracy.md'
+    },
+    { 
+      id: 'brinks-mat',
+      title: 'The Brink\'s-MAT Gold Robbery', 
+      icon: History, 
+      category: 'High Intrigue',
+      desc: 'How a simple warehouse robbery accidentally scored three tons of solid gold in 1983.',
+      blogPath: '../blogs/12_brinks_mat_gold_heist.md'
+    },
+    { 
+      id: 'bre-x-fraud',
+      title: 'The $6 Billion Bre-X Mirage', 
+      icon: Shield, 
+      category: 'High Intrigue',
+      desc: 'The massive gold mine fraud of the 1990s that fooled Wall Street with ring shavings.',
+      blogPath: '../blogs/13_bre_x_gold_mine_fraud.md'
+    },
+    { 
+      id: 'el-dorado',
+      title: 'The Ocean of Gold', 
+      icon: Anchor, 
+      category: 'High Intrigue',
+      desc: 'Shipwreck treasure and the mythical quest for golden cities that shaped the Americas.',
+      blogPath: '../blogs/14_el_dorado_sunken_galleons.md'
     }
   ];
 
@@ -81,25 +155,25 @@ const EducationalHub = () => {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {articles.map((article, i) => (
                   <div 
                     key={i} 
                     onClick={() => handleOpenArticle(article)}
-                    className={`group bg-surface border border-border p-8 rounded-3xl transition-all flex flex-col sm:flex-row items-start sm:items-center space-y-6 sm:space-y-0 sm:space-x-8 shadow-xl ${article.blogPath ? 'hover:border-primary/50 cursor-pointer' : 'opacity-60 cursor-not-allowed'}`}
+                    className={`group bg-surface border border-border p-6 rounded-2xl transition-all flex flex-col items-start space-y-4 shadow-lg hover:border-primary/50 cursor-pointer`}
                   >
-                    <div className="w-20 h-20 bg-background rounded-2xl border border-border flex items-center justify-center group-hover:scale-110 transition-transform shrink-0 shadow-inner">
-                      <article.icon className="text-primary" size={40} />
+                    <div className="w-14 h-14 bg-background rounded-xl border border-border flex items-center justify-center group-hover:scale-110 transition-transform shrink-0 shadow-inner">
+                      <article.icon className="text-primary" size={28} />
                     </div>
-                    <div className="flex-grow">
+                    <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-black text-primary uppercase tracking-[0.3em] block">{article.category}</span>
-                        {article.blogPath && <ChevronRight size={16} className="text-primary/50 group-hover:translate-x-1 transition-transform" />}
+                        <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block">{article.category}</span>
+                        <ChevronRight size={14} className="text-primary/50 group-hover:translate-x-1 transition-transform" />
                       </div>
-                      <h3 className="text-2xl font-bold group-hover:text-primary transition-colors leading-tight mb-2">
+                      <h3 className="text-xl font-bold group-hover:text-primary transition-colors leading-tight mb-2">
                         {article.title}
                       </h3>
-                      <p className="text-text-muted text-sm leading-relaxed">
+                      <p className="text-text-muted text-xs leading-relaxed line-clamp-2">
                         {article.desc}
                       </p>
                     </div>
@@ -108,8 +182,8 @@ const EducationalHub = () => {
               </div>
               
               <div className="mt-12 text-center">
-                <button className="border border-border hover:border-primary text-text-muted hover:text-primary px-8 py-3 rounded-full transition-all font-bold uppercase text-sm tracking-widest">
-                  View All Resources
+                <button className="border border-border hover:border-primary text-text-muted hover:text-primary px-8 py-3 rounded-full transition-all font-bold uppercase text-sm tracking-widest opacity-50 cursor-not-allowed">
+                  More Resources Coming Soon
                 </button>
               </div>
             </motion.div>
