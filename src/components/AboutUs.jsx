@@ -2,7 +2,7 @@ import { Shield, Target, Users } from 'lucide-react';
 
 const AboutUs = () => {
   return (
-    <section id="about" className="py-24 bg-surface/5 border-t border-border overflow-hidden">
+    <section id="about" className="py-24 bg-surface/5 border-t border-border overflow-hidden scroll-mt-32">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -14,13 +14,16 @@ const AboutUs = () => {
             <div className="space-y-6 text-text-muted text-lg leading-relaxed">
               <h4 className="text-xl font-black uppercase italic tracking-widest text-white">About Stack Your Gold™</h4>
               <p>
-                Stack Your Gold™ and our sister initiative, Stack Your Silver™, are more than just business names—they are a passion born from necessity. Our ownership team is made up of two families coming together to educate and build a better future.
+                Stack Your Gold™ isn’t just a business—it’s a passion born from necessity. Our ownership team is made up of two families coming together to educate and build a better future.
               </p>
               <p>
                 We’ve spent a lot of time thinking about the lessons we want to pass on to the next generation, including our own combined 10 children. Financial education often comes too late. Many of us weren’t taught how to build wealth, preserve purchasing power, or think long-term about our financial future.
               </p>
               <p>
-                Whether you select gold coins or opt to build Your Stack™ via our flexible monthly subscription program, our mission is to make real physical bullion ownership accessible to everyone. Through our proprietary Micro Metal™ stacking program, we utilize fractional grain weights to fill order gaps that standard dealers leave completely empty, making the most of every dollar you invest.
+                Our goal is to make precious metals accessible to everyone, regardless of income level or experience. We are committed to giving everyone access to physical bullion (including Stack Your Gold™ and Stack Your Silver™) through flexible purchasing options and affordable subscription programs like our Stack Squad to build Your Stack™.
+              </p>
+              <p>
+                To ensure every order builds a real micro-stack, we utilize our proprietary Micro Metal™ grain-weight options to fill order gaps that others leave open, making the most of every dollar you invest.
               </p>
               <p className="font-bold text-white italic">
                 Wealth isn’t built overnight. It’s built overtime, consistently.

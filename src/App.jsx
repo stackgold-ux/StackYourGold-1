@@ -305,11 +305,11 @@ function App() {
           </div>
         </section>
 
-        <div id="club"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="shop"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="swag"><SwagShop addToCart={addToCart} /></div>
-        <div id="legacy"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="education"><EducationalHub /></div>
+        <div id="club" className="scroll-mt-32"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>
+        <div id="shop" className="scroll-mt-32"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>
+        <div id="swag" className="scroll-mt-32"><SwagShop addToCart={addToCart} /></div>
+        <div id="legacy" className="scroll-mt-32"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
+        <div id="education" className="scroll-mt-32"><EducationalHub /></div>
         <AboutUs />
 
         {/* FAQ Section */}
@@ -402,7 +402,7 @@ function App() {
             <div className="md:col-span-2">
               <h5 className="font-black uppercase tracking-[0.2em] text-xs mb-8 text-white">Company</h5>
               <ul className="space-y-4 text-text-muted text-sm font-bold uppercase tracking-wider">
-                <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
+                <li><a href="#about" className="hover:text-primary transition-colors">About Us</a></li>
                 <li><a href="#footer-contact" className="hover:text-primary transition-colors">Contact</a></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Terms</a></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Privacy</a></li>
