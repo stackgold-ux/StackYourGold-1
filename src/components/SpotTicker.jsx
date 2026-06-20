@@ -23,8 +23,7 @@ const SpotTicker = () => {
   const [prices, setPrices] = useState({
     gold: 4344.36,
     silver: 70.25,
-    platinum: 1811.00,
-    copper: 0.25
+    platinum: 1811.00
   });
 
   const [lastPrices, setLastPrices] = useState(prices);
@@ -35,8 +34,7 @@ const SpotTicker = () => {
       setPrices(prev => ({
         gold: prev.gold + (Math.random() - 0.5) * 2,
         silver: prev.silver + (Math.random() - 0.5) * 0.1,
-        platinum: prev.platinum + (Math.random() - 0.5) * 1.5,
-        copper: Math.max(0.05, prev.copper + (Math.random() - 0.5) * 0.005)
+        platinum: prev.platinum + (Math.random() - 0.5) * 1.5
       }));
     }, 5000);
     return () => clearInterval(interval);
@@ -48,7 +46,6 @@ const SpotTicker = () => {
         <PriceItem label="Gold Spot" value={prices.gold} lastValue={lastPrices.gold} />
         <PriceItem label="Silver Spot" value={prices.silver} lastValue={lastPrices.silver} />
         <PriceItem label="Platinum Spot" value={prices.platinum} lastValue={lastPrices.platinum} />
-        <PriceItem label="Copper Spot" value={prices.copper} lastValue={lastPrices.copper} />
       </div>
     </div>
   );

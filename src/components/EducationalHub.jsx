@@ -154,6 +154,68 @@ const EducationalHub = () => {
                   Master the art of physical stacking. No confusing jargon, just actionable financial literacy for the modern family.
                 </p>
               </div>
+
+              {/* Today's Featured Marketing Spotlight */}
+              <div className="mb-20">
+                <div className="flex items-center space-x-3 mb-8 justify-center lg:justify-start">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                  </span>
+                  <span className="text-xs font-black uppercase tracking-[0.25em] text-primary">FEATURED ARTICLES FOR TODAY</span>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Blog 1: Foundation of Buying Bullion */}
+                  <div 
+                    onClick={() => handleOpenArticle(articles.find(a => a.id === 'fiat-trap'))}
+                    className="relative overflow-hidden group bg-gradient-to-br from-primary/10 to-surface/20 border border-primary/20 p-8 rounded-3xl transition-all shadow-xl hover:border-primary/50 cursor-pointer flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-6"
+                  >
+                    <div className="absolute top-0 right-0 bg-primary/20 text-primary text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-bl-xl border-l border-b border-primary/20">
+                      FOUNDATIONAL SELECTION
+                    </div>
+                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center shrink-0 border border-primary/30 group-hover:scale-105 transition-transform shadow-inner">
+                      <Landmark className="text-primary" size={32} />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block mb-2">SOUND MONEY</span>
+                      <h3 className="text-2xl font-black text-white group-hover:text-primary transition-colors leading-tight mb-3">
+                        Fiat vs. Hard Money™
+                      </h3>
+                      <p className="text-text-muted text-sm leading-relaxed mb-4">
+                        Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor. Master the foundational principles of sound money before buying your first ounce of physical bullion.
+                      </p>
+                      <span className="text-xs font-bold text-primary group-hover:underline flex items-center">
+                        READ ARTICLE <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Blog 2: High Intrigue Historical / Conspiracy Theory */}
+                  <div 
+                    onClick={() => handleOpenArticle(articles.find(a => a.id === 'fort-knox'))}
+                    className="relative overflow-hidden group bg-gradient-to-br from-border/10 to-surface/20 border border-border p-8 rounded-3xl transition-all shadow-xl hover:border-primary/40 cursor-pointer flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-6"
+                  >
+                    <div className="absolute top-0 right-0 bg-border/20 text-text-muted text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-bl-xl border-l border-b border-border/20">
+                      CONSPIRACY & HISTORY
+                    </div>
+                    <div className="w-16 h-16 bg-surface border border-border rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-inner">
+                      <History className="text-primary" size={32} />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block mb-2">HIGH INTRIGUE</span>
+                      <h3 className="text-2xl font-black text-white group-hover:text-primary transition-colors leading-tight mb-3">
+                        Inside Fort Knox™
+                      </h3>
+                      <p className="text-text-muted text-sm leading-relaxed mb-4">
+                        Separating myths from reality at the US Bullion Depository. Is there actually gold inside Fort Knox, or has it been empty for decades? Read the historical audits and conspiracy theories that follow the world's most guarded vault.
+                      </p>
+                      <span className="text-xs font-bold text-primary group-hover:underline flex items-center">
+                        READ ARTICLE <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {articles.map((article, i) => (
