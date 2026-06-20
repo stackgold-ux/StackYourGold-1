@@ -19,6 +19,14 @@ function App() {
   const [cart, setCart] = useState([]);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [showMerchantPortal, setShowMerchantPortal] = useState(false);
+  const [isMerchantActive, setIsMerchantActive] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('merchant') === 'true') {
+      setIsMerchantActive(true);
+    }
+  }, []);
   const [spotPrices, setSpotPrices] = useState({
     gold: 4344.36,
     silver: 70.25,
@@ -443,19 +451,21 @@ function App() {
             <div className="flex items-center space-x-6">
               <img src={LogoSilver} alt="SYS Logo" className="w-10 h-10 opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all cursor-crosshair" />
               <p>© 2026 Stack Your Gold. All rights reserved.</p>
-              <button 
-                onClick={() => {
-                  setShowMerchantPortal(!showMerchantPortal);
-                  if (!showMerchantPortal) {
-                    setTimeout(() => {
-                      document.getElementById('merchant-portal')?.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                  }
-                }}
-                className="text-text-muted hover:text-primary transition-colors ml-4 border-l border-border pl-4"
-              >
-                Merchant Portal
-              </button>
+              {isMerchantActive && (
+                <button 
+                  onClick={() => {
+                    setShowMerchantPortal(!showMerchantPortal);
+                    if (!showMerchantPortal) {
+                      setTimeout(() => {
+                        document.getElementById('merchant-portal')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }
+                  }}
+                  className="text-text-muted hover:text-primary transition-colors ml-4 border-l border-border pl-4"
+                >
+                  Merchant Portal
+                </button>
+              )}
             </div>
             <p className="mt-6 md:mt-0 italic text-primary/50">Your Future. Your Stack. Your Legacy.™</p>
           </div>

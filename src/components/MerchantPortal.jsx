@@ -1,9 +1,26 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, ShoppingBag, Database, Trash2, Download, Check, X, RefreshCw, Globe, Package, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, Users, ShoppingBag, Database, Trash2, Download, Check, X, RefreshCw, Globe, Package, ExternalLink, Shield } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
 
 const MerchantPortal = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return sessionStorage.getItem('syg_admin_authenticated') === 'true';
+  });
+  const [passcode, setPasscode] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (passcode === 'LegacyStack2026!') {
+      sessionStorage.setItem('syg_admin_authenticated', 'true');
+      setIsAuthenticated(true);
+      setError('');
+    } else {
+      setError('Invalid Merchant Passcode. Access Denied.');
+    }
+  };
+
   const [orders, setOrders] = useState(() => JSON.parse(localStorage.getItem('syg_orders') || '[]'));
   const [profiles, setProfiles] = useState(() => JSON.parse(localStorage.getItem('syg_squad_profiles') || '[]'));
   const [wixOrders, setWixOrders] = useState([]);
@@ -86,6 +103,55 @@ const MerchantPortal = () => {
 
   const totalSales = orders.reduce((sum, order) => sum + (parseFloat(order.totalAmount) || 0), 0);
   const activeSubscribers = orders.filter(order => order.isSubscription).length;
+
+  if (!isAuthenticated) {
+    return (
+      <section id="merchant-portal" className="py-24 bg-background border-t border-border relative overflow-hidden flex items-center justify-center min-h-[60vh]">
+        <div className="max-w-md w-full mx-auto px-6 relative z-10">
+          <div className="bg-surface border border-border p-10 rounded-[32px] shadow-2xl backdrop-blur-sm text-center">
+            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mx-auto mb-6">
+              <Shield size={32} />
+            </div>
+            
+            <h2 className="text-3xl font-black uppercase italic tracking-tighter mb-2">
+              Access Restricted
+            </h2>
+            <p className="text-text-muted text-sm mb-8">
+              The Merchant Command Center requires a secure passcode for authorization.
+            </p>
+
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="text-left">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-text-muted mb-2 block">
+                  Merchant Passcode
+                </label>
+                <input
+                  type="password"
+                  value={passcode}
+                  onChange={(e) => setPasscode(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="w-full bg-background border border-border rounded-xl px-5 py-4 text-white text-center font-bold tracking-widest focus:border-primary/50 focus:outline-none transition-colors"
+                />
+              </div>
+
+              {error && (
+                <div className="text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 py-3 rounded-lg">
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="w-full bg-primary text-background font-black uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-primary/25 hover:scale-[1.02] active:scale-100 transition-all text-xs"
+              >
+                Unlock Command Center
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="merchant-portal" className="py-24 bg-background border-t border-border relative overflow-hidden">
