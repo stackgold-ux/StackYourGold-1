@@ -2,7 +2,7 @@ import { Shield, Target, Users } from 'lucide-react';
 
 const AboutUs = () => {
   return (
-    <section id="about" className="py-24 bg-surface/5 border-t border-border overflow-hidden scroll-mt-32">
+    <section id="about" className="py-24 bg-surface/5 border-t border-border overflow-hidden scroll-mt-0">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>

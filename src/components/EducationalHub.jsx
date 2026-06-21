@@ -138,7 +138,7 @@ const EducationalHub = () => {
   };
 
   return (
-    <section id="education" className="py-24 bg-surface/10 border-t border-border relative">
+    <section className="py-24 bg-surface/10 border-t border-border relative">
       <div className="max-w-7xl mx-auto px-4">
         <AnimatePresence mode="wait">
           {!selectedArticle ? (

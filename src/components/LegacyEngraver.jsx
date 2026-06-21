@@ -33,7 +33,7 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
   };
 
   return (
-    <section id="legacy" className="py-20 px-4 max-w-7xl mx-auto">
+    <section className="py-20 px-4 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div>
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-primary italic mb-8 leading-tight">

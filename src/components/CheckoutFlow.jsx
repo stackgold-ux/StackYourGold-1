@@ -339,7 +339,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
                 </div>
                 <div>
                   <span className="font-bold text-white uppercase tracking-tight text-sm">Create a Stack Squad Account (Optional)</span>
-                  <p className="text-[10px] text-text-muted uppercase tracking-widest mt-1">Unlock community chat, exclusive giveaways, and tracking.</p>
+                  <p className="text-[10px] text-text-muted uppercase tracking-widest mt-1">Unlock community chat and exclusive giveaways.</p>
                 </div>
               </label>
 

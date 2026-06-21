@@ -305,11 +305,11 @@ function App() {
           </div>
         </section>
 
-        <div id="club" className="scroll-mt-32"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="shop" className="scroll-mt-32"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="swag" className="scroll-mt-32"><SwagShop addToCart={addToCart} /></div>
-        <div id="legacy" className="scroll-mt-32"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="education" className="scroll-mt-32"><EducationalHub /></div>
+        <div id="club" className="scroll-mt-0"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>
+        <div id="shop" className="scroll-mt-8"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>
+        <div id="swag" className="scroll-mt-4"><SwagShop addToCart={addToCart} /></div>
+        <div id="legacy" className="scroll-mt-4"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
+        <div id="education" className="scroll-mt-0"><EducationalHub /></div>
         <AboutUs />
 
         {/* FAQ Section */}
