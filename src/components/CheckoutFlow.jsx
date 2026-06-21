@@ -21,6 +21,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
     address: '',
     city: '',
     zip: '',
+    dob: '',
     cardNumber: '',
     expiry: '',
     cvc: '',
@@ -113,8 +114,8 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
 
   const nextStep = () => {
     if (step === 1) {
-      if (!formData.name || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.zip) {
-        alert('Please fill out all shipping details, including your Phone Number.');
+      if (!formData.name || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.zip || !formData.dob) {
+        alert('Please fill out all shipping and verification details, including your Phone Number and Date of Birth.');
         return;
       }
       // Validate 10-digit phone number with area code
@@ -281,11 +282,21 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
       <div className="p-8">
         {step === 1 && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
               <h3 className="text-xl font-bold flex items-center">
                 <Truck className="mr-2 text-primary" /> Shipping Details
               </h3>
-              <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest italic">Encrypted Secure Session</span>
+              <div className="flex flex-col md:items-end">
+                <div className="flex items-center space-x-2 bg-primary/10 border border-primary/40 px-4 py-2 rounded-xl">
+                  <ShieldCheck className="text-primary animate-pulse" size={18} />
+                  <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">
+                    100% ENCRYPTED SECURE SSL SESSION
+                  </span>
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-primary mt-1">
+                  💳 Payment Services Guaranteed Through Stripe
+                </span>
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <input name="name" placeholder="Full Name" onChange={handleInputChange} value={formData.name} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
@@ -294,6 +305,22 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
               <input name="address" placeholder="Shipping Address" onChange={handleInputChange} value={formData.address} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
               <input name="city" placeholder="City" onChange={handleInputChange} value={formData.city} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary text-white" />
               <input name="zip" placeholder="Zip Code" onChange={handleInputChange} value={formData.zip} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary text-white" />
+              <div className="col-span-2 space-y-2 border-t border-border/50 pt-4 mt-2">
+                <label className="block text-[11px] font-black uppercase tracking-widest text-primary">
+                  Date of Birth (MM/DD/YYYY) * Required for KYC Verification
+                </label>
+                <input 
+                  type="text" 
+                  name="dob" 
+                  placeholder="MM/DD/YYYY (e.g. 10/24/1985)" 
+                  onChange={handleInputChange} 
+                  value={formData.dob} 
+                  className="w-full bg-background border border-border p-4 rounded-xl outline-none focus:border-primary text-white font-mono" 
+                />
+                <p className="text-[10px] text-text-muted uppercase tracking-wider leading-relaxed">
+                  ⚠️ Federal Know Your Customer (KYC) laws require physical identity and age verification for precious metal transactions to combat money laundering and protect generational assets.
+                </p>
+              </div>
             </div>
 
             <div className="mt-8 pt-8 border-t border-border">
