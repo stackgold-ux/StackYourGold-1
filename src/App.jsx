@@ -9,6 +9,7 @@ import EducationalHub from './components/EducationalHub';
 import AboutUs from './components/AboutUs';
 import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
+import CookieConsent from './components/CookieConsent';
 import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
 import LogoSilver from './assets/logo-silver.jpg';
@@ -121,6 +122,26 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-text-main gritty-bg selection:bg-primary selection:text-background relative">
+      {/* Road to 99 Global Promo Banner */}
+      <div className="bg-accent text-background py-3 px-4 text-center relative overflow-hidden group z-[60]">
+        <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 relative z-10">
+          <div className="flex items-center space-x-2">
+            <Zap size={16} className="fill-current animate-pulse" />
+            <span className="font-black uppercase italic tracking-tighter text-sm md:text-base">Road to 99 Campaign is Live!</span>
+          </div>
+          <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest">
+            Every 9th Subscriber Wins a <span className="underline underline-offset-4 decoration-2">Surprise Stack</span> of Real Gold & Silver! 🎁
+          </p>
+          <div className="flex items-center space-x-4">
+            <span className="hidden lg:block text-[10px] font-black opacity-50 italic">9/9/26 Grand Giveaway Challenge</span>
+            <a href="#club" className="bg-background text-accent px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+              Claim Your Spot
+            </a>
+          </div>
+        </div>
+      </div>
+
       <SpotTicker />
       
       {/* Navigation */}
@@ -404,7 +425,7 @@ function App() {
               <ul className="space-y-4 text-text-muted text-sm font-bold uppercase tracking-wider">
                 <li><a href="#about" className="hover:text-primary transition-colors">About Us</a></li>
                 <li><a href="#footer-contact" className="hover:text-primary transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Terms</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Road to 99 Rules</a></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Privacy</a></li>
               </ul>
             </div>
@@ -469,6 +490,8 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <CookieConsent />
     </div>
   );
 }

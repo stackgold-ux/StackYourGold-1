@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Check, ArrowRight, Sliders, DollarSign } from 'lucide-react';
+import { Check, ArrowRight, Sliders, DollarSign, Zap, Award, Shield } from 'lucide-react';
 import LogoGold from '../assets/logo-gold.jpg';
 import LogoSilver from '../assets/logo-silver.jpg';
 import ImgGold from '../assets/IMG_0596.jpeg';
 import ImgSilver from '../assets/IMG_0597.jpeg';
 import ImgPlatinum from '../assets/IMG_0598.jpeg';
 import ImgStrategist from '../assets/IMG_0600.jpeg';
+
+import ImgSurprise from '../assets/IMG_0605.jpeg';
 
 const StackingClub = ({ addToCart }) => {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -101,6 +103,46 @@ const StackingClub = ({ addToCart }) => {
           </p>
         </div>
 
+        {/* Road to 99 Campaign Highlight */}
+        <div className="mb-24 bg-accent/5 border border-accent/20 rounded-[2rem] p-8 md:p-12 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-4">
+            <Zap className="text-accent opacity-20" size={120} />
+          </div>
+          <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1 text-center md:text-left">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-accent text-background text-[10px] font-black uppercase tracking-widest mb-6">
+                <span>Active Campaign: Road to 99</span>
+              </div>
+              <h3 className="text-3xl md:text-5xl font-black uppercase italic mb-6 leading-none">
+                The <span className="text-accent">"Road to 99"</span> Challenge
+              </h3>
+              <p className="text-lg text-text-muted mb-8 font-medium">
+                We are on a mission to help 99 families secure their first physical gold and silver stack. To celebrate, we're dropping massive value into the community.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+                <div className="flex items-start space-x-3">
+                  <div className="bg-accent/20 p-2 rounded-lg text-accent mt-1"><Award size={20} /></div>
+                  <div>
+                    <h4 className="font-black uppercase tracking-widest text-xs text-white">The Surprise Stack</h4>
+                    <p className="text-[10px] text-text-muted mt-1 uppercase font-bold">Every 9th subscriber gets extra physical gold/silver slid into their box.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="bg-accent/20 p-2 rounded-lg text-accent mt-1"><Shield size={20} /></div>
+                  <div>
+                    <h4 className="font-black uppercase tracking-widest text-xs text-white">9/9/26 Grand Giveaway</h4>
+                    <p className="text-[10px] text-text-muted mt-1 uppercase font-bold">Every $1 spent = 1 entry into our ultimate physical wealth vault drawing.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="w-48 h-48 md:w-64 md:h-64 relative group">
+              <div className="absolute inset-0 bg-accent blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+              <img src={ImgSurprise} alt="Road to 99" className="w-full h-full object-cover rounded-[2rem] border-2 border-accent relative z-10 shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500" />
+            </div>
+          </div>
+        </div>
+
         <div className="max-w-3xl mx-auto text-center mb-24">
           <div className="space-y-8">
             <h3 className="text-3xl font-black uppercase tracking-tighter italic">How it works</h3>
@@ -141,6 +183,17 @@ const StackingClub = ({ addToCart }) => {
                   Most Popular
                 </div>
               )}
+
+              {/* Surprise Stack Badge */}
+              <div className="absolute -right-4 -top-4 w-20 h-20 z-10 pointer-events-none">
+                <div className="relative w-full h-full">
+                  <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-20"></div>
+                  <img src={ImgSurprise} alt="Surprise Stack" className="w-full h-full object-cover rounded-full border-2 border-accent shadow-xl" />
+                  <div className="absolute -bottom-1 -right-1 bg-accent text-background text-[7px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter leading-none text-center shadow-lg">
+                    1-in-9<br/>Win
+                  </div>
+                </div>
+              </div>
               
               <h3 className="text-2xl font-black mb-1 uppercase italic tracking-tight">{plan.name}</h3>
               <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-6">{plan.perfect}</p>

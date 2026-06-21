@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck } from 'lucide-react';
+import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck, Zap } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
 
@@ -252,6 +252,38 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
               Your digital receipt has been sent to your email. Your legacy is one step closer to being solidified.
             </p>
           )}
+        </div>
+
+        {/* Road to 99 Grand Giveaway Entry Calculator */}
+        <div className="bg-background/80 border border-accent/30 rounded-2xl p-6 mb-8 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-2 opacity-10">
+            <Zap size={64} className="text-accent" />
+          </div>
+          <div className="text-center relative z-10">
+            <h4 className="text-accent font-black uppercase tracking-widest text-[10px] mb-4">9/9/26 Grand Giveaway Challenge Entry Summary</h4>
+            <div className="flex items-center justify-center space-x-4 mb-4">
+              <div className="text-center">
+                <div className="text-3xl font-black text-white italic leading-none">{Math.floor(total)}</div>
+                <div className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] mt-1">Base Entries</div>
+              </div>
+              <div className="text-accent font-black text-xl">X</div>
+              <div className="text-center">
+                <div className="text-3xl font-black text-accent italic leading-none animate-pulse">3X</div>
+                <div className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] mt-1">Multiplier</div>
+              </div>
+              <div className="text-white font-black text-xl">=</div>
+              <div className="text-center">
+                <div className="text-3xl font-black text-primary italic leading-none">{Math.floor(total) * 3}</div>
+                <div className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] mt-1">Total Potential</div>
+              </div>
+            </div>
+            <p className="text-[9px] text-text-muted uppercase font-bold tracking-[0.1em] leading-relaxed max-w-sm mx-auto">
+              Want to hit the max? Record your unboxing and tag us on <span className="text-accent">3+ platforms</span> to TRIPLE your entries instantly! 🎥
+            </p>
+            <div className="mt-4">
+              <a href="#" className="text-[8px] font-black uppercase tracking-widest text-accent/50 hover:text-accent border-b border-accent/20 hover:border-accent transition-all">View Official Campaign Rules</a>
+            </div>
+          </div>
         </div>
         
         <button 
