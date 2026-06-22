@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck, Zap } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
+import { trackPurchase } from '../utils/tracking';
 
 const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
   const containerRef = useRef(null);
@@ -159,6 +160,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
 
       // Trigger notification
       triggerOrderNotification(newOrder);
+      trackPurchase(newOrder);
 
       // Save Profile if requested
       if (formData.createAccount) {

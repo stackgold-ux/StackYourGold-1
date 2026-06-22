@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
+import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
 import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
 import LogoSilver from './assets/logo-silver.jpg';
@@ -116,8 +117,10 @@ function App() {
   }, []);
 
   const addToCart = (product) => {
+    trackAddToCart(product);
     setCart([...cart, product]);
     setIsCheckoutOpen(true);
+    trackInitiateCheckout([...cart, product]);
   };
 
   return (
@@ -169,7 +172,7 @@ function App() {
 
           <div className="flex items-center space-x-4">
             <button 
-              onClick={() => setIsCheckoutOpen(true)}
+              onClick={() => { setIsCheckoutOpen(true); trackInitiateCheckout(cart); }}
               className="relative p-2 hover:bg-surface rounded-full transition-colors"
             >
               <ShoppingCart size={24} />

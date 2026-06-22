@@ -94,3 +94,30 @@ export const trackInitiateCheckout = (cart) => {
 
   console.log('[Tracking] InitiateCheckout: Total $', total);
 };
+
+export const trackPurchase = (orderData) => {
+  if (typeof window === 'undefined') return;
+
+  if (window.gtag) {
+    window.gtag('event', 'purchase', {
+      transaction_id: orderData.orderId,
+      value: orderData.totalAmount,
+      currency: 'USD',
+      items: orderData.items.map(item => ({
+        item_name: item.name,
+        item_category: item.type,
+        price: item.price,
+        quantity: 1
+      }))
+    });
+  }
+
+  if (window.fbq) {
+    window.fbq('track', 'Purchase', {
+      value: orderData.totalAmount,
+      currency: 'USD'
+    });
+  }
+
+  console.log('[Tracking] Purchase:', orderData.orderId);
+};

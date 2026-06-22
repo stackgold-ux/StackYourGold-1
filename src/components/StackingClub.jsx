@@ -138,7 +138,7 @@ const StackingClub = ({ addToCart }) => {
             </div>
             <div className="w-48 h-48 md:w-64 md:h-64 relative group">
               <div className="absolute inset-0 bg-accent blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-              <img src={ImgSurprise} alt="Road to 99" className="w-full h-full object-cover rounded-[2rem] border-2 border-accent relative z-10 shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500" />
+              <img src={ImgSurprise} alt="Road to 99 Campaign: Win Physical Gold and Silver" className="w-full h-full object-cover rounded-[2rem] border-2 border-accent relative z-10 shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500" />
             </div>
           </div>
         </div>
@@ -188,7 +188,7 @@ const StackingClub = ({ addToCart }) => {
               <div className="absolute -right-4 -top-4 w-20 h-20 z-10 pointer-events-none">
                 <div className="relative w-full h-full">
                   <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-20"></div>
-                  <img src={ImgSurprise} alt="Surprise Stack" className="w-full h-full object-cover rounded-full border-2 border-accent shadow-xl" />
+                  <img src={ImgSurprise} alt="Surprise Stack of Physical Gold and Silver" className="w-full h-full object-cover rounded-full border-2 border-accent shadow-xl" />
                   <div className="absolute -bottom-1 -right-1 bg-accent text-background text-[7px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter leading-none text-center shadow-lg">
                     1-in-9<br/>Win
                   </div>
@@ -201,7 +201,7 @@ const StackingClub = ({ addToCart }) => {
               <div className="mb-6 h-48 rounded-2xl overflow-hidden border border-border/50 bg-background/50">
                 <img 
                   src={plan.image} 
-                  alt={plan.name} 
+                  alt={`${plan.name} - Monthly Physical Stacking Subscription`} 
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
               </div>
@@ -281,7 +281,7 @@ const StackingClub = ({ addToCart }) => {
                 <div className="mb-8 h-48 max-w-md rounded-3xl overflow-hidden border border-border/50 bg-background/50">
                   <img 
                     src={ImgStrategist} 
-                    alt="Custom Stacking Strategy" 
+                    alt="Custom Physical Metal Stacking Strategy - The Strategists Tier" 
                     className="w-full h-full object-cover"
                   />
                 </div>
