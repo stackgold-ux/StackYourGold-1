@@ -5,7 +5,7 @@
 
 const SHOPIFY_CONFIG = {
   storeUrl: 'stackyourgold.myshopify.com',
-  storefrontToken: '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', // Sourced from linked Shopify Custom App Admin API
+  storefrontToken: 'f538c8684ee0765417ec9295342822da', // Sourced from Shopify Public Storefront API token
   apiVersion: '2024-01'
 };
 
