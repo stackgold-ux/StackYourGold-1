@@ -1,5 +1,6 @@
 {/* SYG Web App - Bundled Updates */}
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import SpotTicker from './components/SpotTicker';
 import BullionShop from './components/BullionShop';
 import StackingClub from './components/StackingClub';
@@ -495,6 +496,7 @@ function App() {
       </footer>
 
       <CookieConsent />
+      <Analytics />
     </div>
   );
 }
