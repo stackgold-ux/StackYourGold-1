@@ -499,7 +499,9 @@ const MerchantPortal = () => {
                       {wixProducts.map((prod, i) => (
                         <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                           <td className="px-8 py-6 text-sm font-bold text-white">{prod.name}</td>
-                          <td className="px-8 py-6 text-sm font-mono text-accent">{prod.price}</td>
+                          <td className="px-8 py-6 text-sm font-mono text-accent">
+                            {typeof prod.price === 'number' ? `${prod.price.toFixed(2)}` : prod.price}
+                          </td>
                           <td className="px-8 py-6 text-[10px] font-black uppercase text-text-muted">{prod.inventory} Units</td>
                           <td className="px-8 py-6 text-right">
                             <button className="text-primary hover:text-white transition-colors">
@@ -668,7 +670,9 @@ const MerchantPortal = () => {
                       {shopifyProducts.map((prod, i) => (
                         <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                           <td className="px-8 py-6 text-sm font-bold text-white">{prod.name}</td>
-                          <td className="px-8 py-6 text-sm font-mono text-accent">{prod.price}</td>
+                          <td className="px-8 py-6 text-sm font-mono text-accent">
+                            {typeof prod.price === 'number' ? `${prod.price.toFixed(2)}` : prod.price}
+                          </td>
                           <td className="px-8 py-6 text-[10px] font-black uppercase text-text-muted">{prod.inventory} Units</td>
                           <td className="px-8 py-6 text-right">
                             <button className="text-primary hover:text-white transition-colors">

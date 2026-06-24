@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
+import Rules from './components/Rules';
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
 import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
@@ -20,6 +21,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cart, setCart] = useState([]);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isRulesOpen, setIsRulesOpen] = useState(false);
   const [showMerchantPortal, setShowMerchantPortal] = useState(false);
   const [isMerchantActive, setIsMerchantActive] = useState(false);
 
@@ -217,6 +219,7 @@ function App() {
                 setIsCheckoutOpen(false);
               }}
               onCancel={() => setIsCheckoutOpen(false)}
+              onOpenRules={() => setIsRulesOpen(true)}
             />
           </div>
         </div>
@@ -428,7 +431,7 @@ function App() {
               <ul className="space-y-4 text-text-muted text-sm font-bold uppercase tracking-wider">
                 <li><a href="#about" className="hover:text-primary transition-colors">About Us</a></li>
                 <li><a href="#footer-contact" className="hover:text-primary transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Road to 99 Rules</a></li>
+                <li><button onClick={() => setIsRulesOpen(true)} className="hover:text-primary transition-colors text-left">Road to 99 Rules</button></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Privacy</a></li>
               </ul>
             </div>
@@ -495,6 +498,7 @@ function App() {
       </footer>
 
       <CookieConsent />
+      <Rules isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
     </div>
   );
 }

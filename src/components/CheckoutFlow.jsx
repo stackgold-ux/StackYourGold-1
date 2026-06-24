@@ -4,7 +4,7 @@ import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
 import { trackPurchase } from '../utils/tracking';
 
-const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
+const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
   const containerRef = useRef(null);
   const [step, setStep] = useState(1);
 
@@ -283,7 +283,12 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
               Want to hit the max? Record your unboxing and tag us on <span className="text-accent">3+ platforms</span> to TRIPLE your entries instantly! 🎥
             </p>
             <div className="mt-4">
-              <a href="#" className="text-[8px] font-black uppercase tracking-widest text-accent/50 hover:text-accent border-b border-accent/20 hover:border-accent transition-all">View Official Campaign Rules</a>
+              <button 
+                onClick={onOpenRules}
+                className="text-[8px] font-black uppercase tracking-widest text-accent/50 hover:text-accent border-b border-accent/20 hover:border-accent transition-all"
+              >
+                View Official Campaign Rules
+              </button>
             </div>
           </div>
         </div>

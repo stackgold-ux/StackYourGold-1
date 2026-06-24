@@ -1,10 +1,27 @@
-import { useState } from 'react';
-import { ShoppingCart, ShieldCheck, ChevronDown, ChevronUp, DollarSign, Info } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ShoppingCart, ShieldCheck, ChevronDown, ChevronUp, DollarSign, Info, Play, Image as ImageIcon, Box } from 'lucide-react';
+import { shopifyClient } from '../utils/shopifyClient';
 import ImgGold from '../assets/IMG_0596.jpeg';
 import ImgSilver from '../assets/IMG_0597.jpeg';
 import ImgSurprise from '../assets/IMG_0605.jpeg';
 
 const BullionShop = ({ spotPrices, addToCart }) => {
+  const [liveSilverProducts, setLiveSilverProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLiveSilver = async () => {
+      try {
+        const products = await shopifyClient.getProducts('silver');
+        setLiveSilverProducts(products);
+      } catch (error) {
+        console.error('Failed to fetch live silver products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLiveSilver();
+  }, []);
   const [amounts, setAmounts] = useState({
     gold: 250,
     silver: 100,
@@ -219,6 +236,25 @@ const BullionShop = ({ spotPrices, addToCart }) => {
         })}
       </div>
 
+      {/* Live Silver Inventory */}
+      {!loading && liveSilverProducts.length > 0 && (
+        <div className="mb-16">
+          <div className="flex items-center space-x-3 mb-8 border-b border-border pb-4">
+            <div className="bg-primary/20 p-2 rounded-lg">
+              <Box className="text-primary" size={24} />
+            </div>
+            <h3 className="text-2xl font-black uppercase italic tracking-tight">Live Physical Silver Inventory</h3>
+            <span className="bg-accent text-background text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse">LIVE FROM VAULT</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {liveSilverProducts.map((product) => (
+              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Accordion expanding tab section for Rounds, Bars and Coins */}
       <div className="bg-surface border border-border rounded-2xl p-6 md:p-8">
         <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-6 italic border-b border-border pb-4 flex items-center">
@@ -251,6 +287,143 @@ const BullionShop = ({ spotPrices, addToCart }) => {
         </div>
       </div>
     </section>
+  );
+};
+
+const ProductCard = ({ product, addToCart }) => {
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  
+  // Initialize with first available image or video
+  const initialMedia = product.images.length > 0 
+    ? { type: 'IMAGE', url: product.images[0].url }
+    : product.media.length > 0
+      ? { type: 'VIDEO', url: product.media[0].sources[0].url }
+      : { type: 'IMAGE', url: null };
+
+  const [activeMedia, setActiveMedia] = useState(initialMedia);
+
+  // Sync active media if product changes (e.g. during rotation)
+  useEffect(() => {
+    setActiveMedia(initialMedia);
+  }, [product.id]);
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: `${product.id}-${selectedVariant.id}`,
+      name: `${product.name} - ${selectedVariant.title}`,
+      price: selectedVariant.price,
+      image: product.images[0]?.url || '',
+      type: 'bullion',
+      weight: selectedVariant.title,
+      description: product.description
+    });
+  };
+
+  return (
+    <div className="bg-surface border border-border rounded-3xl overflow-hidden flex flex-col md:flex-row h-full group hover:border-primary/30 transition-all duration-500 shadow-2xl">
+      {/* Media Gallery */}
+      <div className="md:w-1/2 relative bg-background flex flex-col">
+        <div className="relative aspect-square overflow-hidden bg-black">
+          {activeMedia.type === 'IMAGE' ? (
+            <img 
+              src={activeMedia.url} 
+              alt={product.name} 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+          ) : (
+            <video 
+              src={activeMedia.url} 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover"
+            />
+          )}
+          
+          {/* Media Selectors */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
+            {product.images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveMedia({ type: 'IMAGE', url: img.url })}
+                className={`w-10 h-10 rounded-lg border-2 overflow-hidden transition-all ${activeMedia.url === img.url ? 'border-primary scale-110' : 'border-white/20 hover:border-white/50'}`}
+              >
+                <img src={img.url} className="w-full h-full object-cover" alt="thumb" />
+              </button>
+            ))}
+            {product.media.filter(m => m.type === 'VIDEO').map((v, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveMedia({ type: 'VIDEO', url: v.sources[0].url })}
+                className={`w-10 h-10 rounded-lg border-2 bg-black flex items-center justify-center transition-all ${activeMedia.url === v.sources[0].url ? 'border-primary scale-110' : 'border-white/20 hover:border-white/50'}`}
+              >
+                <Play size={16} className="text-primary fill-current" />
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Info */}
+      <div className="md:w-1/2 p-8 flex flex-col justify-between gritty-bg">
+        <div>
+          <div className="flex items-center space-x-2 mb-4">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">Shopify Live</span>
+            {product.tags.includes('premium') && (
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
+            )}
+          </div>
+          
+          <h4 className="text-2xl font-black uppercase italic tracking-tighter mb-4 text-white leading-none">
+            {product.name}
+          </h4>
+          
+          <p className="text-sm text-text-muted mb-8 leading-relaxed">
+            {product.description}
+          </p>
+
+          {/* Variant Selector */}
+          <div className="mb-8">
+            <label className="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-3">Select Allocation Size</label>
+            <div className="grid grid-cols-2 gap-2">
+              {product.variants.map((v) => (
+                <button
+                  key={v.id}
+                  onClick={() => setSelectedVariant(v)}
+                  className={`py-3 px-4 rounded-xl text-xs font-bold transition-all border ${
+                    selectedVariant.id === v.id 
+                      ? 'bg-primary border-primary text-background' 
+                      : 'bg-background/50 border-border text-white hover:border-primary/50'
+                  }`}
+                >
+                  {v.title}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-auto pt-6 border-t border-border/50">
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price (Spot + 15%)</p>
+              <p className="text-3xl font-black text-primary italic leading-none font-mono">
+                ${selectedVariant.price.toFixed(2)}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={handleAddToCart}
+            className="w-full bg-primary hover:bg-primary-dark text-background py-4 rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center group shadow-xl shadow-primary/10"
+          >
+            <ShoppingCart size={20} className="mr-3 group-hover:scale-110 transition-transform" />
+            Add to Secure Shipment
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

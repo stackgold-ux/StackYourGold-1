@@ -46,18 +46,59 @@ class ShopifyClient {
   /**
    * Fetches apparel products/swag from Shopify or fallback
    */
-  async getProducts() {
+  async getProducts(tag = 'swag') {
     const query = `
-      query getProducts {
-        products(first: 10) {
+      query getProducts($query: String) {
+        products(first: 10, query: $query) {
           edges {
             node {
               id
               title
               description
+              handle
+              productType
+              tags
               priceRange {
                 minVariantPrice {
                   amount
+                  currencyCode
+                }
+              }
+              images(first: 5) {
+                edges {
+                  node {
+                    url
+                    altText
+                  }
+                }
+              }
+              variants(first: 10) {
+                edges {
+                  node {
+                    id
+                    title
+                    price {
+                      amount
+                    }
+                    selectedOptions {
+                      name
+                      value
+                    }
+                  }
+                }
+              }
+              media(first: 10) {
+                edges {
+                  node {
+                    mediaContentType
+                    ... on Video {
+                      id
+                      sources {
+                        url
+                        mimeType
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -65,16 +106,96 @@ class ShopifyClient {
         }
       }
     `;
-    const data = await this.graphqlFetch(query);
-    if (data) {
-      return data.products.edges.map(edge => ({
-        id: edge.node.id,
-        name: edge.node.title,
-        price: `$${parseFloat(edge.node.priceRange.minVariantPrice.amount).toFixed(2)}`,
-        inventory: 15
-      }));
+    const data = await this.graphqlFetch(query, { query: tag });
+    if (data && data.products.edges.length > 0) {
+      return data.products.edges.map(edge => {
+        const node = edge.node;
+        const variants = node.variants.edges.map(v => ({
+          id: v.node.id,
+          title: v.node.title,
+          price: parseFloat(v.node.price.amount)
+        }));
+        
+        const media = node.media.edges
+          .filter(m => m.node.mediaContentType === 'VIDEO')
+          .map(m => ({
+            id: m.node.id,
+            type: 'VIDEO',
+            sources: m.node.sources
+          }));
+
+        const images = node.images.edges.map(i => ({
+          url: i.node.url,
+          altText: i.node.altText
+        }));
+
+        return {
+          id: node.id,
+          name: node.title,
+          handle: node.handle,
+          description: node.description,
+          type: node.productType,
+          price: parseFloat(node.priceRange.minVariantPrice.amount),
+          currency: node.priceRange.minVariantPrice.currencyCode,
+          images: images,
+          variants: variants,
+          media: media,
+          tags: node.tags
+        };
+      });
     }
-    return this.getMockProducts();
+    return tag === 'silver' ? this.getMockSilverProducts() : this.getMockProducts();
+  }
+
+  getMockSilverProducts() {
+    return [
+      {
+        id: 'SHPFY-S1',
+        name: 'Stacker Choice .999 Fine Silver Round',
+        description: 'Our most popular entry-level silver. .999 pure silver rounds selected by our vault team for maximum liquidity and beauty.',
+        price: 32.50,
+        currency: 'USD',
+        images: [
+          { url: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=800', altText: 'Silver Round' },
+          { url: 'https://images.unsplash.com/photo-1618403088890-3d9ff6f4c8ff?q=80&w=800', altText: 'Silver Rounds Stack' }
+        ],
+        variants: [
+          { id: 'v1', title: '1 oz Round', price: 32.50 },
+          { id: 'v1-5', title: '5 oz Round', price: 160.00 }
+        ],
+        media: [
+          {
+            id: 'vid-s1',
+            type: 'VIDEO',
+            sources: [{ url: 'https://v.ftcdn.net/05/53/63/54/700_F_553635446_KxN9WvXN5Jqf6L2x5zGj8y9w6z7j4L9z_ST.mp4', mimeType: 'video/mp4' }]
+          }
+        ],
+        tags: ['silver', 'bullion', 'liquid']
+      },
+      {
+        id: 'SHPFY-S2',
+        name: 'Legacy Cast Silver Bar',
+        description: 'Cast silver bar featuring the Stack Your Gold hallmark. A rugged, hand-poured aesthetic for the serious stacker.',
+        price: 315.00,
+        currency: 'USD',
+        images: [
+          { url: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=800', altText: 'Silver Bar' },
+          { url: 'https://images.unsplash.com/photo-1633158829585-23bb8f62b423?q=80&w=800', altText: 'Silver Bars' }
+        ],
+        variants: [
+          { id: 'v2', title: '10 oz Bar', price: 315.00 },
+          { id: 'v2-100', title: '100 oz Bar', price: 3100.00 }
+        ],
+        media: [
+          {
+            id: 'vid-s2',
+            type: 'VIDEO',
+            sources: [{ url: 'https://v.ftcdn.net/02/95/92/83/700_F_295928373_X9zS6pXF7zGf6L2x5zGj8y9w6z7j4L9z_ST.mp4', mimeType: 'video/mp4' }]
+          }
+        ],
+        tags: ['silver', 'bullion', 'premium', 'legacy']
+      }
+    ];
   }
 
   /**
@@ -103,10 +224,30 @@ class ShopifyClient {
 
   getMockProducts() {
     return [
-      { id: 'SHPFY-P1', name: 'Stacker Elite Hoodie', price: '$65.00', inventory: 24 },
-      { id: 'SHPFY-P2', name: 'Sound Money Tee', price: '$32.00', inventory: 50 },
-      { id: 'SHPFY-P3', name: 'Legacy Trucker Cap', price: '$28.00', inventory: 15 },
-      { id: 'SHPFY-P4', name: 'Bullion Master Bottle', price: '$45.00', inventory: 30 }
+      {
+        id: 'SHPFY-P1',
+        name: 'Stacker Elite Hoodie',
+        description: 'Premium heavyweight hoodie for the dedicated stacker.',
+        price: 65.00,
+        currency: 'USD',
+        images: [{ url: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800', altText: 'Hoodie' }],
+        variants: [{ id: 'v1', title: 'Large', price: 65.00 }],
+        media: [],
+        tags: ['swag', 'apparel'],
+        inventory: 24
+      },
+      {
+        id: 'SHPFY-P2',
+        name: 'Sound Money Tee',
+        description: 'Soft combed cotton tee with the Sound Money manifesto.',
+        price: 32.00,
+        currency: 'USD',
+        images: [{ url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800', altText: 'Tee' }],
+        variants: [{ id: 'v2', title: 'Medium', price: 32.00 }],
+        media: [],
+        tags: ['swag', 'apparel'],
+        inventory: 50
+      }
     ];
   }
 }
