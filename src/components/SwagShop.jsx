@@ -18,12 +18,12 @@ import Img0667 from '../assets/IMG_0667.jpeg';
 
 // Separate ProductCard component to manage local state for image selectors per-product
 const ProductCard = ({ item, addToCart }) => {
-  const [activeImage, setActiveImage] = useState(item.images[0]?.url || item.image);
-  const [selectedVariant, setSelectedVariant] = useState(item.variants ? item.variants[0] : null);
+  const [activeImage, setActiveImage] = useState(item.images?.[0]?.url || item.image);
+  const [selectedVariant, setSelectedVariant] = useState(item.variants?.[0] || null);
 
   // Sync active image if item structure changes
   useEffect(() => {
-    setActiveImage(item.images[0]?.url || item.image);
+    setActiveImage(item.images?.[0]?.url || item.image);
     if (item.variants) setSelectedVariant(item.variants[0]);
   }, [item.id]);
 

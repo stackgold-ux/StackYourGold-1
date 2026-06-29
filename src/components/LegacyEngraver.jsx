@@ -13,7 +13,7 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
 
   const handleAddToCart = () => {
     const spot = spotPrices[metal] || 0;
-    const price = spot * 1.15 + engravingFees[metal];
+    const price = spot * 1.20 + engravingFees[metal];
     
     const product = {
       id: `legacy-${metal}-${Date.now()}`,
@@ -94,10 +94,10 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
             <div className="bg-surface/50 p-6 rounded-2xl border border-border">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-xs font-bold uppercase tracking-widest text-text-muted">Dynamic Price</span>
-                <span className="text-2xl font-black text-primary">${((spotPrices[metal] || 0) * 1.15 + engravingFees[metal]).toFixed(2)}</span>
+                <span className="text-2xl font-black text-primary">${((spotPrices[metal] || 0) * 1.20 + engravingFees[metal]).toFixed(2)}</span>
               </div>
               <p className="text-[10px] text-text-muted uppercase tracking-widest leading-relaxed">
-                Includes 1oz .9999 physical {metal} at 15% over spot + ${engravingFees[metal]} precision laser fee.
+                Includes 1oz .9999 physical {metal} at 20% over spot + ${engravingFees[metal]} precision laser fee.
               </p>
             </div>
 

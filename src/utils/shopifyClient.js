@@ -107,27 +107,27 @@ class ShopifyClient {
       }
     `;
     const data = await this.graphqlFetch(query, { query: tag });
-    if (data && data.products.edges.length > 0) {
+    if (data?.products?.edges?.length > 0) {
       return data.products.edges.map(edge => {
         const node = edge.node;
-        const variants = node.variants.edges.map(v => ({
+        const variants = node.variants?.edges?.map(v => ({
           id: v.node.id,
           title: v.node.title,
-          price: parseFloat(v.node.price.amount)
-        }));
+          price: parseFloat(v.node.price?.amount || 0)
+        })) || [];
         
-        const media = node.media.edges
-          .filter(m => m.node.mediaContentType === 'VIDEO')
-          .map(m => ({
+        const media = node.media?.edges
+          ?.filter(m => m.node.mediaContentType === 'VIDEO')
+          ?.map(m => ({
             id: m.node.id,
             type: 'VIDEO',
             sources: m.node.sources
-          }));
+          })) || [];
 
-        const images = node.images.edges.map(i => ({
+        const images = node.images?.edges?.map(i => ({
           url: i.node.url,
           altText: i.node.altText
-        }));
+        })) || [];
 
         return {
           id: node.id,
@@ -135,16 +135,52 @@ class ShopifyClient {
           handle: node.handle,
           description: node.description,
           type: node.productType,
-          price: parseFloat(node.priceRange.minVariantPrice.amount),
-          currency: node.priceRange.minVariantPrice.currencyCode,
+          price: parseFloat(node.priceRange?.minVariantPrice?.amount || 0),
+          currency: node.priceRange?.minVariantPrice?.currencyCode || 'USD',
           images: images,
           variants: variants,
           media: media,
-          tags: node.tags
+          tags: node.tags || []
         };
       });
     }
-    return tag === 'silver' ? this.getMockSilverProducts() : this.getMockProducts();
+    
+    if (tag === 'silver') return this.getMockSilverProducts();
+    if (tag === 'gold') return this.getMockGoldProducts();
+    if (tag === 'platinum') return this.getMockPlatinumProducts();
+    return this.getMockProducts();
+  }
+
+  getMockGoldProducts() {
+    return [
+      {
+        id: 'SHPFY-G1',
+        name: 'American Gold Eagle (1 oz)',
+        description: 'The world-standard in gold bullion. .9167 fine gold minted by the US Mint.',
+        price: 4065.12,
+        currency: 'USD',
+        images: [{ url: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=800', altText: 'Gold Eagle' }],
+        variants: [{ id: 'v-g1', title: '1 oz Coin', price: 4065.12, weightOz: 1 }],
+        media: [],
+        tags: ['gold', 'bullion', 'premium']
+      }
+    ];
+  }
+
+  getMockPlatinumProducts() {
+    return [
+      {
+        id: 'SHPFY-PT1',
+        name: 'Platinum Philharmonic (1 oz)',
+        description: 'Austrian excellence in platinum. .9995 pure platinum.',
+        price: 1625.00,
+        currency: 'USD',
+        images: [{ url: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=800', altText: 'Platinum Coin' }],
+        variants: [{ id: 'v-pt1', title: '1 oz Coin', price: 1625.00, weightOz: 1 }],
+        media: [],
+        tags: ['platinum', 'bullion']
+      }
+    ];
   }
 
   getMockSilverProducts() {

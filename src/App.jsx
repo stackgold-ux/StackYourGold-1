@@ -32,9 +32,10 @@ function App() {
     }
   }, []);
   const [spotPrices, setSpotPrices] = useState({
-    gold: 4344.36,
-    silver: 70.25,
-    platinum: 1811.00
+    gold: 4065.12,
+    silver: 58.75,
+    platinum: 1625.00,
+    palladium: 1200.00
   });
 
   // Seed data logic
@@ -106,18 +107,6 @@ function App() {
     }
   }, []);
 
-  // Mock spot price updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSpotPrices(prev => ({
-        gold: prev.gold + (Math.random() - 0.5) * 1,
-        silver: prev.silver + (Math.random() - 0.5) * 0.05,
-        platinum: prev.platinum + (Math.random() - 0.5) * 0.5
-      }));
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
   const addToCart = (product) => {
     trackAddToCart(product);
     setCart([...cart, product]);
@@ -147,7 +136,7 @@ function App() {
         </div>
       </div>
 
-      <SpotTicker />
+      <SpotTicker spotPrices={spotPrices} />
       
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -284,7 +273,7 @@ function App() {
               <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
               <div>
                 <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
-                <p className="text-sm text-text-muted">Transparent 15% flat markup over real-time spot.</p>
+                <p className="text-sm text-text-muted">Transparent 20% flat markup over real-time spot.</p>
               </div>
             </div>
           </div>
@@ -347,7 +336,7 @@ function App() {
               {[
                 { 
                   q: "How is your pricing calculated?", 
-                  a: "We believe in complete transparency. We pull live spot prices from major global mints and add a flat, non-negotiable 15% markup. This covers our secure sourcing, fully-insured delivery, and operational costs. There are no surprise dealer premiums or hidden checkout fees." 
+                  a: "We believe in complete transparency. We pull live spot prices from major global mints and add a flat, non-negotiable 20% markup for retail orders, while Stack Squad members enjoy a discounted 15% markup. This covers our secure sourcing, fully-insured delivery, and operational costs. There are no surprise dealer premiums or hidden checkout fees." 
                 },
                 { 
                   q: "Is shipping safe? What if my package is lost?", 
