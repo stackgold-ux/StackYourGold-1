@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck, Zap } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
+import { hubspotClient } from '../utils/hubspotClient';
 import { trackPurchase } from '../utils/tracking';
 
 const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
@@ -129,6 +130,15 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
         alert('Please provide a username and password to create your account.');
         return;
       }
+
+      // HubSpot CRM Sync: Sync contact on step 1 completion
+      hubspotClient.syncContact({
+        email: formData.email,
+        firstName: formData.name.split(' ')[0],
+        lastName: formData.name.split(' ').slice(1).join(' '),
+        phone: formData.phone,
+        stackProfile: cart.some(item => item.id?.includes('platinum')) ? 'Platinum Elite' : 'Silver Stacker'
+      });
     }
 
     if (step === 3) {
@@ -161,6 +171,14 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
       // Trigger notification
       triggerOrderNotification(newOrder);
       trackPurchase(newOrder);
+
+      // HubSpot CRM Sync: Sync deal on order completion
+      hubspotClient.syncDeal({
+        orderId: newOrder.orderId,
+        amount: newOrder.totalAmount,
+        metalType: newOrder.items.map(i => i.name).join(', '),
+        subscriptionTier: newOrder.items.find(i => i.type === 'subscription')?.name || 'None'
+      }, newOrder.customerEmail);
 
       // Save Profile if requested
       if (formData.createAccount) {
