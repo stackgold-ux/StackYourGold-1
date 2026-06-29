@@ -110,11 +110,37 @@ class ShopifyClient {
     if (data?.products?.edges?.length > 0) {
       return data.products.edges.map(edge => {
         const node = edge.node;
-        const variants = node.variants?.edges?.map(v => ({
-          id: v.node.id,
-          title: v.node.title,
-          price: parseFloat(v.node.price?.amount || 0)
-        })) || [];
+        const variants = node.variants?.edges?.map(v => {
+          const title = v.node.title;
+          let weightOz = 0;
+          
+          // Try to parse weight from title or options
+          const weightOption = v.node.selectedOptions?.find(o => 
+            o.name.toLowerCase().includes('weight') || 
+            o.name.toLowerCase().includes('size')
+          );
+          
+          const textToParse = weightOption ? weightOption.value : title;
+          const match = textToParse.match(/(\d+(?:\.\d+)?)\s*oz/i);
+          if (match) {
+            weightOz = parseFloat(match[1]);
+          } else if (textToParse.toLowerCase().includes('1/10')) {
+            weightOz = 0.1;
+          } else if (textToParse.toLowerCase().includes('1/4')) {
+            weightOz = 0.25;
+          } else if (textToParse.toLowerCase().includes('1/2')) {
+            weightOz = 0.5;
+          } else if (textToParse.toLowerCase().includes('kilo')) {
+            weightOz = 32.15;
+          }
+
+          return {
+            id: v.node.id,
+            title: title,
+            price: parseFloat(v.node.price?.amount || 0),
+            weightOz: weightOz
+          };
+        }) || [];
         
         const media = node.media?.edges
           ?.filter(m => m.node.mediaContentType === 'VIDEO')
@@ -230,6 +256,42 @@ class ShopifyClient {
           }
         ],
         tags: ['silver', 'bullion', 'premium', 'legacy']
+      },
+      {
+        id: 'SHPFY-S3',
+        name: '2026 Silver Britannia (1 oz)',
+        description: 'The Royal Mint\'s flagship silver coin. Featuring the latest security features and the effigy of King Charles III.',
+        price: 34.25,
+        currency: 'USD',
+        images: [
+          { url: 'https://images.unsplash.com/photo-1605792657660-596af9009e82?q=80&w=800', altText: 'Silver Britannia' }
+        ],
+        variants: [
+          { id: 'v3', title: '1 oz Coin', price: 34.25, weightOz: 1 }
+        ],
+        media: [],
+        tags: ['silver', 'bullion', 'coin', 'new']
+      },
+      {
+        id: 'SHPFY-S4',
+        name: 'Kilo Silver Stacker Bar',
+        description: 'The professional stacker\'s choice. 32.15 ounces of pure silver in a compact, stackable form factor.',
+        price: 1025.00,
+        currency: 'USD',
+        images: [
+          { url: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=800', altText: 'Kilo Silver Bar' }
+        ],
+        variants: [
+          { id: 'v4', title: 'Kilo Bar (32.15 oz)', price: 1025.00, weightOz: 32.15 }
+        ],
+        media: [
+          {
+            id: 'vid-s4',
+            type: 'VIDEO',
+            sources: [{ url: 'https://v.ftcdn.net/05/53/63/54/700_F_553635446_KxN9WvXN5Jqf6L2x5zGj8y9w6z7j4L9z_ST.mp4', mimeType: 'video/mp4' }]
+          }
+        ],
+        tags: ['silver', 'bullion', 'bar', 'premium']
       }
     ];
   }
