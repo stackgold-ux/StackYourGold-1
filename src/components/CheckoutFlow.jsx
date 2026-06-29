@@ -263,7 +263,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
           </div>
           <div className="text-center relative z-10">
             <h4 className="text-accent font-black uppercase tracking-widest text-[10px] mb-4">9/9/26 Grand Giveaway Challenge Entry Summary</h4>
-            <div className="flex items-center justify-center space-x-4 mb-4">
+            <div className="flex items-center justify-center space-x-4 mb-6">
               <div className="text-center">
                 <div className="text-3xl font-black text-white italic leading-none">{Math.floor(total)}</div>
                 <div className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] mt-1">Base Entries</div>
@@ -279,10 +279,58 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
                 <div className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] mt-1">Total Potential</div>
               </div>
             </div>
-            <p className="text-[9px] text-text-muted uppercase font-bold tracking-[0.1em] leading-relaxed max-w-sm mx-auto">
-              Want to hit the max? Record your unboxing and tag us on <span className="text-accent">3+ platforms</span> to TRIPLE your entries instantly! 🎥
-            </p>
-            <div className="mt-4">
+
+            {/* Viral Unboxing Blueprint */}
+            <div className="mt-8 border-t border-border/50 pt-8 text-left">
+              <h5 className="text-xs font-black uppercase tracking-[0.2em] text-white mb-6 flex items-center justify-center">
+                <span className="h-px w-8 bg-accent/30 mr-4"></span>
+                Viral Unboxing Blueprint
+                <span className="h-px w-8 bg-accent/30 ml-4"></span>
+              </h5>
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-6 h-6 bg-accent text-background rounded-full flex items-center justify-center text-[10px] font-black shrink-0 mt-1">1</div>
+                  <div>
+                    <p className="text-[10px] font-black uppercase text-white mb-1">Get Ready to Film</p>
+                    <p className="text-[9px] text-text-muted leading-relaxed">Grab your phone and film a quick video opening your secure Stack Your Gold package. Let us hear that satisfying "clink" of physical precious metals!</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="w-6 h-6 bg-accent text-background rounded-full flex items-center justify-center text-[10px] font-black shrink-0 mt-1">2</div>
+                  <div>
+                    <p className="text-[10px] font-black uppercase text-white mb-1">Post & Tag Us</p>
+                    <p className="text-[9px] text-text-muted leading-relaxed mb-3">Post your unboxing video on social media and tag our official handles to multiply your entries.</p>
+                    <div className="grid grid-cols-2 gap-2 text-[8px] font-bold uppercase tracking-tighter">
+                      <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
+                        <span className="text-text-muted">IG / FB</span>
+                        <span className="text-accent">@StackYourGold</span>
+                      </div>
+                      <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
+                        <span className="text-text-muted">TikTok</span>
+                        <span className="text-accent">@StackYourGold</span>
+                      </div>
+                      <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
+                        <span className="text-text-muted">X (Twitter)</span>
+                        <span className="text-accent">@StackYourGold</span>
+                      </div>
+                      <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
+                        <span className="text-text-muted">Threads</span>
+                        <span className="text-accent">@StackYourGold</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-accent/10 border border-accent/20 p-4 rounded-xl text-center">
+                  <p className="text-[9px] font-black uppercase text-accent mb-2">Required Hashtags</p>
+                  <p className="text-[10px] font-bold text-white tracking-widest">#StackYourGold #RoadTo99 #GenerationalWealth</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8">
               <button 
                 onClick={onOpenRules}
                 className="text-[8px] font-black uppercase tracking-widest text-accent/50 hover:text-accent border-b border-accent/20 hover:border-accent transition-all"

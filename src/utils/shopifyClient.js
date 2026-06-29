@@ -4,9 +4,9 @@
  */
 
 const SHOPIFY_CONFIG = {
-  storeUrl: 'stackyourgold.myshopify.com',
-  storefrontToken: 'f538c8684ee0765417ec9295342822da', // Sourced from Shopify Public Storefront API token
-  apiVersion: '2024-01'
+  storeUrl: import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || 'vercel-store-a8184ee5.myshopify.com',
+  storefrontToken: import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'f538c8684ee0765417ec9295342822da',
+  apiVersion: '2024-04'
 };
 
 class ShopifyClient {
@@ -160,8 +160,8 @@ class ShopifyClient {
           { url: 'https://images.unsplash.com/photo-1618403088890-3d9ff6f4c8ff?q=80&w=800', altText: 'Silver Rounds Stack' }
         ],
         variants: [
-          { id: 'v1', title: '1 oz Round', price: 32.50 },
-          { id: 'v1-5', title: '5 oz Round', price: 160.00 }
+          { id: 'v1', title: '1 oz Round', price: 32.50, weightOz: 1 },
+          { id: 'v1-5', title: '5 oz Round', price: 160.00, weightOz: 5 }
         ],
         media: [
           {
@@ -183,8 +183,8 @@ class ShopifyClient {
           { url: 'https://images.unsplash.com/photo-1633158829585-23bb8f62b423?q=80&w=800', altText: 'Silver Bars' }
         ],
         variants: [
-          { id: 'v2', title: '10 oz Bar', price: 315.00 },
-          { id: 'v2-100', title: '100 oz Bar', price: 3100.00 }
+          { id: 'v2', title: '10 oz Bar', price: 315.00, weightOz: 10 },
+          { id: 'v2-100', title: '100 oz Bar', price: 3100.00, weightOz: 100 }
         ],
         media: [
           {

@@ -108,37 +108,90 @@ const StackingClub = ({ addToCart }) => {
           <div className="absolute top-0 right-0 p-4">
             <Zap className="text-accent opacity-20" size={120} />
           </div>
-          <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
-            <div className="flex-1 text-center md:text-left">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-accent text-background text-[10px] font-black uppercase tracking-widest mb-6">
-                <span>Active Campaign: Road to 99</span>
-              </div>
-              <h3 className="text-3xl md:text-5xl font-black uppercase italic mb-6 leading-none">
-                The <span className="text-accent">"Road to 99"</span> Challenge
-              </h3>
-              <p className="text-lg text-text-muted mb-8 font-medium">
-                We are on a mission to help 99 families secure their first physical gold and silver stack. To celebrate, we're dropping massive value into the community.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-accent/20 p-2 rounded-lg text-accent mt-1"><Award size={20} /></div>
-                  <div>
-                    <h4 className="font-black uppercase tracking-widest text-xs text-white">The Surprise Stack</h4>
-                    <p className="text-[10px] text-text-muted mt-1 uppercase font-bold">Every 9th subscriber gets extra physical gold/silver slid into their box.</p>
+          <div className="relative z-10">
+            <div className="flex flex-col md:flex-row items-center gap-12 mb-12">
+              <div className="flex-1 text-center md:text-left">
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-accent text-background text-[10px] font-black uppercase tracking-widest mb-6 shadow-lg shadow-accent/20">
+                  <span className="relative flex h-2 w-2 mr-1">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-background opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-background"></span>
+                  </span>
+                  <span>Active Campaign: Road to 99</span>
+                </div>
+                <h3 className="text-3xl md:text-5xl font-black uppercase italic mb-6 leading-none">
+                  The <span className="text-accent">"Road to 99"</span> Challenge
+                </h3>
+                <p className="text-lg text-text-muted mb-8 font-medium">
+                  We are on a mission to help 99 families secure their first physical gold and silver stack. To celebrate, we're dropping massive value into the community.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+                  <div className="flex items-start space-x-3">
+                    <div className="bg-accent/20 p-2 rounded-lg text-accent mt-1"><Award size={20} /></div>
+                    <div>
+                      <h4 className="font-black uppercase tracking-widest text-xs text-white">The Surprise Stack</h4>
+                      <p className="text-[10px] text-text-muted mt-1 uppercase font-bold">Every 9th subscriber gets extra physical gold/silver slid into their box.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="bg-accent/20 p-2 rounded-lg text-accent mt-1"><Shield size={20} /></div>
+                    <div>
+                      <h4 className="font-black uppercase tracking-widest text-xs text-white">9/9/26 Grand Giveaway</h4>
+                      <p className="text-[10px] text-text-muted mt-1 uppercase font-bold">Every $1 spent = 1 entry into our ultimate physical wealth vault drawing.</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-accent/20 p-2 rounded-lg text-accent mt-1"><Shield size={20} /></div>
-                  <div>
-                    <h4 className="font-black uppercase tracking-widest text-xs text-white">9/9/26 Grand Giveaway</h4>
-                    <p className="text-[10px] text-text-muted mt-1 uppercase font-bold">Every $1 spent = 1 entry into our ultimate physical wealth vault drawing.</p>
-                  </div>
+              </div>
+              <div className="w-48 h-48 md:w-64 md:h-64 relative group">
+                <div className="absolute inset-0 bg-accent blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                <img src={ImgSurprise} alt="Road to 99 Campaign: Win Physical Gold and Silver" className="w-full h-full object-cover rounded-[2rem] border-2 border-accent relative z-10 shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500" />
+                <div className="absolute -bottom-4 -right-4 bg-accent text-background px-4 py-2 rounded-xl font-black italic text-sm z-20 shadow-xl border-2 border-background animate-bounce">
+                  WIN THIS!
                 </div>
               </div>
             </div>
-            <div className="w-48 h-48 md:w-64 md:h-64 relative group">
-              <div className="absolute inset-0 bg-accent blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-              <img src={ImgSurprise} alt="Road to 99 Campaign: Win Physical Gold and Silver" className="w-full h-full object-cover rounded-[2rem] border-2 border-accent relative z-10 shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500" />
+
+            {/* Live Progress Tracker */}
+            <div className="bg-background/40 backdrop-blur-md border border-accent/20 rounded-2xl p-6 md:p-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                  <h4 className="text-sm font-black uppercase tracking-widest text-white mb-1 flex items-center">
+                    Live Campaign Progress 
+                    <span className="ml-3 px-2 py-0.5 bg-green-500/10 text-green-500 text-[8px] rounded border border-green-500/20 animate-pulse">UPDATED REAL-TIME</span>
+                  </h4>
+                  <p className="text-[10px] text-text-muted uppercase font-bold tracking-wider">Help us reach 99 active family stackers</p>
+                </div>
+                <div className="text-right">
+                  <span className="text-3xl font-black text-accent italic tracking-tighter">42 <span className="text-sm text-text-muted not-italic uppercase tracking-widest ml-1">/ 99</span></span>
+                  <p className="text-[9px] text-text-muted uppercase font-black tracking-widest mt-1">Families Secured</p>
+                </div>
+              </div>
+              
+              <div className="relative h-6 bg-background rounded-full border border-border p-1 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-accent/50 via-accent to-accent-light rounded-full transition-all duration-1000 relative group"
+                  style={{ width: '42.4%' }}
+                >
+                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                  <div className="absolute top-0 right-0 h-full w-12 bg-white/20 blur-md"></div>
+                </div>
+                
+                {/* Milestone Markers */}
+                {[9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99].map((m) => (
+                  <div 
+                    key={m}
+                    className={`absolute top-0 h-full w-px bg-white/10 flex flex-col items-center justify-end pb-1.5`}
+                    style={{ left: `${(m / 99) * 100}%` }}
+                  >
+                    <div className={`w-1 h-1 rounded-full ${42 >= m ? 'bg-accent' : 'bg-white/20'}`}></div>
+                    {m === 99 && <div className="absolute -top-1 right-0 text-[8px] font-black text-accent">GOAL</div>}
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-4 flex justify-between items-center text-[8px] font-black uppercase tracking-[0.2em] text-text-muted">
+                <span>Phase: Early Momentum</span>
+                <span className="text-accent">Next Surprise Stack at #45</span>
+              </div>
             </div>
           </div>
         </div>

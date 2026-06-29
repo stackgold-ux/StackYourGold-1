@@ -249,7 +249,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {liveSilverProducts.map((product) => (
-              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+              <ProductCard key={product.id} product={product} addToCart={addToCart} spotPrices={spotPrices} />
             ))}
           </div>
         </div>
@@ -290,9 +290,15 @@ const BullionShop = ({ spotPrices, addToCart }) => {
   );
 };
 
-const ProductCard = ({ product, addToCart }) => {
+const ProductCard = ({ product, addToCart, spotPrices }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   
+  // Calculate dynamic price if it's a silver bullion product with weight
+  const isSilver = product.tags.includes('silver');
+  const currentPrice = (isSilver && spotPrices?.silver && selectedVariant.weightOz)
+    ? spotPrices.silver * selectedVariant.weightOz * 1.15
+    : selectedVariant.price;
+
   // Initialize with first available image or video
   const initialMedia = product.images.length > 0 
     ? { type: 'IMAGE', url: product.images[0].url }
@@ -311,7 +317,7 @@ const ProductCard = ({ product, addToCart }) => {
     addToCart({
       id: `${product.id}-${selectedVariant.id}`,
       name: `${product.name} - ${selectedVariant.title}`,
-      price: selectedVariant.price,
+      price: currentPrice.toFixed(2),
       image: product.images[0]?.url || '',
       type: 'bullion',
       weight: selectedVariant.title,
@@ -409,7 +415,7 @@ const ProductCard = ({ product, addToCart }) => {
             <div>
               <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price (Spot + 15%)</p>
               <p className="text-3xl font-black text-primary italic leading-none font-mono">
-                ${selectedVariant.price.toFixed(2)}
+                ${currentPrice.toFixed(2)}
               </p>
             </div>
           </div>

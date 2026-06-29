@@ -123,16 +123,41 @@ const ProductCard = ({ item, addToCart }) => {
 };
 
 const SwagShop = ({ addToCart }) => {
-  const [items, setItems] = useState([]);
+  const [shopifyItems, setShopifyItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const featuredEtsyItems = [
+    {
+      id: 'etsy-1',
+      name: 'Stacker Elite Heavyweight Hoodie',
+      price: 64.99,
+      image: Img0642,
+      description: 'Premium ultra-soft 450GSM cotton hoodie. Features the SYG "Solidify Your Legacy" emblem. Built for comfort and long-term durability.',
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'
+    },
+    {
+      id: 'etsy-2',
+      name: 'Sound Money Vintage Tee',
+      price: 34.00,
+      image: Img0643,
+      description: 'Distressed vintage-wash tee. "If you can\'t hold it, you don\'t own it" printed in premium metallic foil.',
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'
+    },
+    {
+      id: 'etsy-3',
+      name: 'Generational Wealth Signature Cap',
+      price: 28.00,
+      image: Img0644,
+      description: 'Structured 6-panel cap with high-density embroidery. A daily reminder of what you\'re building.',
+      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'
+    }
+  ];
 
   useEffect(() => {
     const fetchSwag = async () => {
       try {
         const products = await shopifyClient.getProducts('swag');
-        
-        // Merge Shopify products with local Etsy metadata if IDs match or use Shopify as primary
-        setItems(products);
+        setShopifyItems(products);
       } catch (error) {
         console.error('Failed to fetch Swag from Shopify:', error);
       } finally {
@@ -143,45 +168,73 @@ const SwagShop = ({ addToCart }) => {
   }, []);
 
   return (
-    <section className="py-20 px-4 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-        <div>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-secondary italic mb-4">Stack Squad Swag</h2>
-          <p className="text-text-muted text-lg max-w-2xl">
-            We don't just stack gold; we wear our values. Curated premium apparel and EDC gear designed to spark deep conversations about generational wealth.
-          </p>
-        </div>
-        <div className="flex items-center space-x-2 bg-secondary/10 px-4 py-2 rounded-lg border border-secondary/20">
-          <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
-          <span className="text-secondary text-[10px] font-black uppercase tracking-widest">Live Shopify Inventory</span>
+    <section className="py-24 space-y-32">
+      {/* High-Impact Shopify Section */}
+      <div className="px-4 max-w-7xl mx-auto">
+        <div className="bg-secondary/5 border-2 border-secondary/20 rounded-[3rem] p-8 md:p-16 relative overflow-hidden mb-12">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/10 blur-[120px] rounded-full -mr-48 -mt-48"></div>
+          
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-8 relative z-10">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-secondary text-background text-[10px] font-black uppercase tracking-[0.2em] mb-6 shadow-xl">
+                <ShoppingBag size={12} />
+                <span>Shopify Collection</span>
+              </div>
+              <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white italic mb-4 leading-none">
+                The <span className="text-secondary">Core</span> Collection
+              </h2>
+              <p className="text-text-muted text-lg font-medium">
+                Direct-to-vault essentials and exclusive limited-run drops. Synced in real-time with our master inventory.
+              </p>
+            </div>
+            <div className="flex items-center space-x-2 bg-background/50 backdrop-blur border border-border px-4 py-2 rounded-xl">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-text-muted text-[10px] font-black uppercase tracking-widest">Live Inventory Sync</span>
+            </div>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="bg-background/40 h-[450px] rounded-3xl border border-border/30"></div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {shopifyItems.map(item => (
+                <ProductCard key={item.id} item={item} addToCart={addToCart} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="bg-surface/30 h-[400px] rounded-2xl border border-border/50"></div>
-          ))}
+      {/* Featured Etsy Items Section */}
+      <div className="px-4 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+          <div>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white italic mb-4">
+              Featured <span className="text-secondary">Etsy</span> Gear
+            </h2>
+            <p className="text-text-muted text-lg max-w-xl">
+              Our handcrafted lifestyle collection. Each piece is made-to-order by our artisan partners.
+            </p>
+          </div>
+          <a 
+            href="https://www.etsy.com/shop/StackYourGold" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-secondary font-black uppercase tracking-widest hover:text-white transition-colors border-b-2 border-secondary/30 pb-1 text-sm"
+          >
+            Full Etsy Catalog ↗
+          </a>
         </div>
-      ) : (
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {items.map(item => (
-            <ProductCard key={item.id} item={item} addToCart={addToCart} />
+          {featuredEtsyItems.map(item => (
+            <ProductCard key={item.id} item={item} />
           ))}
         </div>
-      )}
-      
-      <div className="mt-16 text-center">
-        <p className="text-text-muted text-sm mb-6">Looking for our full legacy collection?</p>
-        <a 
-          href="https://www.etsy.com/shop/StackYourGold" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center space-x-2 text-secondary font-black uppercase tracking-widest hover:text-white transition-colors border-b-2 border-secondary/30 pb-1"
-        >
-          <span>Visit Official Etsy Store</span>
-          <ChevronRight size={18} />
-        </a>
       </div>
     </section>
   );

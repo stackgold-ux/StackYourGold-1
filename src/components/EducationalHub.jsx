@@ -281,6 +281,16 @@ const EducationalHub = () => {
                 </div>
 
                 <div className="markdown-content">
+                  {selectedArticle.videoUrl && (
+                    <div className="mb-12 rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl aspect-video bg-black">
+                      <video 
+                        src={selectedArticle.videoUrl} 
+                        controls 
+                        className="w-full h-full object-cover"
+                        poster={selectedArticle.image}
+                      />
+                    </div>
+                  )}
                   <ReactMarkdown 
                     components={{
                       h1: ({node, ...props}) => <h1 className="hidden" {...props} />, // Hide redundant h1
