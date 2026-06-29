@@ -95,13 +95,14 @@ const EducationalHub = () => {
       desc: 'The dark history of WWII looted bullion, secret vaults, and the Swiss connection.',
       blogPath: '../blogs/10_nazi_gold_secret_vaults.md'
     },
-    { 
+    {
       id: 'fort-knox',
-      title: 'Inside Fort Knox', 
-      icon: Landmark, 
+      title: 'Inside Fort Knox',
+      icon: Landmark,
       category: 'High Intrigue',
       desc: 'Separating myths from reality at the US Bullion Depository and the sovereign truth.',
-      blogPath: '../blogs/11_fort_knox_conspiracy.md'
+      blogPath: '../blogs/11_fort_knox_conspiracy.md',
+      videoUrl: 'https://video.pictory.ai/embed/202606261718046644e21711497c44bbcb9e1201746e2465f/202606261723519319l2MpNDLHFLXK8n'
     },
     { 
       id: 'brinks-mat',
@@ -283,15 +284,25 @@ const EducationalHub = () => {
                 <div className="markdown-content">
                   {selectedArticle.videoUrl && (
                     <div className="mb-12 rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl aspect-video bg-black">
-                      <video 
-                        src={selectedArticle.videoUrl} 
-                        controls 
-                        className="w-full h-full object-cover"
-                        poster={selectedArticle.image}
-                      />
+                      {selectedArticle.videoUrl.includes('pictory.ai') ? (
+                        <iframe
+                          src={selectedArticle.videoUrl}
+                          className="w-full h-full"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      ) : (
+                        <video
+                          src={selectedArticle.videoUrl}
+                          controls
+                          className="w-full h-full object-cover"
+                          poster={selectedArticle.image}
+                        />
+                      )}
                     </div>
                   )}
-                  <ReactMarkdown 
+                  <ReactMarkdown
                     components={{
                       h1: ({node, ...props}) => <h1 className="hidden" {...props} />, // Hide redundant h1
                       h2: ({node, ...props}) => <h2 className="text-3xl font-black uppercase italic tracking-tight text-white mt-12 mb-6 border-l-4 border-primary pl-6" {...props} />,

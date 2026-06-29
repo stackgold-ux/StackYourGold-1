@@ -48,8 +48,13 @@ const ProductCard = ({ item, addToCart }) => {
     <div className="group bg-surface/30 border border-border/50 rounded-2xl p-5 hover:border-secondary hover:bg-surface/50 transition-all duration-300 flex flex-col justify-between h-full shadow-md hover:shadow-xl">
       <div>
         <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4 bg-background border border-border/30 flex items-center justify-center">
-          <img 
-            src={activeImage} 
+          {item.tags?.includes('premium') && (
+            <div className="absolute top-3 left-3 z-20 bg-accent text-background text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded shadow-lg animate-bounce">
+              Vault Exclusive
+            </div>
+          )}
+          <img
+            src={activeImage}
             alt={item.name} 
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
           />
@@ -176,12 +181,12 @@ const SwagShop = ({ addToCart }) => {
           
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-8 relative z-10">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-secondary text-background text-[10px] font-black uppercase tracking-[0.2em] mb-6 shadow-xl">
-                <ShoppingBag size={12} />
-                <span>Shopify Collection</span>
+              <div className="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-secondary text-background text-[10px] font-black uppercase tracking-[0.2em] mb-6 shadow-xl animate-pulse">
+                <Shield size={12} />
+                <span>Vault Secured Shopify Collection</span>
               </div>
               <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white italic mb-4 leading-none">
-                The <span className="text-secondary">Core</span> Collection
+                The <span className="text-secondary">Vault</span> Essentials
               </h2>
               <p className="text-text-muted text-lg font-medium">
                 Direct-to-vault essentials and exclusive limited-run drops. Synced in real-time with our master inventory.
