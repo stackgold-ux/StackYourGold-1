@@ -45,7 +45,7 @@ AWS Amplify is the AWS equivalent of Vercel. It provides a managed hosting envir
    - **Target Address**: `/index.html`
    - **Type**: `200 (Rewrite)`
 9. Click **Save and Deploy**. Your application will be live on a secure `amplifyapp.com` URL within minutes.
-10. **Add Custom Domain**: Go to **Domain Management** in the Amplify sidebar to point your custom domain (e.g., `stackyourgold.com` or a subdomain like `app.stackyourgold.com`) directly to your Amplify deployment.
+10. **Add Custom Domain**: Go to **Domain Management** in the Amplify sidebar to point your custom domain (e.g., `stackyoursilver.com` or a subdomain like `app.stackyoursilver.com`) directly to your Amplify deployment.
 
 ---
 

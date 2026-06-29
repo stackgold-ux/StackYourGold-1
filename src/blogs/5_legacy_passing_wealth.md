@@ -36,7 +36,7 @@ To prevent your generational wealth from being squandered in a single, impulsive
 
 **This is the power of custom laser-engraving.**
 
-At **Stack Your Gold**, we specialize in transforming raw precious metals into sacred family heirlooms. We use state-of-the-art fiber lasers to engrave your family name, motto, established date, or personal milestones directly onto premium .999 silver and gold bars:
+At **Stack Your Silver**, we specialize in transforming raw precious metals into sacred family heirlooms. We use state-of-the-art fiber lasers to engrave your family name, motto, established date, or personal milestones directly onto premium .999 silver and gold bars:
 *   *A 10oz Silver Bar engraved with:* **"The Harrison Family Heritage — Est. 1998 — Integrity, Strength, Legacy."**
 *   *A Gold Round engraved with a father’s personal advice to his son.*
 *   *An heirloom coin minted to celebrate the birth of a grandchild.*

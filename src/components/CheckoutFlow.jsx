@@ -132,6 +132,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
       }
 
       // HubSpot CRM Sync: Sync contact on step 1 completion
+      /* 
       hubspotClient.syncContact({
         email: formData.email,
         firstName: formData.name.split(' ')[0],
@@ -139,11 +140,12 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
         phone: formData.phone,
         stackProfile: cart.some(item => item.id?.includes('platinum')) ? 'Platinum Elite' : 'Silver Stacker'
       });
+      */
     }
 
     if (step === 3) {
       // Save order to localStorage
-      const orderId = `SYG-${Math.floor(1000 + Math.random() * 9000)}`;
+      const orderId = `SYS-${Math.floor(1000 + Math.random() * 9000)}`;
       const status = formData.paymentMethod === 'wire' ? 'Awaiting Wire Transfer' : 
                      formData.paymentMethod === 'check' ? 'Pending Check Clearance' : 'Completed';
 
@@ -173,12 +175,14 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
       trackPurchase(newOrder);
 
       // HubSpot CRM Sync: Sync deal on order completion
+      /* 
       hubspotClient.syncDeal({
         orderId: newOrder.orderId,
         amount: newOrder.totalAmount,
         metalType: newOrder.items.map(i => i.name).join(', '),
         subscriptionTier: newOrder.items.find(i => i.type === 'subscription')?.name || 'None'
       }, newOrder.customerEmail);
+      */
 
       // Save Profile if requested
       if (formData.createAccount) {
@@ -225,7 +229,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
 
   if (step === 4) {
     const lastOrder = JSON.parse(localStorage.getItem('syg_orders') || '[]').pop();
-    const orderId = lastOrder?.orderId || 'SYG-XXXX';
+    const orderId = lastOrder?.orderId || 'SYS-XXXX';
 
     return (
       <div ref={containerRef} className="bg-surface p-12 rounded-3xl border border-primary/30 text-center max-w-2xl mx-auto shadow-2xl">
@@ -243,7 +247,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
               </p>
               <div className="grid grid-cols-2 gap-y-2 text-[10px] font-bold uppercase tracking-wider text-text-muted border-t border-border/50 pt-4">
                 <span>Account Name</span>
-                <span className="text-white text-right">Stack Your Gold LLC</span>
+                <span className="text-white text-right">Stack Your Gold | Stack Your Silver LLC</span>
                 <span>Bank Name</span>
                 <span className="text-white text-right">JPMorgan Chase</span>
                 <span>Routing Number</span>
@@ -260,7 +264,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
                 Please mail your check for ${total.toFixed(2)} to the address below. <strong>Include Order #{orderId} on the check.</strong>
               </p>
               <div className="text-[10px] font-bold uppercase tracking-wider text-text-muted border-t border-border/50 pt-4">
-                <p>Payable to: <span className="text-white">Stack Your Gold LLC</span></p>
+                <p>Payable to: <span className="text-white">Stack Your Gold | Stack Your Silver LLC</span></p>
                 <p>123 Gold St, Suite 500</p>
                 <p>San Francisco, CA 94105</p>
               </div>
@@ -311,7 +315,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
                   <div className="w-6 h-6 bg-accent text-background rounded-full flex items-center justify-center text-[10px] font-black shrink-0 mt-1">1</div>
                   <div>
                     <p className="text-[10px] font-black uppercase text-white mb-1">Get Ready to Film</p>
-                    <p className="text-[9px] text-text-muted leading-relaxed">Grab your phone and film a quick video opening your secure Stack Your Gold package. Let us hear that satisfying "clink" of physical precious metals!</p>
+                    <p className="text-[9px] text-text-muted leading-relaxed">Grab your phone and film a quick video opening your secure Stack Your Gold | Stack Your Silver package. Let us hear that satisfying "clink" of physical precious metals!</p>
                   </div>
                 </div>
 
@@ -527,7 +531,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
                   </div>
                   <div className="grid grid-cols-2 gap-y-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">
                     <span>Account Name</span>
-                    <span className="text-white text-right">Stack Your Gold LLC</span>
+                    <span className="text-white text-right">Stack Your Gold | Stack Your Silver LLC</span>
                     <span>Bank Name</span>
                     <span className="text-white text-right">JPMorgan Chase</span>
                     <span>Account Type</span>
@@ -556,7 +560,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
                   </div>
                   <div className="space-y-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">
                     <p>Please make check payable to:</p>
-                    <p className="text-white text-lg font-black tracking-tight leading-none italic">Stack Your Gold LLC</p>
+                    <p className="text-white text-lg font-black tracking-tight leading-none italic">Stack Your Gold | Stack Your Silver LLC</p>
                     <div className="pt-2">
                       <p>Send to:</p>
                       <p className="text-white">123 Gold St, Suite 500</p>

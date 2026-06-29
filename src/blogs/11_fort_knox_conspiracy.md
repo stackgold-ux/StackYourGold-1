@@ -74,7 +74,7 @@ The stacking mindset is built on a simple, unbreakable rule: **If you don't hold
 
 Relying on a government’s secret vault, a paper gold ETF, or digital numbers on a screen is the opposite of financial sovereignty. You must build your *own* private Fort Knox. You must take custody of your family's financial citadel.
 
-At **Stack Your Gold**, we return that sovereign power directly to your hands. Through the automated **Stack Squad** membership, we convert your paper budget into pure, certified physical gold and silver, and deliver it securely and discreetly directly to your door—stamped, if you choose, with your family's custom legacy engraving to seal your heritage forever.
+At **Stack Your Silver**, we return that sovereign power directly to your hands. Through the automated **Stack Squad** membership, we convert your paper budget into pure, certified physical gold and silver, and deliver it securely and discreetly directly to your door—stamped, if you choose, with your family's custom legacy engraving to seal your heritage forever.
 
 Stop trusting the systems of central banks. Build your own fortress of real wealth today.
 

@@ -419,7 +419,7 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
         <div className="mt-auto pt-6 border-t border-border/50">
           <div className="flex items-end justify-between mb-6">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price (Spot + 20%)</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price</p>
               <p className="text-3xl font-black text-primary italic leading-none font-mono">
                 ${currentPrice.toFixed(2)}
               </p>

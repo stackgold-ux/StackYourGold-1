@@ -1,5 +1,5 @@
 /**
- * Shopify Storefront Headless API Client for Stack Your Gold
+ * Shopify Storefront Headless API Client for Stack Your Silver
  * Handles connection to Shopify GraphQL for Swag items and orders with bulletproof fallback logic.
  */
 
@@ -237,7 +237,7 @@ class ShopifyClient {
       {
         id: 'SHPFY-S2',
         name: 'Legacy Cast Silver Bar',
-        description: 'Cast silver bar featuring the Stack Your Gold hallmark. A rugged, hand-poured aesthetic for the serious stacker.',
+        description: 'Cast silver bar featuring the Stack Your Silver hallmark. A rugged, hand-poured aesthetic for the serious stacker.',
         price: 315.00,
         currency: 'USD',
         images: [

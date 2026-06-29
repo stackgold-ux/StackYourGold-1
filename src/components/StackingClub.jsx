@@ -204,7 +204,7 @@ const StackingClub = ({ addToCart }) => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { title: 'Flat 15% Spot Margin', desc: "No hidden fees or dealer tricks. You see exactly what you pay." },
+                { title: 'Transparent Pricing', desc: "Competitive flat pricing with no hidden fees or dealer tricks. You see exactly what you pay." },
                 { title: 'Automated Autopilot', desc: 'Set your budget once and let your legacy grow automatically.' },
                 { title: 'Custom Selections', desc: 'Choose your focus: Silver, Gold, Mix, or Surprise Me.' }
               ].map((item, i) => (
@@ -216,6 +216,69 @@ const StackingClub = ({ addToCart }) => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* The Receipt Wall */}
+        <div className="max-w-5xl mx-auto mb-24">
+          <div className="bg-surface border-2 border-border rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <div className="bg-primary py-4 px-8 flex items-center space-x-3">
+              <Shield className="text-background" size={24} />
+              <h3 className="text-xl md:text-2xl font-black uppercase italic text-background tracking-tighter">
+                The Receipt Wall™: What Fiat Has Cost Your Family
+              </h3>
+            </div>
+            
+            <div className="p-8 md:p-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="py-4 font-black uppercase tracking-widest text-xs text-primary">Year</th>
+                        <th className="py-4 font-black uppercase tracking-widest text-xs text-primary">What $100 Could Buy</th>
+                      </tr>
+                    </thead>
+                    <tbody className="font-bold uppercase tracking-wider text-sm">
+                      <tr className="border-b border-border/50 hover:bg-white/5 transition-colors">
+                        <td className="py-5 text-white">1970</td>
+                        <td className="py-5 text-text-muted">A full week of groceries for a family of 4</td>
+                      </tr>
+                      <tr className="border-b border-border/50 hover:bg-white/5 transition-colors">
+                        <td className="py-5 text-white">1990</td>
+                        <td className="py-5 text-text-muted">3 days of groceries</td>
+                      </tr>
+                      <tr className="border-b border-border/50 hover:bg-white/5 transition-colors">
+                        <td className="py-5 text-white">2010</td>
+                        <td className="py-5 text-text-muted">1.5 days of groceries</td>
+                      </tr>
+                      <tr className="border-b border-border/50 hover:bg-white/5 transition-colors">
+                        <td className="py-5 text-primary">2026</td>
+                        <td className="py-5 text-text-muted">A single meal for 2 people</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="bg-background/50 p-6 rounded-2xl border border-primary/20 relative">
+                    <p className="text-text-muted uppercase text-xs font-black tracking-widest mb-2">The Gold Standard Comparison</p>
+                    <p className="text-2xl md:text-3xl font-black italic text-white leading-tight">
+                      $100 in physical gold in 1970 is worth <span className="text-primary text-glow-primary">over $6,800</span> today.
+                    </p>
+                  </div>
+                  
+                  <p className="text-text-muted leading-relaxed italic">
+                    The math is not complicated. The system is designed to drain you. Are you going to keep playing their game? Or are you going to build your own fortress?
+                  </p>
+                  
+                  <div className="flex items-center space-x-3 text-primary">
+                    <Check size={20} className="shrink-0" />
+                    <span className="font-black uppercase italic tracking-tighter text-sm">Join the Stack Squad™ and Build Your Fortress</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

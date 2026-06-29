@@ -1,5 +1,5 @@
 /**
- * Wix Headless API Client for Stack Your Gold
+ * Wix Headless API Client for Stack Your Silver
  * Handles connection to Wix backend for products and orders with fallback logic.
  */
 

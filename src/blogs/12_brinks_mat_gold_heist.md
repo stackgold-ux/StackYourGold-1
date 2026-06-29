@@ -63,7 +63,7 @@ But gold? You can steal it, melt it, mix it with copper, pour it into a dirt mol
 
 However, gold's ultimate liquidity and anonymity can also be a double-edged sword. Because raw gold is so easily converted to cash, it can be tempting to sell your savings during temporary financial pinches.
 
-That is why, at **Stack Your Gold**, we advocate for building **emotional equity** into your physical assets. Through our custom **laser-engraving program**, we help you permanently stamp your family's name, crest, or core values onto solid .999 silver and gold bars. 
+That is why, at **Stack Your Silver**, we advocate for building **emotional equity** into your physical assets. Through our custom **laser-engraving program**, we help you permanently stamp your family's name, crest, or core values onto solid .999 silver and gold bars. 
 
 An engraved heirloom represents a permanent record of your family's legacy. It is not something you casually sell—it is an anchor designed to be protected, cherished, and passed down securely through the generations.
 
