@@ -382,6 +382,9 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
             {product.tags?.includes('premium') && (
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
             )}
+            {product.tags?.includes('new') && (
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-green-500 bg-green-500/10 px-2 py-1 rounded animate-pulse">New Arrival</span>
+            )}
           </div>
           
           <h4 className="text-2xl font-black uppercase italic tracking-tighter mb-4 text-white leading-none">

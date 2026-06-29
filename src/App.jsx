@@ -38,6 +38,19 @@ function App() {
     palladium: 1200.00
   });
 
+  // Simulate live spot price fluctuations
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSpotPrices(prev => ({
+        gold: prev.gold + (Math.random() - 0.5) * 2,
+        silver: prev.silver + (Math.random() - 0.5) * 0.1,
+        platinum: prev.platinum + (Math.random() - 0.5) * 1.5,
+        palladium: prev.palladium + (Math.random() - 0.5) * 1.0
+      }));
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Seed data logic
   useEffect(() => {
     const existingOrders = localStorage.getItem('syg_orders');
