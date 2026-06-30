@@ -13,7 +13,7 @@ AWS Amplify is the AWS equivalent of Vercel. It provides a managed hosting envir
 2. Search for and open **AWS Amplify**.
 3. Under **Deploy**, click **Get Started** with **Amplify Hosting**.
 4. Select **GitHub** as your source repository and click **Next**. (Authorize AWS Amplify to access your GitHub account if prompted).
-5. Select the repository: `stackgold-ux/StackYourGold-1` and branch: `master`. Click **Next**.
+5. Select the repository: `stackgold-ux/StackYourSilver-1` and branch: `master`. Click **Next**.
 6. **Configure Build Settings**:
    - Amplify will automatically detect your project framework. Ensure the build configuration (`amplify.yml`) is set up as follows to point to the `/code` root directory:
      ```yaml

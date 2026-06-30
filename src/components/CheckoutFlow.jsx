@@ -327,19 +327,19 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
                     <div className="grid grid-cols-2 gap-2 text-[8px] font-bold uppercase tracking-tighter">
                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
                         <span className="text-text-muted">IG / FB</span>
-                        <span className="text-accent">@StackYourGold</span>
+                        <span className="text-accent">@StackYourSilver</span>
                       </div>
                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
                         <span className="text-text-muted">TikTok</span>
-                        <span className="text-accent">@StackYourGold</span>
+                        <span className="text-accent">@StackYourSilver</span>
                       </div>
                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
                         <span className="text-text-muted">X (Twitter)</span>
-                        <span className="text-accent">@StackYourGold</span>
+                        <span className="text-accent">@StackYourSilver</span>
                       </div>
                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">
                         <span className="text-text-muted">Threads</span>
-                        <span className="text-accent">@StackYourGold</span>
+                        <span className="text-accent">@StackYourSilver</span>
                       </div>
                     </div>
                   </div>
@@ -347,7 +347,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
 
                 <div className="bg-accent/10 border border-accent/20 p-4 rounded-xl text-center">
                   <p className="text-[9px] font-black uppercase text-accent mb-2">Required Hashtags</p>
-                  <p className="text-[10px] font-bold text-white tracking-widest">#StackYourGold #RoadTo99 #GenerationalWealth</p>
+                  <p className="text-[10px] font-bold text-white tracking-widest">#StackYourSilver #RoadTo99 #GenerationalWealth</p>
                 </div>
               </div>
             </div>
