@@ -64,6 +64,6 @@ The ultimate destination of the stacking journey is not just leaving behind a pi
 ---
 
 ### Your Future. Your Stack. Your Legacy.™
-Where are you currently on this roadmap? Whether you are just waking up to the paper trap (Stop 1) or are ready to lock in your family's recurring shield (Stop 3), **Stack Your Gold** is here to guide you at every stop of the journey. 
+Where are you currently on this roadmap? Whether you are just waking up to the paper trap (Stop 1) or are ready to lock in your family's recurring shield (Stop 3), **Stack Your Silver** is here to guide you at every stop of the journey. 
 
 **[Start your Stack Squad DCA Program today]** and lock in physical protection for your family's future.

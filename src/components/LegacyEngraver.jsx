@@ -97,7 +97,7 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
                 <span className="text-2xl font-black text-primary">${((spotPrices[metal] || 0) * 1.20 + engravingFees[metal]).toFixed(2)}</span>
               </div>
               <p className="text-[10px] text-text-muted uppercase tracking-widest leading-relaxed">
-                Includes 1oz .9999 physical {metal} at 20% over spot + ${engravingFees[metal]} precision laser fee.
+                Includes 1oz .9999 physical {metal} at competitive transparent pricing + ${engravingFees[metal]} precision laser fee.
               </p>
             </div>
 
@@ -128,7 +128,7 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
               
               <div className="text-center">
                 <p className="text-xs font-bold uppercase tracking-widest">1 OZ {metal.toUpperCase()} .9999 FINE</p>
-                <p className="text-[10px] opacity-40 mt-1 uppercase tracking-tighter italic">Stack Your Gold™ Mint</p>
+                <p className="text-[10px] opacity-40 mt-1 uppercase tracking-tighter italic">Stack Your Gold | Stack Your Silver™ Mint</p>
               </div>
             </div>
             

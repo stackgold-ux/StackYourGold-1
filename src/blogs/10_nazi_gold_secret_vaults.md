@@ -81,7 +81,7 @@ But the gold they plundered? It never lost a fraction of its purchasing power. I
 
 When you stack physical gold and silver, you are investing in the exact same asset class that has survived every geopolitical collapse, hyperinflation, and war in human history. You are taking your savings out of a fragile, vulnerable digital credit system and placing them into the ultimate sovereign asset class.
 
-At **Stack Your Gold**, we believe in helping families secure their wealth privately, safely, and directly. Through our automated **Stack Squad** subscription, we help you build a physical fortress of gold and silver on absolute autopilot, priced transparently at spot + 15%, and delivered directly to your doorstep.
+At **Stack Your Silver**, we believe in helping families secure their wealth privately, safely, and directly. Through our automated **Stack Squad** subscription, we help you build a physical fortress of gold and silver on absolute autopilot, priced transparently at spot + 15%, and delivered directly to your doorstep.
 
 Protect your family's labor in the only money that has survived the rise and fall of every empire.
 

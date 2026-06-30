@@ -40,7 +40,7 @@ const ProductCard = ({ item, addToCart }) => {
         description: item.description
       });
     } else {
-      window.open(item.etsyUrl || 'https://www.etsy.com/shop/StackYourGold', '_blank');
+      window.open(item.etsyUrl || 'https://www.etsy.com/shop/StackYourSilver', '_blank');
     }
   };
 
@@ -138,7 +138,7 @@ const SwagShop = ({ addToCart }) => {
       price: 64.99,
       image: Img0642,
       description: 'Premium ultra-soft 450GSM cotton hoodie. Features the SYG "Solidify Your Legacy" emblem. Built for comfort and long-term durability.',
-      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'
+      etsyUrl: 'https://www.etsy.com/shop/StackYourSilver'
     },
     {
       id: 'etsy-2',
@@ -146,7 +146,7 @@ const SwagShop = ({ addToCart }) => {
       price: 34.00,
       image: Img0643,
       description: 'Distressed vintage-wash tee. "If you can\'t hold it, you don\'t own it" printed in premium metallic foil.',
-      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'
+      etsyUrl: 'https://www.etsy.com/shop/StackYourSilver'
     },
     {
       id: 'etsy-3',
@@ -154,7 +154,7 @@ const SwagShop = ({ addToCart }) => {
       price: 28.00,
       image: Img0644,
       description: 'Structured 6-panel cap with high-density embroidery. A daily reminder of what you\'re building.',
-      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'
+      etsyUrl: 'https://www.etsy.com/shop/StackYourSilver'
     }
   ];
 
@@ -226,7 +226,7 @@ const SwagShop = ({ addToCart }) => {
             </p>
           </div>
           <a 
-            href="https://www.etsy.com/shop/StackYourGold" 
+            href="https://www.etsy.com/shop/StackYourSilver" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-secondary font-black uppercase tracking-widest hover:text-white transition-colors border-b-2 border-secondary/30 pb-1 text-sm"

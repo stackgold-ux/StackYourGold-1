@@ -1,5 +1,5 @@
 /**
- * HubSpot CRM Integration Client for Stack Your Gold
+ * HubSpot CRM Integration Client for Stack Your Silver
  * Handles contact creation, deal synchronization, and lead tagging.
  */
 

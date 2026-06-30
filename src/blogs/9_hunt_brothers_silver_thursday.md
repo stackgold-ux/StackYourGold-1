@@ -85,7 +85,7 @@ But do you know what survived? **The physical silver.**
 
 The silver bars sitting safely in private, secure vaults in Switzerland did not disappear. They did not default. They remained what they have always been: indestructible, sovereign physical wealth.
 
-At **Stack Your Gold**, we teach our community to stack like the Hunts, but without the danger of paper leverage. Through our automated **Stack Squad** subscription program, you accumulate real, certified physical gold and silver that is fully insured and delivered directly into your own custody. No broker margins, no exchange rule changes, and no counterparty risk.
+At **Stack Your Silver**, we teach our community to stack like the Hunts, but without the danger of paper leverage. Through our automated **Stack Squad** subscription program, you accumulate real, certified physical gold and silver that is fully insured and delivered directly into your own custody. No broker margins, no exchange rule changes, and no counterparty risk.
 
 **Your Future. Your Stack. Your Legacy.™**
 

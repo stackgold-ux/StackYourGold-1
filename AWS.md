@@ -1,6 +1,6 @@
 # AWS Hosting & Deployment Guide
 
-This guide details how to deploy and host the **Stack Your Gold** React application on **Amazon Web Services (AWS)**. It covers three primary options based on your scaling and technical requirements: **AWS Amplify (Fastest & Easiest)**, **AWS S3 + CloudFront (Ultra-Low Cost)**, and **Advanced Serverless Integrations (AWS Lambda + API Gateway)**.
+This guide details how to deploy and host the **Stack Your Silver** React application on **Amazon Web Services (AWS)**. It covers three primary options based on your scaling and technical requirements: **AWS Amplify (Fastest & Easiest)**, **AWS S3 + CloudFront (Ultra-Low Cost)**, and **Advanced Serverless Integrations (AWS Lambda + API Gateway)**.
 
 ---
 
@@ -13,7 +13,7 @@ AWS Amplify is the AWS equivalent of Vercel. It provides a managed hosting envir
 2. Search for and open **AWS Amplify**.
 3. Under **Deploy**, click **Get Started** with **Amplify Hosting**.
 4. Select **GitHub** as your source repository and click **Next**. (Authorize AWS Amplify to access your GitHub account if prompted).
-5. Select the repository: `stackgold-ux/StackYourGold-1` and branch: `master`. Click **Next**.
+5. Select the repository: `stackgold-ux/StackYourSilver-1` and branch: `master`. Click **Next**.
 6. **Configure Build Settings**:
    - Amplify will automatically detect your project framework. Ensure the build configuration (`amplify.yml`) is set up as follows to point to the `/code` root directory:
      ```yaml
@@ -45,7 +45,7 @@ AWS Amplify is the AWS equivalent of Vercel. It provides a managed hosting envir
    - **Target Address**: `/index.html`
    - **Type**: `200 (Rewrite)`
 9. Click **Save and Deploy**. Your application will be live on a secure `amplifyapp.com` URL within minutes.
-10. **Add Custom Domain**: Go to **Domain Management** in the Amplify sidebar to point your custom domain (e.g., `stackyourgold.com` or a subdomain like `app.stackyourgold.com`) directly to your Amplify deployment.
+10. **Add Custom Domain**: Go to **Domain Management** in the Amplify sidebar to point your custom domain (e.g., `stackyoursilver.com` or a subdomain like `app.stackyoursilver.com`) directly to your Amplify deployment.
 
 ---
 
@@ -62,7 +62,7 @@ This compiles your Vite + React application into the `/code/dist/` directory.
 
 ### 2. Configure the Amazon S3 Bucket:
 1. Open the **Amazon S3 Console**.
-2. Click **Create Bucket**. Enter a bucket name (e.g., `stackyourgold-static`) and select your region.
+2. Click **Create Bucket**. Enter a bucket name (e.g., `stackyoursilver-static`) and select your region.
 3. Turn **OFF** "Block all public access" (you need S3 to serve the files, though we will restrict bucket access via CloudFront OAC later for best security practices).
 4. Create the bucket.
 5. Upload all files from the local `/code/dist/` folder into the root of your newly created S3 bucket.
@@ -94,3 +94,4 @@ If you decide to move away from `localStorage` persistence and introduce a secur
    - Live spot price markups using scheduled CloudWatch Events.
    - Secure verification of Stripe payment webhooks.
 3. **API Gateway**: Expose those serverless Lambda functions via secure, rate-limited REST endpoints connected directly to your Vite frontend.
+

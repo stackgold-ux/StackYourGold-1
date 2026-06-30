@@ -382,6 +382,9 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
             {product.tags?.includes('premium') && (
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
             )}
+            {product.tags?.includes('new') && (
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-green-500 bg-green-500/10 px-2 py-1 rounded animate-pulse">New Arrival</span>
+            )}
           </div>
           
           <h4 className="text-2xl font-black uppercase italic tracking-tighter mb-4 text-white leading-none">
@@ -416,7 +419,7 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
         <div className="mt-auto pt-6 border-t border-border/50">
           <div className="flex items-end justify-between mb-6">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price (Spot + 20%)</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price</p>
               <p className="text-3xl font-black text-primary italic leading-none font-mono">
                 ${currentPrice.toFixed(2)}
               </p>
