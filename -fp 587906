@@ -1,0 +1,105 @@
+[33mcommit 98c8fe2914a70c96a9516430d812ac0c7c0a6f4f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/feat-domain-pivot-stackyoursilver[m[33m, [m[1;32mfeat-domain-pivot-stackyoursilver[m[33m)[m
+Author: Agent Engineer <engineer@stackyoursilver.com>
+Date:   Tue Jun 30 21:14:47 2026 +0000
+
+    feat: finalize domain pivot by updating remaining social handles, Etsy links, and repo references
+
+[1mdiff --git a/AWS.md b/AWS.md[m
+[1mindex 636a73a..cecca13 100644[m
+[1m--- a/AWS.md[m
+[1m+++ b/AWS.md[m
+[36m@@ -13,7 +13,7 @@[m [mAWS Amplify is the AWS equivalent of Vercel. It provides a managed hosting envir[m
+ 2. Search for and open **AWS Amplify**.[m
+ 3. Under **Deploy**, click **Get Started** with **Amplify Hosting**.[m
+ 4. Select **GitHub** as your source repository and click **Next**. (Authorize AWS Amplify to access your GitHub account if prompted).[m
+[31m-5. Select the repository: `stackgold-ux/StackYourGold-1` and branch: `master`. Click **Next**.[m
+[32m+[m[32m5. Select the repository: `stackgold-ux/StackYourSilver-1` and branch: `master`. Click **Next**.[m
+ 6. **Configure Build Settings**:[m
+    - Amplify will automatically detect your project framework. Ensure the build configuration (`amplify.yml`) is set up as follows to point to the `/code` root directory:[m
+      ```yaml[m
+[1mdiff --git a/src/components/CheckoutFlow.jsx b/src/components/CheckoutFlow.jsx[m
+[1mindex f6e1104..f99cc84 100644[m
+[1m--- a/src/components/CheckoutFlow.jsx[m
+[1m+++ b/src/components/CheckoutFlow.jsx[m
+[36m@@ -327,19 +327,19 @@[m [mconst CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {[m
+                     <div className="grid grid-cols-2 gap-2 text-[8px] font-bold uppercase tracking-tighter">[m
+                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">[m
+                         <span className="text-text-muted">IG / FB</span>[m
+[31m-                        <span className="text-accent">@StackYourGold</span>[m
+[32m+[m[32m                        <span className="text-accent">@StackYourSilver</span>[m
+                       </div>[m
+                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">[m
+                         <span className="text-text-muted">TikTok</span>[m
+[31m-                        <span className="text-accent">@StackYourGold</span>[m
+[32m+[m[32m                        <span className="text-accent">@StackYourSilver</span>[m
+                       </div>[m
+                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">[m
+                         <span className="text-text-muted">X (Twitter)</span>[m
+[31m-                        <span className="text-accent">@StackYourGold</span>[m
+[32m+[m[32m                        <span className="text-accent">@StackYourSilver</span>[m
+                       </div>[m
+                       <div className="bg-surface p-2 rounded border border-border flex items-center justify-between">[m
+                         <span className="text-text-muted">Threads</span>[m
+[31m-                        <span className="text-accent">@StackYourGold</span>[m
+[32m+[m[32m                        <span className="text-accent">@StackYourSilver</span>[m
+                       </div>[m
+                     </div>[m
+                   </div>[m
+[36m@@ -347,7 +347,7 @@[m [mconst CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {[m
+ [m
+                 <div className="bg-accent/10 border border-accent/20 p-4 rounded-xl text-center">[m
+                   <p className="text-[9px] font-black uppercase text-accent mb-2">Required Hashtags</p>[m
+[31m-                  <p className="text-[10px] font-bold text-white tracking-widest">#StackYourGold #RoadTo99 #GenerationalWealth</p>[m
+[32m+[m[32m                  <p className="text-[10px] font-bold text-white tracking-widest">#StackYourSilver #RoadTo99 #GenerationalWealth</p>[m
+                 </div>[m
+               </div>[m
+             </div>[m
+[1mdiff --git a/src/components/SwagShop.jsx b/src/components/SwagShop.jsx[m
+[1mindex 6ccec87..e72c584 100644[m
+[1m--- a/src/components/SwagShop.jsx[m
+[1m+++ b/src/components/SwagShop.jsx[m
+[36m@@ -40,7 +40,7 @@[m [mconst ProductCard = ({ item, addToCart }) => {[m
+         description: item.description[m
+       });[m
+     } else {[m
+[31m-      window.open(item.etsyUrl || 'https://www.etsy.com/shop/StackYourGold', '_blank');[m
+[32m+[m[32m      window.open(item.etsyUrl || 'https://www.etsy.com/shop/StackYourSilver', '_blank');[m
+     }[m
+   };[m
+ [m
+[36m@@ -138,7 +138,7 @@[m [mconst SwagShop = ({ addToCart }) => {[m
+       price: 64.99,[m
+       image: Img0642,[m
+       description: 'Premium ultra-soft 450GSM cotton hoodie. Features the SYG "Solidify Your Legacy" emblem. Built for comfort and long-term durability.',[m
+[31m-      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'[m
+[32m+[m[32m      etsyUrl: 'https://www.etsy.com/shop/StackYourSilver'[m
+     },[m
+     {[m
+       id: 'etsy-2',[m
+[36m@@ -146,7 +146,7 @@[m [mconst SwagShop = ({ addToCart }) => {[m
+       price: 34.00,[m
+       image: Img0643,[m
+       description: 'Distressed vintage-wash tee. "If you can\'t hold it, you don\'t own it" printed in premium metallic foil.',[m
+[31m-      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'[m
+[32m+[m[32m      etsyUrl: 'https://www.etsy.com/shop/StackYourSilver'[m
+     },[m
+     {[m
+       id: 'etsy-3',[m
+[36m@@ -154,7 +154,7 @@[m [mconst SwagShop = ({ addToCart }) => {[m
+       price: 28.00,[m
+       image: Img0644,[m
+       description: 'Structured 6-panel cap with high-density embroidery. A daily reminder of what you\'re building.',[m
+[31m-      etsyUrl: 'https://www.etsy.com/shop/StackYourGold'[m
+[32m+[m[32m      etsyUrl: 'https://www.etsy.com/shop/StackYourSilver'[m
+     }[m
+   ];[m
+ [m
+[36m@@ -226,7 +226,7 @@[m [mconst SwagShop = ({ addToCart }) => {[m
+             </p>[m
+           </div>[m
+           <a [m
+[31m-            href="https://www.etsy.com/shop/StackYourGold" [m
+[32m+[m[32m            href="https://www.etsy.com/shop/StackYourSilver"[m[41m [m
+             target="_blank" [m
+             rel="noopener noreferrer"[m
+             className="text-secondary font-black uppercase tracking-widest hover:text-white transition-colors border-b-2 border-secondary/30 pb-1 text-sm"[m

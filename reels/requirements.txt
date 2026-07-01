@@ -1,0 +1,20 @@
+# Requirements for Local Zero-Cost Reel Generation
+# These packages are needed for the Python pipeline and AI model interfaces
+
+# Core
+argparse
+json5
+requests
+python-dotenv
+
+# Video/Audio Processing
+moviepy>=1.0.3
+ffmpeg-python
+
+# Local AI Interface (Placeholders for real local setup)
+# Ensure Ollama (for script), Kokoro-82M (TTS), and CogVideoX/Hunyuan (Video) are installed separately
+torch
+transformers
+diffusers
+accelerate
+soundfile

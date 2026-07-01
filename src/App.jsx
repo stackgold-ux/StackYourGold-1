@@ -12,8 +12,10 @@ import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
 import Rules from './components/Rules';
 import ReceiptWall from './components/ReceiptWall';
+import SocialProof from './components/SocialProof';
+import StackingStories from './components/StackingStories';
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
-import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap } from 'lucide-react';
+import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
 import LogoSilver from './assets/logo-silver.jpg';
 import HeroLogoGif from './assets/hero-logo.gif';
@@ -94,14 +96,14 @@ function App() {
                     From Grams to Kilos, You're in control.
                   </h1>
                   <p className="text-xl text-text-muted mb-12 max-w-xl mx-auto md:mx-0">
-                    Your Stack, Your Way, Always
+                    Your Stack, Your Way, Always. Shift from fragile fiat to tangible wealth.
                   </p>
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
-                    <button onClick={() => navigateTo('vault')} className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all">
-                      Start Stacking <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                    <button onClick={() => navigateTo('squad')} className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all shadow-xl">
+                      Join Stack Squad <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
                     </button>
-                    <button onClick={() => navigateTo('home')} className="border border-border bg-surface/50 backdrop-blur px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center hover:bg-surface transition-all">
-                      Join the Squad
+                    <button onClick={() => navigateTo('vault')} className="border border-border bg-surface/50 backdrop-blur px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center hover:bg-surface transition-all">
+                      The Vault
                     </button>
                   </div>
                   <div className="mt-12 flex items-center space-x-6 justify-center md:justify-start">
@@ -147,6 +149,8 @@ function App() {
 
             <ReceiptWall />
 
+            <SocialProof />
+
             {/* The Problem Section */}
             <section className="py-24 bg-surface/20 border-b border-border relative overflow-hidden">
               <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -189,13 +193,35 @@ function App() {
               </div>
             </section>
 
-            <StackingClub spotPrices={spotPrices} addToCart={addToCart} />
+            {/* Global CTA */}
+            <section className="py-32 bg-primary relative overflow-hidden">
+              <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+                <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter italic mb-8 text-background leading-none">
+                  The Future Belongs to Those Who <span className="underline decoration-background decoration-4 underline-offset-8">Own</span> the Present.
+                </h2>
+                <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                  <button onClick={() => navigateTo('squad')} className="bg-background text-primary px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
+                    Join Stack Squad
+                  </button>
+                  <button onClick={() => navigateTo('vault')} className="bg-transparent border-2 border-background text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:bg-background hover:text-primary transition-all">
+                    Browse The Vault
+                  </button>
+                </div>
+              </div>
+            </section>
           </>
         );
+      case 'squad':
+        return <div className="pt-8 min-h-screen"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>;
       case 'vault':
         return <div className="pt-8 min-h-screen"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>;
       case 'school':
-        return <div className="pt-8 min-h-screen"><EducationalHub /></div>;
+        return (
+          <div className="pt-8 min-h-screen">
+            <EducationalHub />
+            <StackingStories />
+          </div>
+        );
       case 'swag':
         return <div className="pt-8 min-h-screen"><SwagShop addToCart={addToCart} /></div>;
       case 'legacy':
@@ -244,13 +270,20 @@ function App() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
-            {['home', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
+            {[
+              { id: 'home', label: 'Home' },
+              { id: 'squad', label: 'Stack Squad' },
+              { id: 'vault', label: 'The Vault' },
+              { id: 'school', label: 'Stack School' },
+              { id: 'swag', label: 'Stack Swag' },
+              { id: 'legacy', label: 'Legacy' }
+            ].map((view) => (
               <button
-                key={view}
-                onClick={() => navigateTo(view)}
-                className={`transition-colors py-2 border-b-2 ${currentView === view ? 'text-primary border-primary' : 'border-transparent hover:text-primary'}`}
+                key={view.id}
+                onClick={() => navigateTo(view.id)}
+                className={`transition-colors py-2 border-b-2 ${currentView === view.id ? 'text-primary border-primary' : 'border-transparent hover:text-primary'}`}
               >
-                {view === 'home' ? 'Stack Squad' : view.charAt(0).toUpperCase() + view.slice(1)}
+                {view.label}
               </button>
             ))}
           </div>
@@ -277,9 +310,16 @@ function App() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden font-black uppercase italic">
           <div className="flex flex-col space-y-6 text-2xl">
-            {['home', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
-              <button key={view} className="text-left" onClick={() => navigateTo(view)}>
-                {view === 'home' ? 'Stack Squad' : view.charAt(0).toUpperCase() + view.slice(1)}
+            {[
+              { id: 'home', label: 'Home' },
+              { id: 'squad', label: 'Stack Squad' },
+              { id: 'vault', label: 'The Vault' },
+              { id: 'school', label: 'Stack School' },
+              { id: 'swag', label: 'Stack Swag' },
+              { id: 'legacy', label: 'Legacy' }
+            ].map((view) => (
+              <button key={view.id} className="text-left" onClick={() => navigateTo(view.id)}>
+                {view.label}
               </button>
             ))}
           </div>
@@ -353,9 +393,41 @@ function App() {
       </main>
 
       <footer className="bg-surface py-24 border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p>© 2026 Stack Your Gold | Stack Your Silver LLC. All rights reserved.</p>
-          <p className="mt-4 italic text-primary/50">Your Future. Your Stack. Your Legacy.™</p>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 text-center md:text-left">
+            <div>
+              <div className="flex items-center space-x-3 mb-6 justify-center md:justify-start">
+                <img src={LogoGold} alt="SYG" className="w-8 h-8" />
+                <span className="text-xl font-black uppercase italic tracking-tighter">Stack Your Silver™</span>
+              </div>
+              <p className="text-text-muted text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+                Empowering families to build generational wealth through physical gold and silver ownership.
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <h4 className="font-black uppercase tracking-widest text-xs mb-6 text-primary">Quick Links</h4>
+              <div className="grid grid-cols-2 gap-4 text-sm font-bold uppercase tracking-wider">
+                <button onClick={() => navigateTo('home')} className="hover:text-primary transition-colors">Home</button>
+                <button onClick={() => navigateTo('squad')} className="hover:text-primary transition-colors">Stack Squad</button>
+                <button onClick={() => navigateTo('vault')} className="hover:text-primary transition-colors">The Vault</button>
+                <button onClick={() => navigateTo('school')} className="hover:text-primary transition-colors">Stack School</button>
+              </div>
+            </div>
+            <div className="flex flex-col items-center md:items-end">
+              <h4 className="font-black uppercase tracking-widest text-xs mb-6 text-primary">Join the Community</h4>
+              <div className="flex space-x-4">
+                <a href="https://facebook.com/stackyourgold" target="_blank" rel="noopener noreferrer" className="p-3 bg-background border border-border rounded-full hover:border-accent hover:text-accent transition-all"><Facebook size={18} /></a>
+                <a href="https://instagram.com/stackyourgold" target="_blank" rel="noopener noreferrer" className="p-3 bg-background border border-border rounded-full hover:border-accent hover:text-accent transition-all"><Instagram size={18} /></a>
+                <a href="https://YouTube.com/stackyourgold" target="_blank" rel="noopener noreferrer" className="p-3 bg-background border border-border rounded-full hover:border-accent hover:text-accent transition-all"><Youtube size={18} /></a>
+                <a href="https://linkedin.com/company/stackyourgold" target="_blank" rel="noopener noreferrer" className="p-3 bg-background border border-border rounded-full hover:border-accent hover:text-accent transition-all"><Linkedin size={18} /></a>
+              </div>
+              <p className="mt-6 text-sm font-bold text-text-muted">contact@stackyoursilver.com</p>
+            </div>
+          </div>
+          <div className="pt-12 border-t border-border text-center">
+            <p className="text-xs text-text-muted">© 2026 Stack Your Gold | Stack Your Silver™ LLC. All rights reserved.</p>
+            <p className="mt-4 italic text-primary/50 text-[10px] uppercase tracking-widest">Your Future. Your Stack. Your Legacy.™</p>
+          </div>
         </div>
       </footer>
 
