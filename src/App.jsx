@@ -12,7 +12,7 @@ import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
 import Rules from './components/Rules';
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
-import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap } from 'lucide-react';
+import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap, MessageSquare, MessageCircle } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
 import LogoSilver from './assets/logo-silver.jpg';
 import HeroLogoGif from './assets/hero-logo.gif';
@@ -474,6 +474,9 @@ function App() {
                     {social}
                   </div>
                 ))}
+                <a href="https://discord.gg/mCuHgwBBE" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:border-primary cursor-pointer transition-all hover:scale-110">
+                  <MessageCircle size={16} className="text-white" />
+                </a>
               </div>
             </div>
             

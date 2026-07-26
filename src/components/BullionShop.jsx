@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, ShieldCheck, ChevronDown, ChevronUp, DollarSign, Info, Play, Image as ImageIcon, Box } from 'lucide-react';
 import { shopifyClient } from '../utils/shopifyClient';
-import ImgGold from '../assets/IMG_0596.jpeg';
-import ImgSilver from '../assets/IMG_0597.jpeg';
-import ImgSurprise from '../assets/IMG_0605.jpeg';
+import ImgGold from '../assets/gold-fractional-hero.png';
+import ImgSilver from '../assets/silver-coin-round-hero.png';
+import ImgSurprise from '../assets/surprise-sack-copper-mockup.png';
 
 const BullionShop = ({ spotPrices, addToCart }) => {
   const [liveSilverProducts, setLiveSilverProducts] = useState([]);

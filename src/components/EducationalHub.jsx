@@ -126,6 +126,16 @@ const EducationalHub = () => {
       category: 'High Intrigue',
       desc: 'Shipwreck treasure and the mythical quest for golden cities that shaped the Americas.',
       blogPath: '../blogs/14_el_dorado_sunken_galleons.md'
+    },
+    { 
+      id: 'rotation',
+      title: 'The Great Rotation', 
+      icon: TrendingUp, 
+      category: 'Premium Strategy',
+      desc: 'Fundamentals, conspiracy, and history — why the truth about precious metals is always in motion.',
+      readTime: '14 min',
+      tags: ['Fundamentals', 'Conspiracy', 'History'],
+      blogPath: '../blogs/15_rotation.md'
     }
   ];
 
