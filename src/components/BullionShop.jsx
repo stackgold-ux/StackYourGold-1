@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, ShieldCheck, ChevronDown, ChevronUp, DollarSign, Info, Play, Image as ImageIcon, Box } from 'lucide-react';
-import { shopifyClient } from '../utils/shopifyClient';
+import { wooClient } from '../utils/wooClient';
 import ImgGold from '../assets/gold-fractional-hero.png';
 import ImgSilver from '../assets/silver-coin-round-hero.png';
 import ImgSurprise from '../assets/surprise-sack-copper-mockup.png';
@@ -12,7 +12,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
   useEffect(() => {
     const fetchLiveSilver = async () => {
       try {
-        const products = await shopifyClient.getProducts('silver');
+        const products = await wooClient.getProducts('silver');
         setLiveSilverProducts(products);
       } catch (error) {
         console.error('Failed to fetch live silver products:', error);
@@ -59,7 +59,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
   const calculateWeight = (metal, amount) => {
     const spot = spotPrices[metal] || 0.25;
-    const totalWeightOz = amount / (spot * 1.15);
+    const totalWeightOz = amount / (spot * 1.20);
     if (metal === 'copper' && totalWeightOz >= 16) {
       return `${(totalWeightOz / 16).toFixed(2)} lbs`;
     }
@@ -369,7 +369,7 @@ const ProductCard = ({ product, addToCart }) => {
       <div className="md:w-1/2 p-8 flex flex-col justify-between gritty-bg">
         <div>
           <div className="flex items-center space-x-2 mb-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">Shopify Live</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">WooCommerce Live</span>
             {product.tags.includes('premium') && (
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
             )}
@@ -407,7 +407,7 @@ const ProductCard = ({ product, addToCart }) => {
         <div className="mt-auto pt-6 border-t border-border/50">
           <div className="flex items-end justify-between mb-6">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price (Spot + 15%)</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price (Spot + 20%)</p>
               <p className="text-3xl font-black text-primary italic leading-none font-mono">
                 ${selectedVariant.price.toFixed(2)}
               </p>

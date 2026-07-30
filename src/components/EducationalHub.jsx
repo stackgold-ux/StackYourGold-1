@@ -136,6 +136,70 @@ const EducationalHub = () => {
       readTime: '14 min',
       tags: ['Fundamentals', 'Conspiracy', 'History'],
       blogPath: '../blogs/15_rotation.md'
+    },
+    { 
+      id: 's1',
+      title: "The Silver Bar That Will Outlive Us All", 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'A grandfather who couldn\'t leave a fortune — but could leave a foundation.',
+      blogPath: '../blogs/s1_grandfather.md'
+    },
+    { 
+      id: 's2',
+      title: 'What If We Skipped Dinner?', 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'A couple in Denver who traded one restaurant meal per month for a lifetime of tangible wealth.',
+      blogPath: '../blogs/s2_datenight.md'
+    },
+    { 
+      id: 's3',
+      title: '$24.99 a Month Changed Everything', 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'A mother who wanted her boys to understand the difference between money and wealth.',
+      blogPath: '../blogs/s3_singlemom.md'
+    },
+    { 
+      id: 's4',
+      title: 'From Tesla Stock to Silver Bars', 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'When your "safe" tech stock drops 60%, you start asking hard questions about what wealth actually means.',
+      blogPath: '../blogs/s4_engineer.md'
+    },
+    { 
+      id: 's5',
+      title: 'We Sold the Vacation Home. We Kept the Silver.', 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'After selling their vacation property, they realized the only thing they wanted to hold was something that couldn\'t depreciate.',
+      blogPath: '../blogs/s5_emptynesters.md'
+    },
+    { 
+      id: 's6',
+      title: 'How a 10-Year-Old Talked Her Parents Into Gold', 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'A fourth grader\'s school project on money sparked a family\'s wealth revolution.',
+      blogPath: '../blogs/s6_dinnerconv.md'
+    },
+    { 
+      id: 's7',
+      title: 'I Season My Life With Silver', 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'A chef who treats her monthly silver purchase like a non-negotiable ingredient.',
+      blogPath: '../blogs/s7_chef.md'
+    },
+    { 
+      id: 's8',
+      title: 'What I\'m Leaving Behind (Besides Memories)', 
+      icon: Users, 
+      category: 'Stacking Stories',
+      desc: 'A grandmother writing her will realized she had nothing tangible to leave — until she started stacking.',
+      blogPath: '../blogs/s8_farewell.md'
     }
   ];
 
