@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck, Zap } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
+import { wooClient } from '../utils/wooClient';
 import { trackPurchase } from '../utils/tracking';
 
 const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
@@ -67,6 +68,15 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
       console.log('[SHOPIFY] Sync complete.');
     } catch {
       console.warn('[SHOPIFY] Sync failed, but order is safe in local storage.');
+    }
+
+    // WooCommerce Sync Integration
+    try {
+      console.log('[WOOCOMMERCE] Creating order in Headless WooCommerce...');
+      await wooClient.createOrder(orderData);
+      console.log('[WOOCOMMERCE] Order created successfully.');
+    } catch (error) {
+      console.warn('[WOOCOMMERCE] Creation failed:', error.message);
     }
     
     console.log('---------------------------------');

@@ -37,5 +37,49 @@ export const wooClient = {
       console.error('WooCommerce fetch error:', error);
       return [];
     }
+  },
+
+  createOrder: async (orderData) => {
+    try {
+      const url = `${WOO_URL}/orders?consumer_key=${CONSUMER_KEY}&consumer_secret=${CONSUMER_SECRET}`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          payment_method: orderData.paymentMethod,
+          payment_method_title: orderData.paymentMethod === 'card' ? 'Credit Card' : 'Other',
+          set_paid: true,
+          billing: {
+            first_name: orderData.customerName.split(' ')[0],
+            last_name: orderData.customerName.split(' ').slice(1).join(' '),
+            address_1: orderData.shippingAddress,
+            email: orderData.customerEmail,
+            phone: orderData.customerPhone
+          },
+          shipping: {
+            first_name: orderData.customerName.split(' ')[0],
+            last_name: orderData.customerName.split(' ').slice(1).join(' '),
+            address_1: orderData.shippingAddress
+          },
+          line_items: orderData.items.map(item => ({
+            product_id: item.wooProductId || 0, // Fallback if not a real woo product
+            name: item.name,
+            quantity: 1,
+            total: item.price.toString()
+          }))
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('WooCommerce order creation failed');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('WooCommerce order error:', error);
+      throw error;
+    }
   }
 };
