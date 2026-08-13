@@ -1,4 +1,3 @@
-{/* SYG Web App - Bundled Updates */}
 import { useState, useEffect } from 'react';
 import SpotTicker from './components/SpotTicker';
 import BullionShop from './components/BullionShop';
@@ -11,8 +10,10 @@ import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
 import Rules from './components/Rules';
+import InStock from './components/InStock';
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
-import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap } from 'lucide-react';
+import { shopifyClient } from './utils/shopifyClient';
+import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap, ArrowRight, Loader2 } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
 import LogoSilver from './assets/logo-silver.jpg';
 import HeroLogoGif from './assets/hero-logo.gif';
@@ -24,13 +25,53 @@ function App() {
   const [isRulesOpen, setIsRulesOpen] = useState(false);
   const [showMerchantPortal, setShowMerchantPortal] = useState(false);
   const [isMerchantActive, setIsMerchantActive] = useState(false);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [loadingFeatured, setLoadingFeatured] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('merchant') === 'true') {
       setIsMerchantActive(true);
     }
+    
+    // Simple hash routing
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#instock') {
+        setCurrentPage('instock');
+      } else {
+        setCurrentPage('home');
+      }
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Initial check
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        const products = await shopifyClient.getProducts('featured');
+        // Fallback if no 'featured' tag exists
+        if (products.length === 0) {
+          const all = await shopifyClient.getProducts('swag');
+          setFeaturedProducts(all.slice(0, 3));
+        } else {
+          setFeaturedProducts(products.slice(0, 3));
+        }
+      } catch (error) {
+        console.error('Failed to fetch featured items:', error);
+      } finally {
+        setLoadingFeatured(false);
+      }
+    };
+    fetchFeatured();
+  }, []);
+
   const [spotPrices, setSpotPrices] = useState({
     gold: 4344.36,
     silver: 70.25,
@@ -164,12 +205,12 @@ function App() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
-            <a href="#club" className="hover:text-primary transition-colors text-accent">Stack Squad</a>
+            <a href="#instock" className={`hover:text-primary transition-colors ${currentPage === 'instock' ? 'text-primary' : 'text-accent animate-pulse'}`}>In Stock</a>
+            <a href="#club" className="hover:text-primary transition-colors">Stack Squad</a>
             <a href="#shop" className="hover:text-primary transition-colors">Bullion</a>
             <a href="#swag" className="hover:text-primary transition-colors">Stack Swag</a>
             <a href="#legacy" className="hover:text-primary transition-colors">Legacy</a>
             <a href="#education" className="hover:text-primary transition-colors">Stack School</a>
-            <a href="#about" className="hover:text-primary transition-colors">About Us</a>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -198,12 +239,12 @@ function App() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden">
           <div className="flex flex-col space-y-6 text-2xl font-black uppercase italic">
+            <a href="#instock" onClick={() => setIsMenuOpen(false)}>In Stock Now</a>
             <a href="#club" onClick={() => setIsMenuOpen(false)}>Stack Squad</a>
             <a href="#shop" onClick={() => setIsMenuOpen(false)}>Bullion</a>
             <a href="#swag" onClick={() => setIsMenuOpen(false)}>Stack Swag</a>
             <a href="#legacy" onClick={() => setIsMenuOpen(false)}>Legacy</a>
             <a href="#education" onClick={() => setIsMenuOpen(false)}>Stack School</a>
-            <a href="#about" onClick={() => setIsMenuOpen(false)}>About Us</a>
           </div>
         </div>
       )}
@@ -226,179 +267,242 @@ function App() {
       )}
 
       <main>
-        {/* Hero Section */}
-        <section className="relative py-24 md:py-32 px-4 overflow-hidden">
-          <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-            <div className="max-w-2xl text-center md:text-left">
-              <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8">
-                From Grams to Kilos, You're in control.
-              </h1>
-              <p className="text-xl text-text-muted mb-12 max-w-xl mx-auto md:mx-0">
-                Your Stack, Your Way, Always
-              </p>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
-                <a href="#shop" className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all">
-                  Start Stacking <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a href="#club" className="border border-border bg-surface/50 backdrop-blur px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center hover:bg-surface transition-all">
-                  Join the Squad
-                </a>
-              </div>
-
-              {/* Purity Seal */}
-              <div className="mt-12 flex items-center space-x-6 justify-center md:justify-start">
-                <img src={LogoGold} alt="SYG" className="w-10 h-10 object-contain" />
-                <span className="text-primary font-black tracking-[0.4em] text-[10px] uppercase italic">.999 Fine</span>
-                <img src={LogoSilver} alt="SYS" className="w-10 h-10 object-contain" />
-              </div>
-            </div>
-            
-            <div className="relative w-full max-w-md hidden md:block">
-              <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full"></div>
-              <img src={HeroLogoGif} alt="SYG Premium Gold" className="w-full h-auto object-contain relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]" />
-            </div>
-          </div>
-          
-          {/* Background decoration */}
-          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent blur-3xl rounded-full"></div>
-        </section>
-
-        {/* Value Props */}
-        <section className="py-12 border-y border-border bg-surface/5">
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="flex items-start space-x-4">
-              <div className="p-3 bg-primary/10 rounded-lg text-primary"><Shield size={24} /></div>
-              <div>
-                <h4 className="font-bold uppercase tracking-wider mb-1">Insured Shipping</h4>
-                <p className="text-sm text-text-muted">Every order is fully insured and tracked to your door.</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-4">
-              <div className="p-3 bg-primary/10 rounded-lg text-primary"><Award size={24} /></div>
-              <div>
-                <h4 className="font-bold uppercase tracking-wider mb-1">Authenticity Guaranteed</h4>
-                <p className="text-sm text-text-muted">Direct from sovereign mints and certified refineries.</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-4">
-              <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
-              <div>
-                <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
-                <p className="text-sm text-text-muted">Transparent 15% flat markup over real-time spot.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* The Problem Section */}
-        <section className="py-24 bg-surface/20 border-b border-border relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-8 leading-none">
-                  The Bank Account Lie: <br />
-                  <span className="text-primary">Your Savings Are Evaporating</span>
-                </h2>
-                <div className="space-y-6 text-lg text-text-muted">
-                  <p>
-                    Every hour you spend working is an investment of your life. But if you store the rewards of that work in a standard savings account, you are losing.
+        {currentPage === 'instock' ? (
+          <InStock addToCart={addToCart} />
+        ) : (
+          <>
+            {/* Hero Section */}
+            <section className="relative py-24 md:py-32 px-4 overflow-hidden">
+              <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                <div className="max-w-2xl text-center md:text-left">
+                  <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8">
+                    From Grams to Kilos, You're in control.
+                  </h1>
+                  <p className="text-xl text-text-muted mb-12 max-w-xl mx-auto md:mx-0">
+                    Your Stack, Your Way, Always
                   </p>
-                  <p>
-                    With record inflation, paper currency is losing purchasing power at an unprecedented rate. The "money" in your bank app is actually a depreciating liability.
-                  </p>
-                  <p className="font-bold text-white italic">
-                    It’s time to stop saving in paper, and start stacking in physical, historic money.
-                  </p>
-                </div>
-              </div>
-              <div className="bg-surface border border-border p-10 rounded-3xl relative backdrop-blur-sm shadow-2xl">
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 blur-3xl"></div>
-                <h3 className="text-2xl font-black uppercase tracking-widest mb-8 border-b border-border pb-4 italic">Real Ownership</h3>
-                <ul className="space-y-8">
-                  {[
-                    "No market-timing stress.",
-                    "No dealer premiums or hidden fees.",
-                    "Direct delivery of physical assets.",
-                    "Generational wealth that you can touch."
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center space-x-4">
-                      <div className="w-8 h-8 bg-primary/10 border border-primary/20 rounded-full flex items-center justify-center text-primary text-sm font-black italic">{i+1}</div>
-                      <span className="font-bold uppercase tracking-wider text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
+                    <a href="#shop" className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all">
+                      Start Stacking <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                    <a href="#club" className="border border-border bg-surface/50 backdrop-blur px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center hover:bg-surface transition-all">
+                      Join the Squad
+                    </a>
+                  </div>
 
-        <div id="club" className="scroll-mt-0"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="shop" className="scroll-mt-8"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="swag" className="scroll-mt-4"><SwagShop addToCart={addToCart} /></div>
-        <div id="legacy" className="scroll-mt-4"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
-        <div id="education" className="scroll-mt-0"><EducationalHub /></div>
-        <AboutUs />
-
-        {/* FAQ Section */}
-        <section className="py-24 bg-background px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-16 text-center">Common Questions</h2>
-            <div className="space-y-8">
-              {[
-                { 
-                  q: "How is your pricing calculated?", 
-                  a: "We believe in complete transparency. We pull live spot prices from major global mints and add a flat, non-negotiable 15% markup. This covers our secure sourcing, fully-insured delivery, and operational costs. There are no surprise dealer premiums or hidden checkout fees." 
-                },
-                { 
-                  q: "Is shipping safe? What if my package is lost?", 
-                  a: "Every single shipment is 100% fully insured by us until it is signed for or delivered to your address. We package everything in secure, highly durable, and completely discreet boxes with no mention of 'gold', 'silver', or 'metals' on the outside to ensure absolute privacy." 
-                },
-                { 
-                  q: "Can I cancel or change my Stack Squad subscription?", 
-                  a: "Absolutely. You have total control. You can pause, cancel, increase, or decrease your monthly stacking subscription at any time directly through your dashboard with a single click. No lock-in contracts, no cancellation fees." 
-                },
-                { 
-                  q: "How do custom engravings work?", 
-                  a: "Simply select 'Custom Engraving' during checkout on any eligible gold or silver bar. Upload your high-res design, family coat of arms, or type in your desired text. Our designers will generate a high-fidelity visual preview for your approval before our high-precision lasers carve it permanently into the metal." 
-                }
-              ].map((faq, i) => (
-                <div key={i} className="bg-surface border border-border p-8 rounded-2xl hover:border-primary/30 transition-colors">
-                  <h4 className="text-xl font-bold mb-4 flex items-center">
-                    <span className="text-primary mr-4 font-black italic">Q:</span>
-                    {faq.q}
-                  </h4>
-                  <div className="pl-9 text-text-muted leading-relaxed">
-                    <p>{faq.a}</p>
+                  {/* Purity Seal */}
+                  <div className="mt-12 flex items-center space-x-6 justify-center md:justify-start">
+                    <img src={LogoGold} alt="SYG" className="w-10 h-10 object-contain" />
+                    <span className="text-primary font-black tracking-[0.4em] text-[10px] uppercase italic">.999 Fine</span>
+                    <img src={LogoSilver} alt="SYS" className="w-10 h-10 object-contain" />
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
+                
+                <div className="relative w-full max-w-md hidden md:block">
+                  <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full"></div>
+                  <img src={HeroLogoGif} alt="SYG Premium Gold" className="w-full h-auto object-contain relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]" />
+                </div>
+              </div>
+              
+              {/* Background decoration */}
+              <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent blur-3xl rounded-full"></div>
+            </section>
 
-        {/* Final CTA Section */}
-        <section className="py-32 bg-primary relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter italic mb-8 text-background leading-none">
-              The Future Belongs to Those Who Own the Present.
-            </h2>
-            <p className="text-xl text-background/80 font-bold mb-12 italic uppercase tracking-wide">
-              Take your wealth out of the digital ether. Hold your legacy in your hands.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <a href="#club" className="bg-background text-primary px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
-                Start Stack Squad
-              </a>
-              <a href="#shop" className="bg-transparent border-2 border-background text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:bg-background hover:text-primary transition-all">
-                Buy Physical Bullion Now
-              </a>
-            </div>
-          </div>
-        </section>
+            {/* Value Props */}
+            <section className="py-12 border-y border-border bg-surface/5">
+              <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Shield size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Insured Shipping</h4>
+                    <p className="text-sm text-text-muted">Every order is fully insured and tracked to your door.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Award size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Authenticity Guaranteed</h4>
+                    <p className="text-sm text-text-muted">Direct from sovereign mints and certified refineries.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
+                    <p className="text-sm text-text-muted">Transparent 15% flat markup over real-time spot.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Featured Section */}
+            <section className="py-24 bg-surface/5 border-y border-border">
+              <div className="max-w-7xl mx-auto px-4 text-center md:text-left flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-6">
+                <div>
+                  <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic leading-none">
+                    Featured <span className="text-primary">Stacks</span>
+                  </h2>
+                  <p className="text-text-muted mt-4 font-bold uppercase tracking-widest text-xs text-glow">Live physical inventory ready for shipment</p>
+                </div>
+                <a href="#instock" className="flex items-center text-primary font-black uppercase tracking-widest text-sm group">
+                  View Full Vault <ArrowRight size={20} className="ml-2 group-hover:translate-x-2 transition-transform" />
+                </a>
+              </div>
+
+              <div className="max-w-7xl mx-auto px-4">
+                {loadingFeatured ? (
+                  <div className="flex flex-col items-center justify-center py-20 space-y-4">
+                    <Loader2 size={32} className="text-primary animate-spin" />
+                    <p className="text-text-muted text-[10px] font-black uppercase tracking-[0.3em]">Syncing Vault...</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {featuredProducts.map((product) => (
+                      <div key={product.id} className="group bg-background border border-border rounded-3xl p-6 hover:border-primary/40 transition-all duration-500 shadow-2xl relative overflow-hidden flex flex-col">
+                        <div className="aspect-square mb-6 rounded-2xl overflow-hidden bg-surface relative">
+                          <img 
+                            src={product.images[0]?.url} 
+                            alt={product.name} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                          />
+                          <div className="absolute top-4 left-4 bg-primary text-background text-[10px] font-black px-2 py-1 rounded shadow-lg backdrop-blur-md">
+                            ${product.price.toFixed(2)}
+                          </div>
+                        </div>
+                        <h4 className="text-xl font-black uppercase italic tracking-tighter mb-2 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-text-muted mb-6 line-clamp-2 leading-relaxed flex-grow">{product.description}</p>
+                        <button 
+                          onClick={() => addToCart({
+                            id: `${product.id}-${product.variants[0]?.id}`,
+                            shopifyVariantId: product.variants[0]?.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.images[0]?.url,
+                            type: product.tags.includes('swag') ? 'swag' : 'bullion',
+                            isShopify: true
+                          })}
+                          className="w-full py-4 bg-surface hover:bg-primary hover:text-background border border-border hover:border-primary rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2"
+                        >
+                          <ShoppingCart size={16} /> Add to Stack
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
+
+            {/* The Problem Section */}
+            <section className="py-24 bg-surface/20 border-b border-border relative overflow-hidden">
+              <div className="max-w-7xl mx-auto px-4 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                  <div>
+                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-8 leading-none">
+                      The Bank Account Lie: <br />
+                      <span className="text-primary">Your Savings Are Evaporating</span>
+                    </h2>
+                    <div className="space-y-6 text-lg text-text-muted">
+                      <p>
+                        Every hour you spend working is an investment of your life. But if you store the rewards of that work in a standard savings account, you are losing.
+                      </p>
+                      <p>
+                        With record inflation, paper currency is losing purchasing power at an unprecedented rate. The "money" in your bank app is actually a depreciating liability.
+                      </p>
+                      <p className="font-bold text-white italic">
+                        It’s time to stop saving in paper, and start stacking in physical, historic money.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-surface border border-border p-10 rounded-3xl relative backdrop-blur-sm shadow-2xl">
+                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 blur-3xl"></div>
+                    <h3 className="text-2xl font-black uppercase tracking-widest mb-8 border-b border-border pb-4 italic">Real Ownership</h3>
+                    <ul className="space-y-8">
+                      {[
+                        "No market-timing stress.",
+                        "No dealer premiums or hidden fees.",
+                        "Direct delivery of physical assets.",
+                        "Generational wealth that you can touch."
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-center space-x-4">
+                          <div className="w-8 h-8 bg-primary/10 border border-primary/20 rounded-full flex items-center justify-center text-primary text-sm font-black italic">{i+1}</div>
+                          <span className="font-bold uppercase tracking-wider text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div id="club" className="scroll-mt-0"><StackingClub spotPrices={spotPrices} addToCart={addToCart} /></div>
+            <div id="shop" className="scroll-mt-8"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>
+            <div id="swag" className="scroll-mt-4"><SwagShop addToCart={addToCart} /></div>
+            <div id="legacy" className="scroll-mt-4"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>
+            <div id="education" className="scroll-mt-0"><EducationalHub /></div>
+            <AboutUs />
+          </>
+        )}
       </main>
 
       {showMerchantPortal && <MerchantPortal />}
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-background px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-16 text-center">Common Questions</h2>
+          <div className="space-y-8">
+            {[
+              { 
+                q: "How is your pricing calculated?", 
+                a: "We believe in complete transparency. We pull live spot prices from major global mints and add a flat, non-negotiable 15% markup. This covers our secure sourcing, fully-insured delivery, and operational costs. There are no surprise dealer premiums or hidden checkout fees." 
+              },
+              { 
+                q: "Is shipping safe? What if my package is lost?", 
+                a: "Every single shipment is 100% fully insured by us until it is signed for or delivered to your address. We package everything in secure, highly durable, and completely discreet boxes with no mention of 'gold', 'silver', or 'metals' on the outside to ensure absolute privacy." 
+              },
+              { 
+                q: "Can I cancel or change my Stack Squad subscription?", 
+                a: "Absolutely. You have total control. You can pause, cancel, increase, or decrease your monthly stacking subscription at any time directly through your dashboard with a single click. No lock-in contracts, no cancellation fees." 
+              },
+              { 
+                q: "How do custom engravings work?", 
+                a: "Simply select 'Custom Engraving' during checkout on any eligible gold or silver bar. Upload your high-res design, family coat of arms, or type in your desired text. Our designers will generate a high-fidelity visual preview for your approval before our high-precision lasers carve it permanently into the metal." 
+              }
+            ].map((faq, i) => (
+              <div key={i} className="bg-surface border border-border p-8 rounded-2xl hover:border-primary/30 transition-colors">
+                <h4 className="text-xl font-bold mb-4 flex items-center">
+                  <span className="text-primary mr-4 font-black italic">Q:</span>
+                  {faq.q}
+                </h4>
+                <div className="pl-9 text-text-muted leading-relaxed">
+                  <p>{faq.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-32 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter italic mb-8 text-background leading-none">
+            The Future Belongs to Those Who Own the Present.
+          </h2>
+          <p className="text-xl text-background/80 font-bold mb-12 italic uppercase tracking-wide">
+            Take your wealth out of the digital ether. Hold your legacy in your hands.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <a href="#club" className="bg-background text-primary px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
+              Start Stack Squad
+            </a>
+            <a href="#shop" className="bg-transparent border-2 border-background text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:bg-background hover:text-primary transition-all">
+              Buy Physical Bullion Now
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-surface py-24 border-t border-border">
