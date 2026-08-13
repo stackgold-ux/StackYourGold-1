@@ -134,6 +134,22 @@ const EducationalHub = () => {
       category: 'High Intrigue',
       desc: 'How Executive Order 6102 made private gold ownership a crime — and the question every stacker asks about it.',
       blogPath: '../blogs/16_gold_confiscation_1933.md'
+    },
+    {
+      id: 'central-bank-gold-rush',
+      title: 'The Central Bank Gold Rush',
+      icon: Landmark,
+      category: 'Sound Money',
+      desc: 'Why central banks are buying gold at the fastest pace in modern history — and what it means for you.',
+      blogPath: '../blogs/17_central_bank_gold_rush.md'
+    },
+    {
+      id: 'spot-counterfeits',
+      title: 'How to Spot Counterfeit Gold & Silver',
+      icon: Shield,
+      category: 'High Intrigue',
+      desc: 'Five DIY tests plus professional verification methods to make sure your stack is real.',
+      blogPath: '../blogs/18_spot_counterfeits.md'
     }
   ];
 
