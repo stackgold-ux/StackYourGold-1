@@ -128,6 +128,14 @@ const EducationalHub = () => {
       blogPath: '../blogs/14_el_dorado_sunken_galleons.md'
     },
     {
+      id: 'rotation',
+      title: 'The Great Rotation',
+      icon: TrendingUp,
+      category: 'Premium Strategy',
+      desc: 'Fundamentals, conspiracy, and history — why the truth about precious metals is always in motion.',
+      blogPath: '../blogs/15_rotation.md'
+    },
+    {
       id: 'gold-confiscation-1933',
       title: 'The 1933 Gold Confiscation',
       icon: Landmark,
