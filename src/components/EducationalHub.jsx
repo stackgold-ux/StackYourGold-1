@@ -119,13 +119,21 @@ const EducationalHub = () => {
       desc: 'The massive gold mine fraud of the 1990s that fooled Wall Street with ring shavings.',
       blogPath: '../blogs/13_bre_x_gold_mine_fraud.md'
     },
-    { 
+    {
       id: 'el-dorado',
-      title: 'The Ocean of Gold', 
-      icon: Anchor, 
+      title: 'The Ocean of Gold',
+      icon: Anchor,
       category: 'High Intrigue',
       desc: 'Shipwreck treasure and the mythical quest for golden cities that shaped the Americas.',
       blogPath: '../blogs/14_el_dorado_sunken_galleons.md'
+    },
+    {
+      id: 'gold-confiscation-1933',
+      title: 'The 1933 Gold Confiscation',
+      icon: Landmark,
+      category: 'High Intrigue',
+      desc: 'How Executive Order 6102 made private gold ownership a crime — and the question every stacker asks about it.',
+      blogPath: '../blogs/16_gold_confiscation_1933.md'
     }
   ];
 
