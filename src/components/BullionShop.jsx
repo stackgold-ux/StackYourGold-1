@@ -7,20 +7,25 @@ import ImgSurprise from '../assets/IMG_0605.jpeg';
 
 const BullionShop = ({ spotPrices, addToCart }) => {
   const [liveSilverProducts, setLiveSilverProducts] = useState([]);
+  const [liveGoldProducts, setLiveGoldProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLiveSilver = async () => {
+    const fetchLiveInventory = async () => {
       try {
-        const products = await shopifyClient.getProducts('silver');
-        setLiveSilverProducts(products);
+        const [silver, gold] = await Promise.all([
+          shopifyClient.getProducts('silver'),
+          shopifyClient.getProducts('gold')
+        ]);
+        setLiveSilverProducts(silver);
+        setLiveGoldProducts(gold);
       } catch (error) {
-        console.error('Failed to fetch live silver products:', error);
+        console.error('Failed to fetch live inventory:', error);
       } finally {
         setLoading(false);
       }
     };
-    fetchLiveSilver();
+    fetchLiveInventory();
   }, []);
   const [amounts, setAmounts] = useState({
     gold: 250,
@@ -255,6 +260,25 @@ const BullionShop = ({ spotPrices, addToCart }) => {
         </div>
       )}
 
+      {/* Live Gold Inventory */}
+      {!loading && liveGoldProducts.length > 0 && (
+        <div className="mb-16">
+          <div className="flex items-center space-x-3 mb-8 border-b border-border pb-4">
+            <div className="bg-primary/20 p-2 rounded-lg">
+              <Box className="text-primary" size={24} />
+            </div>
+            <h3 className="text-2xl font-black uppercase italic tracking-tight">Live Physical Gold Inventory</h3>
+            <span className="bg-primary text-background text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse">LIVE FROM VAULT</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {liveGoldProducts.map((product) => (
+              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Accordion expanding tab section for Rounds, Bars and Coins */}
       <div className="bg-surface border border-border rounded-2xl p-6 md:p-8">
         <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-6 italic border-b border-border pb-4 flex items-center">
@@ -292,6 +316,8 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
 const ProductCard = ({ product, addToCart }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const isSoldOut = product.totalInventory <= 0;
+  const isVariantSoldOut = selectedVariant.inventory <= 0 || !selectedVariant.available;
   
   // Initialize with first available image or video
   const initialMedia = product.images.length > 0 
@@ -308,19 +334,23 @@ const ProductCard = ({ product, addToCart }) => {
   }, [product.id]);
 
   const handleAddToCart = () => {
+    if (isVariantSoldOut) return;
+    
     addToCart({
       id: `${product.id}-${selectedVariant.id}`,
+      shopifyVariantId: selectedVariant.id, // Pass the real Shopify variant ID
       name: `${product.name} - ${selectedVariant.title}`,
       price: selectedVariant.price,
       image: product.images[0]?.url || '',
       type: 'bullion',
       weight: selectedVariant.title,
-      description: product.description
+      description: product.description,
+      isShopify: true
     });
   };
 
   return (
-    <div className="bg-surface border border-border rounded-3xl overflow-hidden flex flex-col md:flex-row h-full group hover:border-primary/30 transition-all duration-500 shadow-2xl">
+    <div className={`bg-surface border border-border rounded-3xl overflow-hidden flex flex-col md:flex-row h-full group hover:border-primary/30 transition-all duration-500 shadow-2xl ${isSoldOut ? 'opacity-75' : ''}`}>
       {/* Media Gallery */}
       <div className="md:w-1/2 relative bg-background flex flex-col">
         <div className="relative aspect-square overflow-hidden bg-black">
@@ -328,7 +358,7 @@ const ProductCard = ({ product, addToCart }) => {
             <img 
               src={activeMedia.url} 
               alt={product.name} 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ${isSoldOut ? 'grayscale' : ''}`}
             />
           ) : (
             <video 
@@ -341,6 +371,14 @@ const ProductCard = ({ product, addToCart }) => {
             />
           )}
           
+          {isSoldOut && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-30">
+              <span className="bg-red-600 text-white font-black px-6 py-3 rounded-full text-xl uppercase italic tracking-widest -rotate-12 border-4 border-white shadow-2xl">
+                Vault Empty
+              </span>
+            </div>
+          )}
+
           {/* Media Selectors */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
             {product.images.map((img, i) => (
@@ -368,10 +406,18 @@ const ProductCard = ({ product, addToCart }) => {
       {/* Info */}
       <div className="md:w-1/2 p-8 flex flex-col justify-between gritty-bg">
         <div>
-          <div className="flex items-center space-x-2 mb-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">Shopify Live</span>
-            {product.tags.includes('premium') && (
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-2">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">Shopify Live</span>
+              {product.tags.includes('premium') && (
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
+              )}
+            </div>
+            {!isSoldOut && (
+              <div className="flex items-center text-[10px] font-bold text-green-400">
+                <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {product.totalInventory} IN STOCK
+              </div>
             )}
           </div>
           
@@ -385,19 +431,28 @@ const ProductCard = ({ product, addToCart }) => {
 
           {/* Variant Selector */}
           <div className="mb-8">
-            <label className="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-3">Select Allocation Size</label>
+            <div className="flex items-center justify-between mb-3">
+              <label className="block text-[10px] font-black uppercase tracking-widest text-text-muted">Select Allocation Size</label>
+              <span className="text-[9px] font-bold text-primary italic">
+                {selectedVariant.inventory} units available
+              </span>
+            </div>
             <div className="grid grid-cols-2 gap-2">
               {product.variants.map((v) => (
                 <button
                   key={v.id}
                   onClick={() => setSelectedVariant(v)}
-                  className={`py-3 px-4 rounded-xl text-xs font-bold transition-all border ${
+                  disabled={v.inventory <= 0}
+                  className={`py-3 px-4 rounded-xl text-xs font-bold transition-all border relative ${
                     selectedVariant.id === v.id 
                       ? 'bg-primary border-primary text-background' 
-                      : 'bg-background/50 border-border text-white hover:border-primary/50'
+                      : v.inventory <= 0
+                        ? 'bg-muted border-border text-text-muted opacity-40 cursor-not-allowed'
+                        : 'bg-background/50 border-border text-white hover:border-primary/50'
                   }`}
                 >
                   {v.title}
+                  {v.inventory <= 0 && <span className="absolute top-0 right-0 bg-red-600 text-white text-[7px] px-1 rounded-bl-md">OUT</span>}
                 </button>
               ))}
             </div>
@@ -416,10 +471,21 @@ const ProductCard = ({ product, addToCart }) => {
 
           <button
             onClick={handleAddToCart}
-            className="w-full bg-primary hover:bg-primary-dark text-background py-4 rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center group shadow-xl shadow-primary/10"
+            disabled={isVariantSoldOut}
+            className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center group shadow-xl ${
+              isVariantSoldOut 
+                ? 'bg-muted text-text-muted cursor-not-allowed' 
+                : 'bg-primary hover:bg-primary-dark text-background shadow-primary/10'
+            }`}
           >
-            <ShoppingCart size={20} className="mr-3 group-hover:scale-110 transition-transform" />
-            Add to Secure Shipment
+            {isVariantSoldOut ? (
+              <>ALLOCATION EXHAUSTED</>
+            ) : (
+              <>
+                <ShoppingCart size={20} className="mr-3 group-hover:scale-110 transition-transform" />
+                Add to Secure Shipment
+              </>
+            )}
           </button>
         </div>
       </div>

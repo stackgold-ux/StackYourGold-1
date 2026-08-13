@@ -132,6 +132,25 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
     }
 
     if (step === 3) {
+      // Check if there are Shopify products in the cart
+      const shopifyItems = cart.filter(item => item.isShopify);
+      
+      if (shopifyItems.length > 0) {
+        try {
+          console.log('[SHOPIFY] Creating native checkout for live inventory items...');
+          const checkoutUrl = await shopifyClient.createCheckout(shopifyItems);
+          if (checkoutUrl) {
+            console.log('[SHOPIFY] Redirecting to native checkout:', checkoutUrl);
+            window.location.href = checkoutUrl;
+            return; // Prevent step increment
+          }
+        } catch (error) {
+          console.error('[SHOPIFY] Native checkout creation failed:', error);
+          alert('Failed to connect to Shopify checkout. Please try again or contact support.');
+          return;
+        }
+      }
+
       // Save order to localStorage
       const orderId = `SYG-${Math.floor(1000 + Math.random() * 9000)}`;
       const status = formData.paymentMethod === 'wire' ? 'Awaiting Wire Transfer' : 

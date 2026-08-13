@@ -4,8 +4,12 @@
  */
 
 const SHOPIFY_CONFIG = {
-  storeUrl: 'stackyourgold.myshopify.com',
-  storefrontToken: 'f538c8684ee0765417ec9295342822da', // Sourced from Shopify Public Storefront API token
+  storeUrl: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SHOPIFY_STORE_DOMAIN) || 
+            (typeof process !== 'undefined' && process.env?.SHOPIFY_STORE_DOMAIN) || 
+            'stackyourgold.myshopify.com',
+  storefrontToken: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN) || 
+                   (typeof process !== 'undefined' && process.env?.SHOPIFY_STOREFRONT_ACCESS_TOKEN) || 
+                   'f538c8684ee0765417ec9295342822da',
   apiVersion: '2024-01'
 };
 
@@ -49,7 +53,7 @@ class ShopifyClient {
   async getProducts(tag = 'swag') {
     const query = `
       query getProducts($query: String) {
-        products(first: 10, query: $query) {
+        products(first: 20, query: $query) {
           edges {
             node {
               id
@@ -77,6 +81,8 @@ class ShopifyClient {
                   node {
                     id
                     title
+                    availableForSale
+                    quantityAvailable
                     price {
                       amount
                     }
@@ -113,7 +119,9 @@ class ShopifyClient {
         const variants = node.variants.edges.map(v => ({
           id: v.node.id,
           title: v.node.title,
-          price: parseFloat(v.node.price.amount)
+          price: parseFloat(v.node.price.amount),
+          available: v.node.availableForSale,
+          inventory: v.node.quantityAvailable || 0
         }));
         
         const media = node.media.edges
@@ -140,7 +148,8 @@ class ShopifyClient {
           images: images,
           variants: variants,
           media: media,
-          tags: node.tags
+          tags: node.tags,
+          totalInventory: variants.reduce((sum, v) => sum + (v.inventory || 0), 0)
         };
       });
     }
@@ -160,8 +169,8 @@ class ShopifyClient {
           { url: 'https://images.unsplash.com/photo-1618403088890-3d9ff6f4c8ff?q=80&w=800', altText: 'Silver Rounds Stack' }
         ],
         variants: [
-          { id: 'v1', title: '1 oz Round', price: 32.50 },
-          { id: 'v1-5', title: '5 oz Round', price: 160.00 }
+          { id: 'v1', title: '1 oz Round', price: 32.50, inventory: 124, available: true },
+          { id: 'v1-5', title: '5 oz Round', price: 160.00, inventory: 0, available: false }
         ],
         media: [
           {
@@ -170,7 +179,8 @@ class ShopifyClient {
             sources: [{ url: 'https://v.ftcdn.net/05/53/63/54/700_F_553635446_KxN9WvXN5Jqf6L2x5zGj8y9w6z7j4L9z_ST.mp4', mimeType: 'video/mp4' }]
           }
         ],
-        tags: ['silver', 'bullion', 'liquid']
+        tags: ['silver', 'bullion', 'liquid'],
+        totalInventory: 124
       },
       {
         id: 'SHPFY-S2',
@@ -183,8 +193,8 @@ class ShopifyClient {
           { url: 'https://images.unsplash.com/photo-1633158829585-23bb8f62b423?q=80&w=800', altText: 'Silver Bars' }
         ],
         variants: [
-          { id: 'v2', title: '10 oz Bar', price: 315.00 },
-          { id: 'v2-100', title: '100 oz Bar', price: 3100.00 }
+          { id: 'v2', title: '10 oz Bar', price: 315.00, inventory: 15, available: true },
+          { id: 'v2-100', title: '100 oz Bar', price: 3100.00, inventory: 2, available: true }
         ],
         media: [
           {
@@ -193,7 +203,8 @@ class ShopifyClient {
             sources: [{ url: 'https://v.ftcdn.net/02/95/92/83/700_F_295928373_X9zS6pXF7zGf6L2x5zGj8y9w6z7j4L9z_ST.mp4', mimeType: 'video/mp4' }]
           }
         ],
-        tags: ['silver', 'bullion', 'premium', 'legacy']
+        tags: ['silver', 'bullion', 'premium', 'legacy'],
+        totalInventory: 17
       }
     ];
   }
@@ -231,10 +242,10 @@ class ShopifyClient {
         price: 65.00,
         currency: 'USD',
         images: [{ url: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800', altText: 'Hoodie' }],
-        variants: [{ id: 'v1', title: 'Large', price: 65.00 }],
+        variants: [{ id: 'v1', title: 'Large', price: 65.00, inventory: 24, available: true }],
         media: [],
         tags: ['swag', 'apparel'],
-        inventory: 24
+        totalInventory: 24
       },
       {
         id: 'SHPFY-P2',
@@ -243,12 +254,54 @@ class ShopifyClient {
         price: 32.00,
         currency: 'USD',
         images: [{ url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800', altText: 'Tee' }],
-        variants: [{ id: 'v2', title: 'Medium', price: 32.00 }],
+        variants: [{ id: 'v2', title: 'Medium', price: 32.00, inventory: 50, available: true }],
         media: [],
         tags: ['swag', 'apparel'],
-        inventory: 50
+        totalInventory: 50
       }
     ];
+  }
+
+  /**
+   * Creates a Shopify checkout and returns the URL
+   */
+  async createCheckout(variants) {
+    const query = `
+      mutation checkoutCreate($input: CheckoutCreateInput!) {
+        checkoutCreate(input: $input) {
+          checkout {
+            id
+            webUrl
+          }
+          checkoutUserErrors {
+            code
+            field
+            message
+          }
+        }
+      }
+    `;
+
+    const lineItems = variants.map(v => ({
+      variantId: v.shopifyVariantId,
+      quantity: 1
+    }));
+
+    const data = await this.graphqlFetch(query, {
+      input: {
+        lineItems
+      }
+    });
+
+    if (data && data.checkoutCreate.checkout) {
+      return data.checkoutCreate.checkout.webUrl;
+    }
+    
+    if (data && data.checkoutCreate.checkoutUserErrors.length > 0) {
+      console.error('Shopify Checkout Errors:', data.checkoutCreate.checkoutUserErrors);
+    }
+    
+    return null;
   }
 }
 

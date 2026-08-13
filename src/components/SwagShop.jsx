@@ -20,6 +20,8 @@ import Img0667 from '../assets/IMG_0667.jpeg';
 const ProductCard = ({ item, addToCart }) => {
   const [activeImage, setActiveImage] = useState(item.images[0]?.url || item.image);
   const [selectedVariant, setSelectedVariant] = useState(item.variants ? item.variants[0] : null);
+  const isSoldOut = item.totalInventory <= 0;
+  const isVariantSoldOut = selectedVariant ? (selectedVariant.inventory <= 0 || !selectedVariant.available) : false;
 
   // Sync active image if item structure changes
   useEffect(() => {
@@ -30,14 +32,18 @@ const ProductCard = ({ item, addToCart }) => {
   const hasMultipleImages = item.images && item.images.length > 1;
 
   const handleAddToCart = () => {
+    if (isVariantSoldOut) return;
+    
     if (addToCart) {
       addToCart({
         id: item.id + (selectedVariant ? `-${selectedVariant.id}` : ''),
+        shopifyVariantId: selectedVariant?.id,
         name: item.name + (selectedVariant ? ` - ${selectedVariant.title}` : ''),
         price: selectedVariant ? selectedVariant.price : item.price,
         image: activeImage,
         type: 'swag',
-        description: item.description
+        description: item.description,
+        isShopify: true
       });
     } else {
       window.open(item.etsyUrl || 'https://www.etsy.com/shop/StackYourGold', '_blank');
@@ -45,23 +51,32 @@ const ProductCard = ({ item, addToCart }) => {
   };
 
   return (
-    <div className="group bg-surface/30 border border-border/50 rounded-2xl p-5 hover:border-secondary hover:bg-surface/50 transition-all duration-300 flex flex-col justify-between h-full shadow-md hover:shadow-xl">
+    <div className={`group bg-surface/30 border border-border/50 rounded-2xl p-5 hover:border-secondary hover:bg-surface/50 transition-all duration-300 flex flex-col justify-between h-full shadow-md hover:shadow-xl ${isSoldOut ? 'opacity-75' : ''}`}>
       <div>
         <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4 bg-background border border-border/30 flex items-center justify-center">
           <img 
             src={activeImage} 
             alt={item.name} 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${isSoldOut ? 'grayscale' : ''}`} 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-10">
-            <button 
-              onClick={handleAddToCart}
-              className="w-full bg-secondary text-background font-black uppercase tracking-widest text-xs py-3 rounded-xl flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 shadow-lg"
-            >
-              <ShoppingCart size={14} />
-              <span>Add to Cart</span>
-            </button>
-          </div>
+          {!isSoldOut && !isVariantSoldOut && (
+            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-10">
+              <button 
+                onClick={handleAddToCart}
+                className="w-full bg-secondary text-background font-black uppercase tracking-widest text-xs py-3 rounded-xl flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 shadow-lg"
+              >
+                <ShoppingCart size={14} />
+                <span>Add to Cart</span>
+              </button>
+            </div>
+          )}
+          {isSoldOut && (
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
+              <span className="bg-secondary text-background font-black px-4 py-2 rounded-lg text-xs uppercase tracking-widest -rotate-6 shadow-xl border border-white/20">
+                Out of Stock
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Thumbnail Selector for Multi-Image Products */}
@@ -85,7 +100,12 @@ const ProductCard = ({ item, addToCart }) => {
           </div>
         )}
 
-        <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">{item.name}</h3>
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="font-bold text-lg group-hover:text-primary transition-colors leading-tight">{item.name}</h3>
+          {selectedVariant && selectedVariant.inventory < 10 && selectedVariant.inventory > 0 && (
+            <span className="text-[8px] font-black text-secondary bg-secondary/10 px-2 py-0.5 rounded whitespace-nowrap ml-2">ONLY {selectedVariant.inventory} LEFT</span>
+          )}
+        </div>
         <p className="text-text-muted text-xs mb-4 line-clamp-2 leading-relaxed">{item.description}</p>
         
         {/* Variant Selector if available */}
@@ -95,11 +115,17 @@ const ProductCard = ({ item, addToCart }) => {
               <button
                 key={v.id}
                 onClick={() => setSelectedVariant(v)}
-                className={`text-[10px] px-2 py-1 rounded border transition-all ${
-                  selectedVariant?.id === v.id ? 'bg-secondary text-background border-secondary' : 'border-border text-text-muted hover:border-text-main'
+                disabled={v.inventory <= 0}
+                className={`text-[10px] px-2 py-1 rounded border transition-all relative ${
+                  selectedVariant?.id === v.id 
+                    ? 'bg-secondary text-background border-secondary' 
+                    : v.inventory <= 0
+                      ? 'border-border text-text-muted opacity-30 cursor-not-allowed'
+                      : 'border-border text-text-muted hover:border-text-main'
                 }`}
               >
                 {v.title}
+                {v.inventory <= 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[6px] px-1 rounded-full">X</span>}
               </button>
             ))}
           </div>
@@ -112,10 +138,13 @@ const ProductCard = ({ item, addToCart }) => {
         </p>
         <button 
           onClick={handleAddToCart}
-          className="text-xs font-bold uppercase tracking-wider text-primary hover:text-white flex items-center space-x-1 transition-colors"
+          disabled={isVariantSoldOut}
+          className={`text-xs font-bold uppercase tracking-wider flex items-center space-x-1 transition-colors ${
+            isVariantSoldOut ? 'text-text-muted cursor-not-allowed' : 'text-primary hover:text-white'
+          }`}
         >
-          <span>Quick Add</span>
-          <ChevronRight size={14} />
+          <span>{isVariantSoldOut ? 'Sold Out' : 'Quick Add'}</span>
+          {!isVariantSoldOut && <ChevronRight size={14} />}
         </button>
       </div>
     </div>
