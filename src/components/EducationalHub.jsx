@@ -158,6 +158,14 @@ const EducationalHub = () => {
       category: 'High Intrigue',
       desc: 'Five DIY tests plus professional verification methods to make sure your stack is real.',
       blogPath: '../blogs/18_spot_counterfeits.md'
+    },
+    {
+      id: 'paper-gold-problem',
+      title: 'The Paper Gold Problem',
+      icon: Scale,
+      category: 'High Intrigue',
+      desc: 'How Wall Street trades gold it doesn\'t own — and what the courts have actually proven about the paper market.',
+      blogPath: '../blogs/19_paper_gold_problem.md'
     }
   ];
 
