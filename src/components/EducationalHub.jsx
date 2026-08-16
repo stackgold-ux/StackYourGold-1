@@ -232,8 +232,12 @@ const EducationalHub = () => {
                     <div className="absolute top-0 right-0 bg-primary/20 text-primary text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-bl-xl border-l border-b border-primary/20">
                       FOUNDATIONAL SELECTION
                     </div>
-                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center shrink-0 border border-primary/30 group-hover:scale-105 transition-transform shadow-inner">
-                      <Landmark className="text-primary" size={32} />
+                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center shrink-0 border border-primary/30 group-hover:scale-105 transition-transform shadow-inner overflow-hidden">
+                      {articles.find(a => a.id === 'fiat-trap')?.image ? (
+                        <img src={articles.find(a => a.id === 'fiat-trap').image} className="w-full h-full object-cover" alt="" />
+                      ) : (
+                        <Landmark className="text-primary" size={32} />
+                      )}
                     </div>
                     <div>
                       <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block mb-2">SOUND MONEY</span>
@@ -257,8 +261,15 @@ const EducationalHub = () => {
                     <div className="absolute top-0 right-0 bg-border/20 text-text-muted text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-bl-xl border-l border-b border-border/20">
                       CONSPIRACY & HISTORY
                     </div>
-                    <div className="w-16 h-16 bg-surface border border-border rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-inner">
-                      <History className="text-primary" size={32} />
+                    <div className="w-16 h-16 bg-surface border border-border rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-inner overflow-hidden">
+                      {articles.find(a => a.id === 'fort-knox')?.image || articles.find(a => a.id === 'fort-knox')?.videoUrl ? (
+                        <div className="w-full h-full relative">
+                          <History className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary/50 z-10" size={24} />
+                          <div className="w-full h-full bg-black/40 absolute inset-0 z-0"></div>
+                        </div>
+                      ) : (
+                        <History className="text-primary" size={32} />
+                      )}
                     </div>
                     <div>
                       <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block mb-2">HIGH INTRIGUE</span>
@@ -283,8 +294,12 @@ const EducationalHub = () => {
                     onClick={() => handleOpenArticle(article)}
                     className={`group bg-surface border border-border p-6 rounded-2xl transition-all flex flex-col items-start space-y-4 shadow-lg hover:border-primary/50 cursor-pointer`}
                   >
-                    <div className="w-14 h-14 bg-background rounded-xl border border-border flex items-center justify-center group-hover:scale-110 transition-transform shrink-0 shadow-inner">
-                      <article.icon className="text-primary" size={28} />
+                    <div className="w-14 h-14 bg-background rounded-xl border border-border flex items-center justify-center group-hover:scale-110 transition-transform shrink-0 shadow-inner overflow-hidden">
+                      {article.image ? (
+                        <img src={article.image} className="w-full h-full object-cover" alt="" />
+                      ) : (
+                        <article.icon className="text-primary" size={28} />
+                      )}
                     </div>
                     <div>
                       <div className="flex items-center justify-between mb-2">
