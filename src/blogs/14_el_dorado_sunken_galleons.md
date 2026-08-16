@@ -79,7 +79,7 @@ But their physical gold? It remains just as valuable, liquid, and universally de
 
 When you stack physical precious metals, you are building your family’s personal treasure chest. You are storing your labor in the only medium that is completely immune to inflation, political decay, and the passage of centuries. 
 
-At **Stack Your Gold**, we make building your personal hoard simple, accessible, and automatic. 
+At **Stack Your Silver**, we make building your personal hoard simple, accessible, and automatic. 
 
 With our structured **Stack Squad** subscription program, you can systematically accumulate pure .999 silver and fine gold coins, rounds, and bars every single month—priced transparently at spot + 15%, and delivered fully insured directly to your doorstep. 
 

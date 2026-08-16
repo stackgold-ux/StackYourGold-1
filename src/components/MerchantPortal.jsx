@@ -575,7 +575,7 @@ const MerchantPortal = () => {
                       </div>
                       <div>
                         <div className="font-bold text-white uppercase text-xs tracking-widest">Shopify Custom App</div>
-                        <div className="text-[10px] text-text-muted mt-1 font-mono">Domain: stackyourgold.myshopify.com</div>
+                        <div className="text-[10px] text-text-muted mt-1 font-mono">Domain: stackyoursilver.myshopify.com</div>
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">

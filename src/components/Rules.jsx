@@ -51,7 +51,7 @@ const Rules = ({ isOpen, onClose }) => {
                 <h3 className="font-black uppercase tracking-widest text-sm">Campaign Overview</h3>
               </div>
               <p className="text-text-muted leading-relaxed">
-                The <span className="text-white font-bold italic">"Road to 99"</span> Launch Campaign and <span className="text-white font-bold italic">9/9/26 Grand Giveaway Challenge</span> are designed to celebrate the launch of Stack Your Gold™ and empower our first 99 subscribers with extra physical wealth.
+                The <span className="text-white font-bold italic">"Road to 99"</span> Launch Campaign and <span className="text-white font-bold italic">9/9/26 Grand Giveaway Challenge</span> are designed to celebrate the launch of Stack Your Gold | Stack Your Silver™ and empower our first 99 subscribers with extra physical wealth.
               </p>
             </section>
 
@@ -62,7 +62,7 @@ const Rules = ({ isOpen, onClose }) => {
                   <ShieldCheck size={14} className="mr-2" /> 1. Eligibility
                 </h4>
                 <p className="text-xs text-text-muted leading-relaxed">
-                  Open to legal residents of the United States, 18+ years of age. Void where prohibited by law. Employees and immediate family members of Stack Your Gold™ are not eligible.
+                  Open to legal residents of the United States, 18+ years of age. Void where prohibited by law. Employees and immediate family members of Stack Your Gold | Stack Your Silver™ are not eligible.
                 </p>
               </section>
 
@@ -107,7 +107,7 @@ const Rules = ({ isOpen, onClose }) => {
                   </div>
                   <p className="text-xs text-text-muted leading-relaxed pl-9">
                     To enter without purchase, send a hand-printed postcard to: <br />
-                    <span className="text-white italic">Stack Your Gold, Attn: Road to 99 Giveaway, 100 Sovereign Way, Suite 300, Miami, FL 33101</span>. <br />
+                    <span className="text-white italic">Stack Your Gold | Stack Your Silver, Attn: Road to 99 Giveaway, 100 Sovereign Way, Suite 300, Miami, FL 33101</span>. <br />
                     Includes 100 automatic entries. Limit 1 per person.
                   </p>
                 </div>
@@ -129,7 +129,7 @@ const Rules = ({ isOpen, onClose }) => {
                 <h3 className="font-black uppercase tracking-widest text-sm">5. Viral Unboxing Multipliers</h3>
               </div>
               <p className="text-sm text-text-muted leading-relaxed">
-                Participants can multiply their active entries by sharing a raw, authentic unboxing video of their Stack Your Gold™ delivery:
+                Participants can multiply their active entries by sharing a raw, authentic unboxing video of their Stack Your Gold | Stack Your Silver™ delivery:
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-surface border border-border p-5 rounded-2xl">
@@ -142,7 +142,7 @@ const Rules = ({ isOpen, onClose }) => {
                 </div>
               </div>
               <p className="text-[10px] text-text-muted italic border-l-2 border-border pl-4">
-                * To claim the multiplier, participants must email verification@stackyourgold.com with a link or screenshot and their order number.
+                * To claim the multiplier, participants must email verification@stackyoursilver.com with a link or screenshot and their order number.
               </p>
             </section>
 
@@ -157,7 +157,7 @@ const Rules = ({ isOpen, onClose }) => {
             <div className="text-center py-12 border-t border-border">
               <div className="flex items-center justify-center space-x-3 mb-4">
                 <div className="w-10 h-1 border-t border-primary/30"></div>
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic">Stack Your Gold™</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic">Stack Your Gold | Stack Your Silver™</p>
                 <div className="w-10 h-1 border-t border-primary/30"></div>
               </div>
               <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest italic">

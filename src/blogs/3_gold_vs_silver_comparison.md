@@ -49,7 +49,7 @@ Silver is historically known as "the money of the people." Throughout ancient Ro
 
 So, which metal wins the showdown? **The smartest answer is both.**
 
-By combining gold's stable portability with silver's high-leverage growth and utility, you create a diversified, all-weather wealth shield. And with **Stack Your Gold**, we have eliminated the complexity of choosing between them.
+By combining gold's stable portability with silver's high-leverage growth and utility, you create a diversified, all-weather wealth shield. And with **Stack Your Silver**, we have eliminated the complexity of choosing between them.
 
 Within our automated **Stack Squad** subscription program, you have complete flexibility over your metal pipeline:
 1.  **Select "Mix" or "Surprise Me" (Core Tiers):** Let our system automatically distribute your monthly budget across both gold and silver, adjusting to live spot rates and market opportunities.

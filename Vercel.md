@@ -5,7 +5,7 @@ To deploy the **Stack Your Gold** application to Vercel, follow these steps to e
 ## 1. Import Project
 - Log in to your [Vercel Dashboard](https://vercel.com/dashboard).
 - Click **Add New** > **Project**.
-- Connect your GitHub/GitLab/Bitbucket account and select the `stack-your-gold` repository.
+- Connect your GitHub/GitLab/Bitbucket account and select the `stack-your-silver` repository.
 
 ## 2. Project Configuration
 During the "Configure Project" step, apply the following settings:

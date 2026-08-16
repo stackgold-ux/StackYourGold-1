@@ -3,22 +3,25 @@ import { ShoppingCart, ShieldCheck, ChevronDown, ChevronUp, DollarSign, Info, Pl
 import { shopifyClient } from '../utils/shopifyClient';
 import ImgGold from '../assets/IMG_0596.jpeg';
 import ImgSilver from '../assets/IMG_0597.jpeg';
-import ImgSurprise from '../assets/IMG_0605.jpeg';
+import ImgPlatinum from '../assets/IMG_0598.jpeg';
 
 const BullionShop = ({ spotPrices, addToCart }) => {
   const [liveSilverProducts, setLiveSilverProducts] = useState([]);
   const [liveGoldProducts, setLiveGoldProducts] = useState([]);
+  const [livePlatinumProducts, setLivePlatinumProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLiveInventory = async () => {
       try {
-        const [silver, gold] = await Promise.all([
+        const [silver, gold, platinum] = await Promise.all([
           shopifyClient.getProducts('silver'),
-          shopifyClient.getProducts('gold')
+          shopifyClient.getProducts('gold'),
+          shopifyClient.getProducts('platinum')
         ]);
         setLiveSilverProducts(silver);
         setLiveGoldProducts(gold);
+        setLivePlatinumProducts(platinum);
       } catch (error) {
         console.error('Failed to fetch live inventory:', error);
       } finally {
@@ -27,16 +30,17 @@ const BullionShop = ({ spotPrices, addToCart }) => {
     };
     fetchLiveInventory();
   }, []);
+
   const [amounts, setAmounts] = useState({
     gold: 250,
     silver: 100,
-    copper: 50
+    platinum: 500
   });
 
   const [customInputs, setCustomInputs] = useState({
     gold: '250',
     silver: '100',
-    copper: '50'
+    platinum: '500'
   });
 
   const [openTab, setOpenTab] = useState(null);
@@ -44,7 +48,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
   const images = {
     gold: ImgGold,
     silver: ImgSilver,
-    copper: ImgSurprise
+    platinum: ImgPlatinum
   };
 
   const presetAmounts = [25, 50, 100, 250, 500, 1000, 2500, 5000];
@@ -64,10 +68,8 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
   const calculateWeight = (metal, amount) => {
     const spot = spotPrices[metal] || 0.25;
-    const totalWeightOz = amount / (spot * 1.15);
-    if (metal === 'copper' && totalWeightOz >= 16) {
-      return `${(totalWeightOz / 16).toFixed(2)} lbs`;
-    }
+    // Updated margin to 20% (1.20) as per Lead's request in master
+    const totalWeightOz = amount / (spot * 1.20);
     return `${totalWeightOz.toFixed(4)} oz`;
   };
 
@@ -75,19 +77,16 @@ const BullionShop = ({ spotPrices, addToCart }) => {
     const amount = amounts[metal];
     if (amount < 25 || amount > 9999 || isNaN(amount)) return;
 
-    // Weight calculation happens in background as requested
     const weightLabel = calculateWeight(metal, amount);
 
     const product = {
       id: `${metal}-solo-${amount}-${Date.now()}`,
-      name: metal === 'copper' ? 'Surprise Sack Solo Stack' : `${metal.charAt(0).toUpperCase() + metal.slice(1)} Solo Stack`,
+      name: `${metal.charAt(0).toUpperCase() + metal.slice(1)} Solo Stack`,
       type: metal,
       weight: weightLabel,
       image: images[metal],
       price: amount.toFixed(2),
-      description: metal === 'copper'
-        ? 'Surprise metals (Gold/Silver mix) as close to value at purchase as possible.'
-        : `One-time physical ${metal} bullion purchase. Direct-to-vault allocation.`
+      description: `One-time physical ${metal} bullion purchase. Direct-to-vault allocation.`
     };
 
     addToCart(product);
@@ -105,9 +104,9 @@ const BullionShop = ({ spotPrices, addToCart }) => {
       description: 'Generational wealth starts with gold. We fulfill all custom gold orders using .9999 Fine Gold Bars from world-renowned LBMA-certified refineries (like PAMP Suisse, Valcambi, Royal Canadian Mint) or official Sovereign Gold Coins. Fractional weights (including 1g, 5g, 10g, and 1/10 oz, 1/4 oz, 1/2 oz coins) are dynamically compiled to map precisely to your custom order value, ensuring no paper residuals.'
     },
     {
-      id: 'copper',
-      title: 'Surprise Sack (Gold/Silver Mix)',
-      description: "Can’t decide between Gold and Silver? Let us customize a surprise mixture of high-purity precious metals for your budget. We fulfill all Surprise Sack orders with a carefully optimized combination of fine gold and silver coins, bars, or rounds, mapped as closely as possible to the exact real-time spot value at your time of purchase."
+      id: 'platinum',
+      title: 'Platinum Rounds, Bars & Coins',
+      description: 'Platinum is the ultimate industrial and legacy metal. We fulfill all custom platinum orders using .9995 Fine Platinum Bars and Coins. As a rarer asset than gold, platinum provides a unique hedge for generational wealth building.'
     }
   ];
 
@@ -130,7 +129,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
       {/* Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-        {['gold', 'silver', 'copper'].map((metal) => {
+        {['gold', 'silver', 'platinum'].map((metal) => {
           const currentAmount = amounts[metal];
           const inputVal = customInputs[metal];
           const isValid = currentAmount >= 25 && currentAmount <= 9999;
@@ -149,12 +148,12 @@ const BullionShop = ({ spotPrices, addToCart }) => {
               <div className="p-6 flex-grow flex flex-col justify-between">
                 <div>
                   <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-2 italic">
-                    {metal === 'gold' ? '🏆 Gold Solo Stack' : metal === 'silver' ? '🥈 Silver Solo Stack' : '🎁 Surprise Sack'}
+                    {metal === 'gold' ? '🏆 Gold Solo Stack' : metal === 'silver' ? '🥈 Silver Solo Stack' : '💍 Platinum Solo Stack'}
                   </h3>
                   <p className="text-text-muted text-sm mb-6">
                     {metal === 'gold' ? 'Fulfilling using premium physical gold coins, bars, and rounds.' : 
                      metal === 'silver' ? 'Fulfilling using premium physical silver coins, bars, and rounds.' : 
-                     'Surprise metals (Gold/Silver mix) as close to value at purchase as possible.'}
+                     'Fulfilling using premium physical platinum coins, bars, and rounds.'}
                   </p>
 
                   {/* Standard Presets */}
@@ -232,7 +231,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
                     }`}
                   >
                     <ShoppingCart size={18} className="mr-2" />
-                    Solo Stack {metal === 'copper' ? 'Surprise Sack' : metal.charAt(0).toUpperCase() + metal.slice(1)} • ${(isValid ? currentAmount : 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    Solo Stack {metal.charAt(0).toUpperCase() + metal.slice(1)} • ${(isValid ? currentAmount : 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </button>
                 </div>
               </div>
@@ -241,39 +240,20 @@ const BullionShop = ({ spotPrices, addToCart }) => {
         })}
       </div>
 
-      {/* Live Silver Inventory */}
-      {!loading && liveSilverProducts.length > 0 && (
+      {/* Live Physical Inventory */}
+      {!loading && (liveGoldProducts.length > 0 || liveSilverProducts.length > 0 || livePlatinumProducts.length > 0) && (
         <div className="mb-16">
           <div className="flex items-center space-x-3 mb-8 border-b border-border pb-4">
             <div className="bg-primary/20 p-2 rounded-lg">
               <Box className="text-primary" size={24} />
             </div>
-            <h3 className="text-2xl font-black uppercase italic tracking-tight">Live Physical Silver Inventory</h3>
+            <h3 className="text-2xl font-black uppercase italic tracking-tight">Live Physical Inventory</h3>
             <span className="bg-accent text-background text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse">LIVE FROM VAULT</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {liveSilverProducts.map((product) => (
-              <ProductCard key={product.id} product={product} addToCart={addToCart} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Live Gold Inventory */}
-      {!loading && liveGoldProducts.length > 0 && (
-        <div className="mb-16">
-          <div className="flex items-center space-x-3 mb-8 border-b border-border pb-4">
-            <div className="bg-primary/20 p-2 rounded-lg">
-              <Box className="text-primary" size={24} />
-            </div>
-            <h3 className="text-2xl font-black uppercase italic tracking-tight">Live Physical Gold Inventory</h3>
-            <span className="bg-primary text-background text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse">LIVE FROM VAULT</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {liveGoldProducts.map((product) => (
-              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+            {[...liveGoldProducts, ...liveSilverProducts, ...livePlatinumProducts].map((product) => (
+              <ProductCard key={product.id} product={product} addToCart={addToCart} spotPrices={spotPrices} />
             ))}
           </div>
         </div>
@@ -314,15 +294,21 @@ const BullionShop = ({ spotPrices, addToCart }) => {
   );
 };
 
-const ProductCard = ({ product, addToCart }) => {
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+const ProductCard = ({ product, addToCart, spotPrices }) => {
+  const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0] || {});
   const isSoldOut = product.totalInventory <= 0;
   const isVariantSoldOut = selectedVariant.inventory <= 0 || !selectedVariant.available;
   
+  // Calculate dynamic price if it's a bullion product with weight
+  const metal = product.tags?.find(t => ['gold', 'silver', 'platinum', 'palladium'].includes(t));
+  const currentPrice = (metal && spotPrices?.[metal] && selectedVariant?.weightOz)
+    ? spotPrices[metal] * selectedVariant.weightOz * 1.20 // Updated margin to 20% (1.20) as per Lead's request
+    : (selectedVariant?.price || 0);
+
   // Initialize with first available image or video
-  const initialMedia = product.images.length > 0 
+  const initialMedia = (product.images?.length > 0) 
     ? { type: 'IMAGE', url: product.images[0].url }
-    : product.media.length > 0
+    : (product.media?.length > 0)
       ? { type: 'VIDEO', url: product.media[0].sources[0].url }
       : { type: 'IMAGE', url: null };
 
@@ -331,6 +317,9 @@ const ProductCard = ({ product, addToCart }) => {
   // Sync active media if product changes (e.g. during rotation)
   useEffect(() => {
     setActiveMedia(initialMedia);
+    if (product.variants?.length > 0) {
+      setSelectedVariant(product.variants[0]);
+    }
   }, [product.id]);
 
   const handleAddToCart = () => {
@@ -340,8 +329,8 @@ const ProductCard = ({ product, addToCart }) => {
       id: `${product.id}-${selectedVariant.id}`,
       shopifyVariantId: selectedVariant.id, // Pass the real Shopify variant ID
       name: `${product.name} - ${selectedVariant.title}`,
-      price: selectedVariant.price,
-      image: product.images[0]?.url || '',
+      price: currentPrice.toFixed(2),
+      image: product.images?.[0]?.url || '',
       type: 'bullion',
       weight: selectedVariant.title,
       description: product.description,
@@ -381,7 +370,7 @@ const ProductCard = ({ product, addToCart }) => {
 
           {/* Media Selectors */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
-            {product.images.map((img, i) => (
+            {product.images?.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setActiveMedia({ type: 'IMAGE', url: img.url })}
@@ -390,11 +379,11 @@ const ProductCard = ({ product, addToCart }) => {
                 <img src={img.url} className="w-full h-full object-cover" alt="thumb" />
               </button>
             ))}
-            {product.media.filter(m => m.type === 'VIDEO').map((v, i) => (
+            {product.media?.filter(m => m.node?.mediaContentType === 'VIDEO').map((v, i) => (
               <button
                 key={i}
-                onClick={() => setActiveMedia({ type: 'VIDEO', url: v.sources[0].url })}
-                className={`w-10 h-10 rounded-lg border-2 bg-black flex items-center justify-center transition-all ${activeMedia.url === v.sources[0].url ? 'border-primary scale-110' : 'border-white/20 hover:border-white/50'}`}
+                onClick={() => setActiveMedia({ type: 'VIDEO', url: v.node.sources[0].url })}
+                className={`w-10 h-10 rounded-lg border-2 bg-black flex items-center justify-center transition-all ${activeMedia.url === v.node.sources[0].url ? 'border-primary scale-110' : 'border-white/20 hover:border-white/50'}`}
               >
                 <Play size={16} className="text-primary fill-current" />
               </button>
@@ -409,7 +398,7 @@ const ProductCard = ({ product, addToCart }) => {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">Shopify Live</span>
-              {product.tags.includes('premium') && (
+              {product.tags?.includes('premium') && (
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
               )}
             </div>
@@ -418,6 +407,9 @@ const ProductCard = ({ product, addToCart }) => {
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
                 {product.totalInventory} IN STOCK
               </div>
+            )}
+            {product.tags?.includes('new') && (
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-green-500 bg-green-500/10 px-2 py-1 rounded animate-pulse">New Arrival</span>
             )}
           </div>
           
@@ -438,7 +430,7 @@ const ProductCard = ({ product, addToCart }) => {
               </span>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {product.variants.map((v) => (
+              {product.variants?.map((v) => (
                 <button
                   key={v.id}
                   onClick={() => setSelectedVariant(v)}
@@ -462,9 +454,9 @@ const ProductCard = ({ product, addToCart }) => {
         <div className="mt-auto pt-6 border-t border-border/50">
           <div className="flex items-end justify-between mb-6">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price (Spot + 15%)</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Total Price</p>
               <p className="text-3xl font-black text-primary italic leading-none font-mono">
-                ${selectedVariant.price.toFixed(2)}
+                ${currentPrice.toFixed(2)}
               </p>
             </div>
           </div>

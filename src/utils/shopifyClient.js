@@ -1,5 +1,5 @@
 /**
- * Shopify Storefront Headless API Client for Stack Your Gold
+ * Shopify Storefront Headless API Client for Stack Your Silver
  * Handles connection to Shopify GraphQL for Swag items and orders with bulletproof fallback logic.
  */
 
@@ -7,10 +7,10 @@ const SHOPIFY_CONFIG = {
   storeUrl: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SHOPIFY_STORE_DOMAIN) || 
             (typeof process !== 'undefined' && process.env?.SHOPIFY_STORE_DOMAIN) || 
             'stackyourgold.myshopify.com',
-  storefrontToken: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN) || 
+  storefrontToken: (typeof import.meta !== 'undefined' && (import.meta.env?.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || import.meta.env?.VITE_SHOPIFY_STOREFRONT_TOKEN)) || 
                    (typeof process !== 'undefined' && process.env?.SHOPIFY_STOREFRONT_ACCESS_TOKEN) || 
                    'f538c8684ee0765417ec9295342822da',
-  apiVersion: '2024-01'
+  apiVersion: '2024-04'
 };
 
 class ShopifyClient {
@@ -113,29 +113,55 @@ class ShopifyClient {
       }
     `;
     const data = await this.graphqlFetch(query, { query: tag });
-    if (data && data.products.edges.length > 0) {
+    if (data?.products?.edges?.length > 0) {
       return data.products.edges.map(edge => {
         const node = edge.node;
-        const variants = node.variants.edges.map(v => ({
-          id: v.node.id,
-          title: v.node.title,
-          price: parseFloat(v.node.price.amount),
-          available: v.node.availableForSale,
-          inventory: v.node.quantityAvailable || 0
-        }));
+        const variants = node.variants?.edges?.map(v => {
+          const title = v.node.title;
+          let weightOz = 0;
+          
+          // Try to parse weight from title or options
+          const weightOption = v.node.selectedOptions?.find(o => 
+            o.name.toLowerCase().includes('weight') || 
+            o.name.toLowerCase().includes('size')
+          );
+          
+          const textToParse = weightOption ? weightOption.value : title;
+          const match = textToParse.match(/(\d+(?:\.\d+)?)\s*oz/i);
+          if (match) {
+            weightOz = parseFloat(match[1]);
+          } else if (textToParse.toLowerCase().includes('1/10')) {
+            weightOz = 0.1;
+          } else if (textToParse.toLowerCase().includes('1/4')) {
+            weightOz = 0.25;
+          } else if (textToParse.toLowerCase().includes('1/2')) {
+            weightOz = 0.5;
+          } else if (textToParse.toLowerCase().includes('kilo')) {
+            weightOz = 32.15;
+          }
+
+          return {
+            id: v.node.id,
+            title: title,
+            price: parseFloat(v.node.price?.amount || 0),
+            weightOz: weightOz,
+            available: v.node.availableForSale,
+            inventory: v.node.quantityAvailable || 0
+          };
+        }) || [];
         
-        const media = node.media.edges
-          .filter(m => m.node.mediaContentType === 'VIDEO')
-          .map(m => ({
+        const media = node.media?.edges
+          ?.filter(m => m.node.mediaContentType === 'VIDEO')
+          ?.map(m => ({
             id: m.node.id,
             type: 'VIDEO',
             sources: m.node.sources
-          }));
+          })) || [];
 
-        const images = node.images.edges.map(i => ({
+        const images = node.images?.edges?.map(i => ({
           url: i.node.url,
           altText: i.node.altText
-        }));
+        })) || [];
 
         return {
           id: node.id,
@@ -143,17 +169,53 @@ class ShopifyClient {
           handle: node.handle,
           description: node.description,
           type: node.productType,
-          price: parseFloat(node.priceRange.minVariantPrice.amount),
-          currency: node.priceRange.minVariantPrice.currencyCode,
+          price: parseFloat(node.priceRange?.minVariantPrice?.amount || 0),
+          currency: node.priceRange?.minVariantPrice?.currencyCode || 'USD',
           images: images,
           variants: variants,
           media: media,
-          tags: node.tags,
+          tags: node.tags || [],
           totalInventory: variants.reduce((sum, v) => sum + (v.inventory || 0), 0)
         };
       });
     }
-    return tag === 'silver' ? this.getMockSilverProducts() : this.getMockProducts();
+    
+    if (tag === 'silver') return this.getMockSilverProducts();
+    if (tag === 'gold') return this.getMockGoldProducts();
+    if (tag === 'platinum') return this.getMockPlatinumProducts();
+    return this.getMockProducts();
+  }
+
+  getMockGoldProducts() {
+    return [
+      {
+        id: 'SHPFY-G1',
+        name: 'American Gold Eagle (1 oz)',
+        description: 'The world-standard in gold bullion. .9167 fine gold minted by the US Mint.',
+        price: 4065.12,
+        currency: 'USD',
+        images: [{ url: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=800', altText: 'Gold Eagle' }],
+        variants: [{ id: 'v-g1', title: '1 oz Coin', price: 4065.12, weightOz: 1, inventory: 5, available: true }],
+        media: [],
+        tags: ['gold', 'bullion', 'premium']
+      }
+    ];
+  }
+
+  getMockPlatinumProducts() {
+    return [
+      {
+        id: 'SHPFY-PT1',
+        name: 'Platinum Philharmonic (1 oz)',
+        description: 'Austrian excellence in platinum. .9995 pure platinum.',
+        price: 1625.00,
+        currency: 'USD',
+        images: [{ url: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=800', altText: 'Platinum Coin' }],
+        variants: [{ id: 'v-pt1', title: '1 oz Coin', price: 1625.00, weightOz: 1, inventory: 2, available: true }],
+        media: [],
+        tags: ['platinum', 'bullion']
+      }
+    ];
   }
 
   getMockSilverProducts() {
@@ -169,8 +231,8 @@ class ShopifyClient {
           { url: 'https://images.unsplash.com/photo-1618403088890-3d9ff6f4c8ff?q=80&w=800', altText: 'Silver Rounds Stack' }
         ],
         variants: [
-          { id: 'v1', title: '1 oz Round', price: 32.50, inventory: 124, available: true },
-          { id: 'v1-5', title: '5 oz Round', price: 160.00, inventory: 0, available: false }
+          { id: 'v1', title: '1 oz Round', price: 32.50, weightOz: 1, inventory: 124, available: true },
+          { id: 'v1-5', title: '5 oz Round', price: 160.00, weightOz: 5, inventory: 0, available: false }
         ],
         media: [
           {
@@ -185,7 +247,7 @@ class ShopifyClient {
       {
         id: 'SHPFY-S2',
         name: 'Legacy Cast Silver Bar',
-        description: 'Cast silver bar featuring the Stack Your Gold hallmark. A rugged, hand-poured aesthetic for the serious stacker.',
+        description: 'Cast silver bar featuring the Stack Your Silver hallmark. A rugged, hand-poured aesthetic for the serious stacker.',
         price: 315.00,
         currency: 'USD',
         images: [
@@ -193,8 +255,8 @@ class ShopifyClient {
           { url: 'https://images.unsplash.com/photo-1633158829585-23bb8f62b423?q=80&w=800', altText: 'Silver Bars' }
         ],
         variants: [
-          { id: 'v2', title: '10 oz Bar', price: 315.00, inventory: 15, available: true },
-          { id: 'v2-100', title: '100 oz Bar', price: 3100.00, inventory: 2, available: true }
+          { id: 'v2', title: '10 oz Bar', price: 315.00, weightOz: 10, inventory: 15, available: true },
+          { id: 'v2-100', title: '100 oz Bar', price: 3100.00, weightOz: 100, inventory: 2, available: true }
         ],
         media: [
           {
@@ -205,6 +267,44 @@ class ShopifyClient {
         ],
         tags: ['silver', 'bullion', 'premium', 'legacy'],
         totalInventory: 17
+      },
+      {
+        id: 'SHPFY-S3',
+        name: '2026 Silver Britannia (1 oz)',
+        description: 'The Royal Mint\'s flagship silver coin. Featuring the latest security features and the effigy of King Charles III.',
+        price: 34.25,
+        currency: 'USD',
+        images: [
+          { url: 'https://images.unsplash.com/photo-1605792657660-596af9009e82?q=80&w=800', altText: 'Silver Britannia' }
+        ],
+        variants: [
+          { id: 'v3', title: '1 oz Coin', price: 34.25, weightOz: 1, inventory: 42, available: true }
+        ],
+        media: [],
+        tags: ['silver', 'bullion', 'coin', 'new'],
+        totalInventory: 42
+      },
+      {
+        id: 'SHPFY-S4',
+        name: 'Kilo Silver Stacker Bar',
+        description: 'The professional stacker\'s choice. 32.15 ounces of pure silver in a compact, stackable form factor.',
+        price: 1025.00,
+        currency: 'USD',
+        images: [
+          { url: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=800', altText: 'Kilo Silver Bar' }
+        ],
+        variants: [
+          { id: 'v4', title: 'Kilo Bar (32.15 oz)', price: 1025.00, weightOz: 32.15, inventory: 3, available: true }
+        ],
+        media: [
+          {
+            id: 'vid-s4',
+            type: 'VIDEO',
+            sources: [{ url: 'https://v.ftcdn.net/05/53/63/54/700_F_553635446_KxN9WvXN5Jqf6L2x5zGj8y9w6z7j4L9z_ST.mp4', mimeType: 'video/mp4' }]
+          }
+        ],
+        tags: ['silver', 'bullion', 'bar', 'premium'],
+        totalInventory: 3
       }
     ];
   }

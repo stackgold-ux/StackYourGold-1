@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 
 const PriceItem = ({ label, value, lastValue }) => {
-  const diff = value - lastValue;
+  const diff = value - (lastValue || value);
   const isUp = diff >= 0;
 
   return (
@@ -19,33 +19,16 @@ const PriceItem = ({ label, value, lastValue }) => {
   );
 };
 
-const SpotTicker = () => {
-  const [prices, setPrices] = useState({
-    gold: 4344.36,
-    silver: 70.25,
-    platinum: 1811.00
-  });
-
-  const [lastPrices, setLastPrices] = useState(prices);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLastPrices(prices);
-      setPrices(prev => ({
-        gold: prev.gold + (Math.random() - 0.5) * 2,
-        silver: prev.silver + (Math.random() - 0.5) * 0.1,
-        platinum: prev.platinum + (Math.random() - 0.5) * 1.5
-      }));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [prices]);
-
+const SpotTicker = ({ spotPrices }) => {
   return (
     <div className="bg-surface border-b border-border py-2 overflow-hidden whitespace-nowrap">
       <div className="flex animate-marquee">
-        <PriceItem label="Gold Spot" value={prices.gold} lastValue={lastPrices.gold} />
-        <PriceItem label="Silver Spot" value={prices.silver} lastValue={lastPrices.silver} />
-        <PriceItem label="Platinum Spot" value={prices.platinum} lastValue={lastPrices.platinum} />
+        <PriceItem label="Gold Spot" value={spotPrices.gold} />
+        <PriceItem label="Silver Spot" value={spotPrices.silver} />
+        <PriceItem label="Platinum Spot" value={spotPrices.platinum} />
+        {spotPrices.palladium && (
+          <PriceItem label="Palladium Spot" value={spotPrices.palladium} />
+        )}
       </div>
     </div>
   );

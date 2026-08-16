@@ -12,9 +12,9 @@ const AboutUs = () => {
             </h2>
             
             <div className="space-y-6 text-text-muted text-lg leading-relaxed">
-              <h4 className="text-xl font-black uppercase italic tracking-widest text-white">About Stack Your Gold™</h4>
+              <h4 className="text-xl font-black uppercase italic tracking-widest text-white">About Stack Your Gold | Stack Your Silver™</h4>
               <p>
-                Stack Your Gold™ isn’t just a business—it’s a passion born from necessity. Our ownership team is made up of two families coming together to educate and build a better future.
+                Stack Your Gold | Stack Your Silver™ isn’t just a business—it’s a passion born from necessity. Our ownership team is made up of two families coming together to educate and build a better future.
               </p>
               <p>
                 We’ve spent a lot of time thinking about the lessons we want to pass on to the next generation, including our own combined 10 children. Financial education often comes too late. Many of us weren’t taught how to build wealth, preserve purchasing power, or think long-term about our financial future.

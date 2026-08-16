@@ -74,7 +74,7 @@ John de Guzman fooled the world’s most sophisticated financial analysts for fo
 
 If a true systemic crisis occurs, those paper claims will return to their intrinsic value: **the paper they are printed on.**
 
-At **Stack Your Gold**, we operate on a strict philosophy of **zero-trust and absolute custody**. We don't sell mining stocks, speculative futures, or paper promises. We sell certified, physical .999 silver and fine gold coins, rounds, and bars—fully verified, insured, and delivered directly into your own hands.
+At **Stack Your Silver**, we operate on a strict philosophy of **zero-trust and absolute custody**. We don't sell mining stocks, speculative futures, or paper promises. We sell certified, physical .999 silver and fine gold coins, rounds, and bars—fully verified, insured, and delivered directly into your own hands.
 
 When you join the **Stack Squad**, you aren't speculating on a distant corporate report. You are accumulating physical, atomic wealth that you can touch, hold, and pass down for generations.
 

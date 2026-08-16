@@ -53,7 +53,7 @@ If you had tried to time the market, you might have panicked and bought all $300
 
 DCA is the quiet secret of the wealthiest families in the world. They don't stare at charts all day. They build wealth consistently, over time, on absolute autopilot.
 
-With the **Stack Squad** by Stack Your Gold, we have built this exact superpower directly into our membership structure. 
+With the **Stack Squad** by Stack Your Silver, we have built this exact superpower directly into our membership structure. 
 
 We don't make you fill out manual order forms or watch spot tickers. You simply set your monthly budget, select your metal preferences (**Silver, Gold, Mix, or Surprise Me**), and let our automated system handle the rest:
 - **Silver Tier ($24.99/mo):** Perfect for small, steady additions to your children's future inheritance.

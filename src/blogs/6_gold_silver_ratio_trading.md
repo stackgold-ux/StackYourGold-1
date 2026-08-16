@@ -49,7 +49,7 @@ When the ratio is at 90:1, silver is deeply on sale. You focus your budget almos
 
 #### Phase 2: The Swap (Ratio Drops — e.g., 45:1)
 A precious metals bull market erupts. Because silver is a smaller, more volatile market, its price skyrockets much faster than gold. The ratio drops down to **45:1**. 
-*   **The Action:** You take your 900 ounces of silver to a trusted dealer (like Stack Your Gold) and swap them for gold. 
+*   **The Action:** You take your 900 ounces of silver to a trusted dealer (like Stack Your Silver) and swap them for gold. 
 *   At the new 45:1 ratio, your 900 ounces of silver buy you exactly **20 ounces of gold**. You store this gold in a small, secure corner of your safe.
 
 #### Phase 3: The Re-Swap (Ratio Climbs — e.g., 90:1)
@@ -66,7 +66,7 @@ Without spending a single new dollar, your physical holdings grew from **900 oun
 
 While trading the ratio is highly lucrative, tracking spot prices and calculating exact swap moments manually can be intimidating. 
 
-That is why we designed **The Strategists Tier** at Stack Your Gold (for custom budgets from $101 to $10,000/mo). 
+That is why we designed **The Strategists Tier** at Stack Your Silver (for custom budgets from $101 to $10,000/mo). 
 
 With our interactive, precision **ratio slider** (from `-10` to `+10`), you can adjust your exact monthly purchasing ratio with a single swipe:
 *   When the GSR is high, slide your ratio toward **-10 (100% Silver)** to vacuum up undervalued silver.
