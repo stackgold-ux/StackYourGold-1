@@ -3,6 +3,16 @@ import ReactMarkdown from 'react-markdown';
 import { BookOpen, Users, Key, Landmark, X, Award, Shield, ChevronRight, ArrowLeft, History, Gem, Scale, TrendingUp, Wallet, Anchor, Map } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Import blog header images
+import BlogImg01 from '../assets/blogs/01-first-silver-round.png';
+import BlogImg02 from '../assets/blogs/02-grandfathers-gold.png';
+import BlogImg03 from '../assets/blogs/03-copper-start.png';
+import BlogImg04 from '../assets/blogs/04-family-inheritance.png';
+import BlogImg05 from '../assets/blogs/05-stacking-uncertainty.png';
+import BlogImg06 from '../assets/blogs/06-budget-stacker.png';
+import BlogImg07 from '../assets/blogs/07-generational-transfer.png';
+import BlogImg08 from '../assets/blogs/08-stacking-community.png';
+
 // Import blog contents using Vite's glob import
 // Note: In Vite, we use import.meta.glob with ?raw to get the string content
 const blogModules = import.meta.glob('../blogs/*.md', { 
@@ -29,7 +39,8 @@ const EducationalHub = () => {
       icon: Landmark, 
       category: 'Sound Money',
       desc: 'Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor.',
-      blogPath: '../blogs/1_fiat_vs_hard_money.md'
+      blogPath: '../blogs/1_fiat_vs_hard_money.md',
+      image: BlogImg01
     },
     { 
       id: 'budgeting',
@@ -37,7 +48,8 @@ const EducationalHub = () => {
       icon: Wallet, 
       category: 'Sound Money',
       desc: "How to budget for your family's financial citadel by converting paper into physical protection.",
-      blogPath: '../blogs/2_budgeting_10_percent_shield.md'
+      blogPath: '../blogs/2_budgeting_10_percent_shield.md',
+      image: BlogImg06
     },
     { 
       id: 'gold-vs-silver',
@@ -45,7 +57,8 @@ const EducationalHub = () => {
       icon: Scale, 
       category: 'Sound Money',
       desc: "Settle the debate: critical differences and strategic advantages of both gold and silver.",
-      blogPath: '../blogs/3_gold_vs_silver_comparison.md'
+      blogPath: '../blogs/3_gold_vs_silver_comparison.md',
+      image: BlogImg03
     },
     { 
       id: 'dca-superpower',
@@ -53,7 +66,8 @@ const EducationalHub = () => {
       icon: TrendingUp, 
       category: 'Sound Money',
       desc: 'Why timing the market is a losing game and how consistent stackers win in the long run.',
-      blogPath: '../blogs/4_dca_stacking_superpower.md'
+      blogPath: '../blogs/4_dca_stacking_superpower.md',
+      image: BlogImg05
     },
     { 
       id: 'legacy-passing',
@@ -61,7 +75,8 @@ const EducationalHub = () => {
       icon: Users, 
       category: 'Family',
       desc: 'How physical metals bypass bureaucratic gridlock and estate delays for private wealth transfer.',
-      blogPath: '../blogs/5_legacy_passing_wealth.md'
+      blogPath: '../blogs/5_legacy_passing_wealth.md',
+      image: BlogImg04
     },
     { 
       id: 'ratio-trading',
@@ -69,7 +84,8 @@ const EducationalHub = () => {
       icon: Gem, 
       category: 'Sound Money',
       desc: 'The mathematical secret to multiplying your ounces for free without spending new capital.',
-      blogPath: '../blogs/6_gold_silver_ratio_trading.md'
+      blogPath: '../blogs/6_gold_silver_ratio_trading.md',
+      image: BlogImg07
     },
     { 
       id: 'iraq-gold',
@@ -77,7 +93,8 @@ const EducationalHub = () => {
       icon: Shield, 
       category: 'High Intrigue',
       desc: 'The true story of covert operatives and looted vaults during the 2003 invasion of Baghdad.',
-      blogPath: '../blogs/8_cia_iraq_gold_heist.md'
+      blogPath: '../blogs/8_cia_iraq_gold_heist.md',
+      image: BlogImg02
     },
     { 
       id: 'hunt-brothers',
@@ -85,7 +102,8 @@ const EducationalHub = () => {
       icon: History, 
       category: 'High Intrigue',
       desc: 'How two Texas oil billionaires nearly cornered the global silver supply in 1980.',
-      blogPath: '../blogs/9_hunt_brothers_silver_thursday.md'
+      blogPath: '../blogs/9_hunt_brothers_silver_thursday.md',
+      image: BlogImg08
     },
     { 
       id: 'nazi-gold',
@@ -322,6 +340,15 @@ const EducationalHub = () => {
                 </div>
 
                 <div className="markdown-content">
+                  {selectedArticle.image && !selectedArticle.videoUrl && (
+                    <div className="mb-12 rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl aspect-video bg-black">
+                      <img 
+                        src={selectedArticle.image} 
+                        alt={selectedArticle.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
                   {selectedArticle.videoUrl && (
                     <div className="mb-12 rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl aspect-video bg-black">
                       {selectedArticle.videoUrl.includes('pictory.ai') ? (
