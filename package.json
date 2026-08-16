@@ -7,8 +7,9 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3000 --host 0.0.0.0",
     "build": "vite build",
+    "start": "vite preview --port 3000 --host 0.0.0.0",
     "lint": "eslint .",
     "preview": "vite preview"
   },
