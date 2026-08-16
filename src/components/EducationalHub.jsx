@@ -120,13 +120,53 @@ const EducationalHub = () => {
       desc: 'The massive gold mine fraud of the 1990s that fooled Wall Street with ring shavings.',
       blogPath: '../blogs/13_bre_x_gold_mine_fraud.md'
     },
-    { 
+    {
       id: 'el-dorado',
-      title: 'The Ocean of Gold', 
-      icon: Anchor, 
+      title: 'The Ocean of Gold',
+      icon: Anchor,
       category: 'High Intrigue',
       desc: 'Shipwreck treasure and the mythical quest for golden cities that shaped the Americas.',
       blogPath: '../blogs/14_el_dorado_sunken_galleons.md'
+    },
+    {
+      id: 'rotation',
+      title: 'The Great Rotation',
+      icon: TrendingUp,
+      category: 'Premium Strategy',
+      desc: 'Fundamentals, conspiracy, and history — why the truth about precious metals is always in motion.',
+      blogPath: '../blogs/15_rotation.md'
+    },
+    {
+      id: 'gold-confiscation-1933',
+      title: 'The 1933 Gold Confiscation',
+      icon: Landmark,
+      category: 'High Intrigue',
+      desc: 'How Executive Order 6102 made private gold ownership a crime — and the question every stacker asks about it.',
+      blogPath: '../blogs/16_gold_confiscation_1933.md'
+    },
+    {
+      id: 'central-bank-gold-rush',
+      title: 'The Central Bank Gold Rush',
+      icon: Landmark,
+      category: 'Sound Money',
+      desc: 'Why central banks are buying gold at the fastest pace in modern history — and what it means for you.',
+      blogPath: '../blogs/17_central_bank_gold_rush.md'
+    },
+    {
+      id: 'spot-counterfeits',
+      title: 'How to Spot Counterfeit Gold & Silver',
+      icon: Shield,
+      category: 'High Intrigue',
+      desc: 'Five DIY tests plus professional verification methods to make sure your stack is real.',
+      blogPath: '../blogs/18_spot_counterfeits.md'
+    },
+    {
+      id: 'paper-gold-problem',
+      title: 'The Paper Gold Problem',
+      icon: Scale,
+      category: 'High Intrigue',
+      desc: 'How Wall Street trades gold it doesn\'t own — and what the courts have actually proven about the paper market.',
+      blogPath: '../blogs/19_paper_gold_problem.md'
     }
   ];
 
