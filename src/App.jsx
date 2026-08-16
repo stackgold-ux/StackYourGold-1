@@ -11,9 +11,11 @@ import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
 import Rules from './components/Rules';
+import InStock from './components/InStock';
 import ReceiptWall from './components/ReceiptWall';
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
-import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap } from 'lucide-react';
+import { shopifyClient } from './utils/shopifyClient';
+import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap, ArrowRight, Loader2 } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
 import LogoSilver from './assets/logo-silver.jpg';
 import HeroLogoGif from './assets/hero-logo.gif';
@@ -26,6 +28,8 @@ function App() {
   const [showMerchantPortal, setShowMerchantPortal] = useState(false);
   const [isMerchantActive, setIsMerchantActive] = useState(false);
   const [currentView, setCurrentView] = useState('home');
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [loadingFeatured, setLoadingFeatured] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -36,12 +40,15 @@ function App() {
     // Handle hash-based routing for direct links
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (['home', 'club', 'shop', 'swag', 'legacy', 'education', 'about'].includes(hash)) {
+      if (['home', 'instock', 'club', 'shop', 'swag', 'legacy', 'education', 'about'].includes(hash)) {
         if (hash === 'club') setCurrentView('home');
         else if (hash === 'shop') setCurrentView('vault');
         else if (hash === 'education') setCurrentView('school');
         else setCurrentView(hash);
+      } else if (hash === '') {
+        setCurrentView('home');
       }
+      window.scrollTo(0, 0);
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -49,7 +56,33 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        const products = await shopifyClient.getProducts('featured');
+        // Fallback if no 'featured' tag exists
+        if (products.length === 0) {
+          const all = await shopifyClient.getProducts('swag');
+          setFeaturedProducts(all.slice(0, 3));
+        } else {
+          setFeaturedProducts(products.slice(0, 3));
+        }
+      } catch (error) {
+        console.error('Failed to fetch featured items:', error);
+      } finally {
+        setLoadingFeatured(false);
+      }
+    };
+    fetchFeatured();
+  }, []);
+
   const navigateTo = (view) => {
+    // Sync hash for deep linking
+    if (view === 'home') window.location.hash = '';
+    else if (view === 'vault') window.location.hash = 'shop';
+    else if (view === 'school') window.location.hash = 'education';
+    else window.location.hash = view;
+    
     setCurrentView(view);
     setIsMenuOpen(false);
     window.scrollTo(0, 0);
@@ -97,7 +130,7 @@ function App() {
                     Your Stack, Your Way, Always
                   </p>
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
-                    <button onClick={() => navigateTo('vault')} className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all">
+                    <button onClick={() => navigateTo('vault')} className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all shadow-xl">
                       Start Stacking <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
                     </button>
                     <button onClick={() => navigateTo('home')} className="border border-border bg-surface/50 backdrop-blur px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center hover:bg-surface transition-all">
@@ -139,13 +172,70 @@ function App() {
                   <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
                   <div>
                     <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
-                    <p className="text-sm text-text-muted">Transparent flat pricing over real-time spot.</p>
+                    <p className="text-sm text-text-muted">Transparent 20% margin over real-time spot.</p>
                   </div>
                 </div>
               </div>
             </section>
 
             <ReceiptWall />
+
+            {/* Featured Section */}
+            <section className="py-24 bg-surface/5 border-y border-border">
+              <div className="max-w-7xl mx-auto px-4 text-center md:text-left flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-6">
+                <div>
+                  <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic leading-none">
+                    Featured <span className="text-primary">Stacks</span>
+                  </h2>
+                  <p className="text-text-muted mt-4 font-bold uppercase tracking-widest text-xs text-glow">Live physical inventory ready for shipment</p>
+                </div>
+                <button onClick={() => navigateTo('instock')} className="flex items-center text-primary font-black uppercase tracking-widest text-sm group">
+                  View Full Vault <ArrowRight size={20} className="ml-2 group-hover:translate-x-2 transition-transform" />
+                </button>
+              </div>
+
+              <div className="max-w-7xl mx-auto px-4">
+                {loadingFeatured ? (
+                  <div className="flex flex-col items-center justify-center py-20 space-y-4">
+                    <Loader2 size={32} className="text-primary animate-spin" />
+                    <p className="text-text-muted text-[10px] font-black uppercase tracking-[0.3em]">Syncing Vault...</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {featuredProducts.map((product) => (
+                      <div key={product.id} className="group bg-background border border-border rounded-3xl p-6 hover:border-primary/40 transition-all duration-500 shadow-2xl relative overflow-hidden flex flex-col">
+                        <div className="aspect-square mb-6 rounded-2xl overflow-hidden bg-surface relative">
+                          <img 
+                            src={product.images[0]?.url} 
+                            alt={product.name} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                          />
+                          <div className="absolute top-4 left-4 bg-primary text-background text-[10px] font-black px-2 py-1 rounded shadow-lg backdrop-blur-md">
+                            ${product.price.toFixed(2)}
+                          </div>
+                        </div>
+                        <h4 className="text-xl font-black uppercase italic tracking-tighter mb-2 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-text-muted mb-6 line-clamp-2 leading-relaxed flex-grow">{product.description}</p>
+                        <button 
+                          onClick={() => addToCart({
+                            id: `${product.id}-${product.variants[0]?.id}`,
+                            shopifyVariantId: product.variants[0]?.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.images[0]?.url,
+                            type: product.tags.includes('swag') ? 'swag' : 'bullion',
+                            isShopify: true
+                          })}
+                          className="w-full py-4 bg-surface hover:bg-primary hover:text-background border border-border hover:border-primary rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2"
+                        >
+                          <ShoppingCart size={16} /> Add to Stack
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
 
             {/* The Problem Section */}
             <section className="py-24 bg-surface/20 border-b border-border relative overflow-hidden">
@@ -192,6 +282,8 @@ function App() {
             <StackingClub spotPrices={spotPrices} addToCart={addToCart} />
           </>
         );
+      case 'instock':
+        return <div className="pt-8 min-h-screen"><InStock addToCart={addToCart} /></div>;
       case 'vault':
         return <div className="pt-8 min-h-screen"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>;
       case 'school':
@@ -244,13 +336,17 @@ function App() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
-            {['home', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
+            {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button
                 key={view}
                 onClick={() => navigateTo(view)}
                 className={`transition-colors py-2 border-b-2 ${currentView === view ? 'text-primary border-primary' : 'border-transparent hover:text-primary'}`}
               >
-                {view === 'home' ? 'Stack Squad' : view.charAt(0).toUpperCase() + view.slice(1)}
+                {view === 'home' ? 'Stack Squad' : 
+                 view === 'instock' ? 'In Stock' :
+                 view === 'vault' ? 'Bullion' :
+                 view === 'school' ? 'School' :
+                 view.charAt(0).toUpperCase() + view.slice(1)}
               </button>
             ))}
           </div>
@@ -277,9 +373,13 @@ function App() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden font-black uppercase italic">
           <div className="flex flex-col space-y-6 text-2xl">
-            {['home', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
+            {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button key={view} className="text-left" onClick={() => navigateTo(view)}>
-                {view === 'home' ? 'Stack Squad' : view.charAt(0).toUpperCase() + view.slice(1)}
+                {view === 'home' ? 'Stack Squad' : 
+                 view === 'instock' ? 'In Stock' :
+                 view === 'vault' ? 'Bullion' :
+                 view === 'school' ? 'School' :
+                 view.charAt(0).toUpperCase() + view.slice(1)}
               </button>
             ))}
           </div>
@@ -313,14 +413,22 @@ function App() {
               {[
                 { 
                   q: "How is your pricing calculated?", 
-                  a: "We believe in complete transparency. We pull live spot prices from major global mints and offer competitive, transparent pricing for retail orders, while Stack Squad members enjoy exclusive discounted rates. This covers our secure sourcing, fully-insured delivery, and operational costs." 
+                  a: "We believe in complete transparency. We pull live spot prices from major global mints and add a 20% margin. This covers our secure sourcing, fully-insured delivery, and operational costs. Stack Squad members enjoy exclusive discounted rates." 
                 },
                 { 
                   q: "Is shipping safe? What if my package is lost?", 
-                  a: "Every single shipment is 100% fully insured by us until it is signed for or delivered to your address. We package everything in secure, highly durable, and completely discreet boxes." 
+                  a: "Every single shipment is 100% fully insured by us until it is signed for or delivered to your address. We package everything in secure, highly durable, and completely discreet boxes with no mention of 'gold', 'silver', or 'metals' on the outside to ensure absolute privacy." 
+                },
+                { 
+                  q: "Can I cancel or change my Stack Squad subscription?", 
+                  a: "Absolutely. You have total control. You can pause, cancel, increase, or decrease your monthly stacking subscription at any time directly through your dashboard with a single click. No lock-in contracts, no cancellation fees." 
+                },
+                { 
+                  q: "How do custom engravings work?", 
+                  a: "Simply select 'Custom Engraving' during checkout on any eligible gold or silver bar. Upload your high-res design, family coat of arms, or type in your desired text. Our designers will generate a high-fidelity visual preview for your approval before our high-precision lasers carve it permanently into the metal." 
                 }
               ].map((faq, i) => (
-                <div key={i} className="bg-surface border border-border p-8 rounded-2xl">
+                <div key={i} className="bg-surface border border-border p-8 rounded-2xl hover:border-primary/30 transition-colors">
                   <h4 className="text-xl font-bold mb-4 flex items-center">
                     <span className="text-primary mr-4 font-black italic">Q:</span>
                     {faq.q}
@@ -337,11 +445,11 @@ function App() {
         {/* Global CTA Section */}
         <section className="py-32 bg-primary relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter italic mb-8 text-background">
+            <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter italic mb-8 text-background leading-none">
               The Future Belongs to Those Who Own the Present.
             </h2>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <button onClick={() => navigateTo('home')} className="bg-background text-primary px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:scale-105 transition-all">
+              <button onClick={() => navigateTo('home')} className="bg-background text-primary px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
                 Join Stack Squad
               </button>
               <button onClick={() => navigateTo('vault')} className="bg-transparent border-2 border-background text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest hover:bg-background hover:text-primary transition-all">
@@ -351,6 +459,8 @@ function App() {
           </div>
         </section>
       </main>
+
+      {showMerchantPortal && <MerchantPortal />}
 
       <footer className="bg-surface py-24 border-t border-border">
         <div className="max-w-7xl mx-auto px-4 text-center">

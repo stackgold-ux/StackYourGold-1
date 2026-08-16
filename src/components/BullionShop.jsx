@@ -30,6 +30,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
     };
     fetchLiveInventory();
   }, []);
+
   const [amounts, setAmounts] = useState({
     gold: 250,
     silver: 100,
@@ -67,7 +68,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
   const calculateWeight = (metal, amount) => {
     const spot = spotPrices[metal] || 0.25;
-    // Updated margin to 20% (1.20) as per Lead's request
+    // Updated margin to 20% (1.20) as per Lead's request in master
     const totalWeightOz = amount / (spot * 1.20);
     return `${totalWeightOz.toFixed(4)} oz`;
   };
@@ -239,7 +240,7 @@ const BullionShop = ({ spotPrices, addToCart }) => {
         })}
       </div>
 
-      {/* Live Inventory */}
+      {/* Live Physical Inventory */}
       {!loading && (liveGoldProducts.length > 0 || liveSilverProducts.length > 0 || livePlatinumProducts.length > 0) && (
         <div className="mb-16">
           <div className="flex items-center space-x-3 mb-8 border-b border-border pb-4">
@@ -295,6 +296,8 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 
 const ProductCard = ({ product, addToCart, spotPrices }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0] || {});
+  const isSoldOut = product.totalInventory <= 0;
+  const isVariantSoldOut = selectedVariant.inventory <= 0 || !selectedVariant.available;
   
   // Calculate dynamic price if it's a bullion product with weight
   const metal = product.tags?.find(t => ['gold', 'silver', 'platinum', 'palladium'].includes(t));
@@ -314,22 +317,29 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
   // Sync active media if product changes (e.g. during rotation)
   useEffect(() => {
     setActiveMedia(initialMedia);
+    if (product.variants?.length > 0) {
+      setSelectedVariant(product.variants[0]);
+    }
   }, [product.id]);
 
   const handleAddToCart = () => {
+    if (isVariantSoldOut) return;
+    
     addToCart({
       id: `${product.id}-${selectedVariant.id}`,
+      shopifyVariantId: selectedVariant.id, // Pass the real Shopify variant ID
       name: `${product.name} - ${selectedVariant.title}`,
       price: currentPrice.toFixed(2),
-      image: product.images[0]?.url || '',
+      image: product.images?.[0]?.url || '',
       type: 'bullion',
       weight: selectedVariant.title,
-      description: product.description
+      description: product.description,
+      isShopify: true
     });
   };
 
   return (
-    <div className="bg-surface border border-border rounded-3xl overflow-hidden flex flex-col md:flex-row h-full group hover:border-primary/30 transition-all duration-500 shadow-2xl">
+    <div className={`bg-surface border border-border rounded-3xl overflow-hidden flex flex-col md:flex-row h-full group hover:border-primary/30 transition-all duration-500 shadow-2xl ${isSoldOut ? 'opacity-75' : ''}`}>
       {/* Media Gallery */}
       <div className="md:w-1/2 relative bg-background flex flex-col">
         <div className="relative aspect-square overflow-hidden bg-black">
@@ -337,7 +347,7 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
             <img 
               src={activeMedia.url} 
               alt={product.name} 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ${isSoldOut ? 'grayscale' : ''}`}
             />
           ) : (
             <video 
@@ -350,6 +360,14 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
             />
           )}
           
+          {isSoldOut && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-30">
+              <span className="bg-red-600 text-white font-black px-6 py-3 rounded-full text-xl uppercase italic tracking-widest -rotate-12 border-4 border-white shadow-2xl">
+                Vault Empty
+              </span>
+            </div>
+          )}
+
           {/* Media Selectors */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
             {product.images?.map((img, i) => (
@@ -361,11 +379,11 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
                 <img src={img.url} className="w-full h-full object-cover" alt="thumb" />
               </button>
             ))}
-            {product.media?.filter(m => m.type === 'VIDEO').map((v, i) => (
+            {product.media?.filter(m => m.node?.mediaContentType === 'VIDEO').map((v, i) => (
               <button
                 key={i}
-                onClick={() => setActiveMedia({ type: 'VIDEO', url: v.sources[0].url })}
-                className={`w-10 h-10 rounded-lg border-2 bg-black flex items-center justify-center transition-all ${activeMedia.url === v.sources[0].url ? 'border-primary scale-110' : 'border-white/20 hover:border-white/50'}`}
+                onClick={() => setActiveMedia({ type: 'VIDEO', url: v.node.sources[0].url })}
+                className={`w-10 h-10 rounded-lg border-2 bg-black flex items-center justify-center transition-all ${activeMedia.url === v.node.sources[0].url ? 'border-primary scale-110' : 'border-white/20 hover:border-white/50'}`}
               >
                 <Play size={16} className="text-primary fill-current" />
               </button>
@@ -377,10 +395,18 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
       {/* Info */}
       <div className="md:w-1/2 p-8 flex flex-col justify-between gritty-bg">
         <div>
-          <div className="flex items-center space-x-2 mb-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">Shopify Live</span>
-            {product.tags?.includes('premium') && (
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-2">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-2 py-1 rounded">Shopify Live</span>
+              {product.tags?.includes('premium') && (
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent bg-accent/10 px-2 py-1 rounded">Vault Exclusive</span>
+              )}
+            </div>
+            {!isSoldOut && (
+              <div className="flex items-center text-[10px] font-bold text-green-400">
+                <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {product.totalInventory} IN STOCK
+              </div>
             )}
             {product.tags?.includes('new') && (
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-green-500 bg-green-500/10 px-2 py-1 rounded animate-pulse">New Arrival</span>
@@ -397,19 +423,28 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
 
           {/* Variant Selector */}
           <div className="mb-8">
-            <label className="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-3">Select Allocation Size</label>
+            <div className="flex items-center justify-between mb-3">
+              <label className="block text-[10px] font-black uppercase tracking-widest text-text-muted">Select Allocation Size</label>
+              <span className="text-[9px] font-bold text-primary italic">
+                {selectedVariant.inventory} units available
+              </span>
+            </div>
             <div className="grid grid-cols-2 gap-2">
               {product.variants?.map((v) => (
                 <button
                   key={v.id}
                   onClick={() => setSelectedVariant(v)}
-                  className={`py-3 px-4 rounded-xl text-xs font-bold transition-all border ${
+                  disabled={v.inventory <= 0}
+                  className={`py-3 px-4 rounded-xl text-xs font-bold transition-all border relative ${
                     selectedVariant.id === v.id 
                       ? 'bg-primary border-primary text-background' 
-                      : 'bg-background/50 border-border text-white hover:border-primary/50'
+                      : v.inventory <= 0
+                        ? 'bg-muted border-border text-text-muted opacity-40 cursor-not-allowed'
+                        : 'bg-background/50 border-border text-white hover:border-primary/50'
                   }`}
                 >
                   {v.title}
+                  {v.inventory <= 0 && <span className="absolute top-0 right-0 bg-red-600 text-white text-[7px] px-1 rounded-bl-md">OUT</span>}
                 </button>
               ))}
             </div>
@@ -428,10 +463,21 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
 
           <button
             onClick={handleAddToCart}
-            className="w-full bg-primary hover:bg-primary-dark text-background py-4 rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center group shadow-xl shadow-primary/10"
+            disabled={isVariantSoldOut}
+            className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest transition-all flex items-center justify-center group shadow-xl ${
+              isVariantSoldOut 
+                ? 'bg-muted text-text-muted cursor-not-allowed' 
+                : 'bg-primary hover:bg-primary-dark text-background shadow-primary/10'
+            }`}
           >
-            <ShoppingCart size={20} className="mr-3 group-hover:scale-110 transition-transform" />
-            Add to Secure Shipment
+            {isVariantSoldOut ? (
+              <>ALLOCATION EXHAUSTED</>
+            ) : (
+              <>
+                <ShoppingCart size={20} className="mr-3 group-hover:scale-110 transition-transform" />
+                Add to Secure Shipment
+              </>
+            )}
           </button>
         </div>
       </div>
