@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Check, ArrowRight, Sliders, DollarSign, Zap, Award, Shield } from 'lucide-react';
 import LogoGold from '../assets/logo-gold.jpg';
 import LogoSilver from '../assets/logo-silver.jpg';
@@ -19,6 +19,22 @@ const StackingClub = ({ addToCart }) => {
 
   const [strategistBudget, setStrategistBudget] = useState(500);
   const [allocationSlider, setAllocationSlider] = useState(0);
+  const [subscriberCount, setSubscriberCount] = useState(42); // Fallback to 42 if none
+
+  useEffect(() => {
+    const updateCount = () => {
+      const profiles = JSON.parse(localStorage.getItem('syg_squad_profiles') || '[]');
+      // For the "Road to 99" simulation/campaign, we might want to start from a base number 
+      // or just show the real count. The previous agent used 42 as a baseline or hardcoded it.
+      // Let's use real profiles count + a base of 42 to show "Early Momentum" if profiles are few.
+      const count = Math.max(42, profiles.length);
+      setSubscriberCount(count);
+    };
+
+    updateCount();
+    window.addEventListener('storage', updateCount);
+    return () => window.removeEventListener('storage', updateCount);
+  }, []);
 
   const goldRatio = 50 + (allocationSlider * 5);
   const silverRatio = 100 - goldRatio;
@@ -161,7 +177,7 @@ const StackingClub = ({ addToCart }) => {
                   <p className="text-[10px] text-text-muted uppercase font-bold tracking-wider">Help us reach 99 active family stackers</p>
                 </div>
                 <div className="text-right">
-                  <span className="text-3xl font-black text-accent italic tracking-tighter">42 <span className="text-sm text-text-muted not-italic uppercase tracking-widest ml-1">/ 99</span></span>
+                  <span className="text-3xl font-black text-accent italic tracking-tighter">{subscriberCount} <span className="text-sm text-text-muted not-italic uppercase tracking-widest ml-1">/ 99</span></span>
                   <p className="text-[9px] text-text-muted uppercase font-black tracking-widest mt-1">Families Secured</p>
                 </div>
               </div>
@@ -169,7 +185,7 @@ const StackingClub = ({ addToCart }) => {
               <div className="relative h-6 bg-background rounded-full border border-border p-1 overflow-hidden">
                 <div 
                   className="h-full bg-gradient-to-r from-accent/50 via-accent to-accent-light rounded-full transition-all duration-1000 relative group"
-                  style={{ width: '42.4%' }}
+                  style={{ width: `${(subscriberCount / 99) * 100}%` }}
                 >
                   <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
                   <div className="absolute top-0 right-0 h-full w-12 bg-white/20 blur-md"></div>
@@ -182,15 +198,15 @@ const StackingClub = ({ addToCart }) => {
                     className={`absolute top-0 h-full w-px bg-white/10 flex flex-col items-center justify-end pb-1.5`}
                     style={{ left: `${(m / 99) * 100}%` }}
                   >
-                    <div className={`w-1 h-1 rounded-full ${42 >= m ? 'bg-accent' : 'bg-white/20'}`}></div>
+                    <div className={`w-1 h-1 rounded-full ${subscriberCount >= m ? 'bg-accent' : 'bg-white/20'}`}></div>
                     {m === 99 && <div className="absolute -top-1 right-0 text-[8px] font-black text-accent">GOAL</div>}
                   </div>
                 ))}
               </div>
               
               <div className="mt-4 flex justify-between items-center text-[8px] font-black uppercase tracking-[0.2em] text-text-muted">
-                <span>Phase: Early Momentum</span>
-                <span className="text-accent">Next Surprise Stack at #45</span>
+                <span>Phase: {subscriberCount < 33 ? 'Foundational' : subscriberCount < 66 ? 'Momentum' : 'Legacy Velocity'}</span>
+                <span className="text-accent">Next Surprise Stack at #{Math.ceil((subscriberCount + 1) / 9) * 9}</span>
               </div>
             </div>
           </div>
