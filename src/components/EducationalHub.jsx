@@ -105,10 +105,10 @@ const EducationalHub = () => {
       blogPath: '../blogs/9_hunt_brothers_silver_thursday.md',
       image: BlogImg08
       },
-
+      {
       id: 'nazi-gold',
-      title: 'The Shadow of Nazi Gold', 
-      icon: History, 
+      title: 'The Shadow of Nazi Gold',
+
       category: 'High Intrigue',
       desc: 'The dark history of WWII looted bullion, secret vaults, and the Swiss connection.',
       blogPath: '../blogs/10_nazi_gold_secret_vaults.md'

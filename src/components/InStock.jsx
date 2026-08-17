@@ -134,7 +134,7 @@ const InStock = ({ addToCart }) => {
               * Live inventory data is updated every 60 seconds. Physical weights for custom bullion orders are mathematically optimized based on real-time spot prices + a fixed 20% transparency margin.
           </p>
       </div>
-
+    </section>
   );
 };
 
