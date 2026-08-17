@@ -20,172 +20,172 @@ const blogModules = import.meta.glob('../blogs/*.md', {
   eager: true 
 });
 
+const articles = [
+  { 
+    id: '7stop',
+    title: 'The 7 Stops to Generational Wealth™', 
+    icon: Map, 
+    category: 'Premium Strategy',
+    desc: 'The definitive 7-step journey from fragile paper assets to an unbreakable family legacy.',
+    blogPath: '../blogs/7stop.md',
+    image: BlogImg07
+  },
+  { 
+    id: 'fiat-trap',
+    title: 'Fiat vs. Hard Money™',
+    icon: Landmark,
+    category: 'Sound Money',
+    desc: 'Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor.',
+    blogPath: '../blogs/1_fiat_vs_hard_money.md',
+    image: BlogImg01
+  },
+  { 
+    id: 'budgeting',
+    title: 'The 10% Wealth Shield™',
+    icon: Wallet,
+    category: 'Sound Money',
+    desc: "How to budget for your family's financial citadel by converting paper into physical protection.",
+    blogPath: '../blogs/2_budgeting_10_percent_shield.md',
+    image: BlogImg06
+  },
+  { 
+    id: 'gold-vs-silver',
+    title: 'Gold vs. Silver Comparison',
+    icon: Scale,
+    category: 'Sound Money',
+    desc: "Settle the debate: critical differences and strategic advantages of both gold and silver.",
+    blogPath: '../blogs/3_gold_vs_silver_comparison.md',
+    image: BlogImg05
+  },
+  { 
+    id: 'dca-superpower',
+    title: 'The DCA Stacking Superpower',
+    icon: TrendingUp,
+    category: 'Sound Money',
+    desc: 'Why timing the market is a losing game and how consistent stackers win in the long run.',
+    blogPath: '../blogs/4_dca_stacking_superpower.md',
+    image: BlogImg03
+  },
+  { 
+    id: 'legacy-passing',
+    title: 'Passing the Torch™',
+    icon: Users,
+    category: 'Family',
+    desc: 'How physical metals bypass bureaucratic gridlock and estate delays for private wealth transfer.',
+    blogPath: '../blogs/5_legacy_passing_wealth.md',
+    image: BlogImg04
+  },
+  { 
+    id: 'ratio-trading',
+    title: 'The Gold-to-Silver Ratio',
+    icon: Gem,
+    category: 'Sound Money',
+    desc: 'The mathematical secret to multiplying your ounces for free without spending new capital.',
+    blogPath: '../blogs/6_gold_silver_ratio_trading.md',
+    image: BlogImg02
+  },
+  { 
+    id: 'iraq-gold',
+    title: 'The $20M Smuggled Gold Scandal',
+    icon: Shield,
+    category: 'High Intrigue',
+    desc: 'The true story of covert operatives and looted vaults during the 2003 invasion of Baghdad.',
+    blogPath: '../blogs/8_cia_iraq_gold_heist.md',
+    image: BlogImg08
+  },
+  { 
+    id: 'hunt-brothers',
+    title: 'The Day the Silver Market Broke',
+    icon: History,
+    category: 'High Intrigue',
+    desc: 'How two Texas oil billionaires nearly cornered the global silver supply in 1980.',
+    blogPath: '../blogs/9_hunt_brothers_silver_thursday.md'
+  },
+  {
+    id: 'nazi-gold',
+    title: 'The Shadow of Nazi Gold',
+    icon: History,
+    category: 'High Intrigue',
+    desc: 'The dark history of WWII looted bullion, secret vaults, and the Swiss connection.',
+    blogPath: '../blogs/10_nazi_gold_secret_vaults.md'
+  },
+  {
+    id: 'fort-knox',
+    title: 'Inside Fort Knox',
+    icon: Landmark,
+    category: 'High Intrigue',
+    desc: 'Separating myths from reality at the US Bullion Depository and the sovereign truth.',
+    blogPath: '../blogs/11_fort_knox_conspiracy.md',
+    videoUrl: 'https://video.pictory.ai/embed/202606261718046644e21711497c44bbcb9e1201746e2465f/202606261723519319l2MpNDLHFLXK8n'
+  },
+  { 
+    id: 'brinks-mat',
+    title: 'The Brink\'s-MAT Gold Robbery', 
+    icon: History, 
+    category: 'High Intrigue',
+    desc: 'How a simple warehouse robbery accidentally scored three tons of solid gold in 1983.',
+    blogPath: '../blogs/12_brinks_mat_gold_heist.md'
+  },
+  { 
+    id: 'bre-x-fraud',
+    title: 'The $6 Billion Bre-X Mirage', 
+    icon: Shield, 
+    category: 'High Intrigue',
+    desc: 'The massive gold mine fraud of the 1990s that fooled Wall Street with ring shavings.',
+    blogPath: '../blogs/13_bre_x_gold_mine_fraud.md'
+  },
+  {
+    id: 'el-dorado',
+    title: 'The Ocean of Gold',
+    icon: Anchor,
+    category: 'High Intrigue',
+    desc: 'Shipwreck treasure and the mythical quest for golden cities that shaped the Americas.',
+    blogPath: '../blogs/14_el_dorado_sunken_galleons.md'
+  },
+  {
+    id: 'rotation',
+    title: 'The Great Rotation',
+    icon: TrendingUp,
+    category: 'Premium Strategy',
+    desc: 'Fundamentals, conspiracy, and history — why the truth about precious metals is always in motion.',
+    blogPath: '../blogs/15_rotation.md'
+  },
+  {
+    id: 'gold-confiscation-1933',
+    title: 'The 1933 Gold Confiscation',
+    icon: Landmark,
+    category: 'High Intrigue',
+    desc: 'How Executive Order 6102 made private gold ownership a crime — and the question every stacker asks about it.',
+    blogPath: '../blogs/16_gold_confiscation_1933.md'
+  },
+  {
+    id: 'central-bank-gold-rush',
+    title: 'The Central Bank Gold Rush',
+    icon: Landmark,
+    category: 'Sound Money',
+    desc: 'Why central banks are buying gold at the fastest pace in modern history — and what it means for you.',
+    blogPath: '../blogs/17_central_bank_gold_rush.md'
+  },
+  {
+    id: 'spot-counterfeits',
+    title: 'How to Spot Counterfeit Gold & Silver',
+    icon: Shield,
+    category: 'High Intrigue',
+    desc: 'Five DIY tests plus professional verification methods to make sure your stack is real.',
+    blogPath: '../blogs/18_spot_counterfeits.md'
+  },
+  {
+    id: 'paper-gold-problem',
+    title: 'The Paper Gold Problem',
+    icon: Scale,
+    category: 'High Intrigue',
+    desc: 'How Wall Street trades gold it doesn\'t own — and what the courts have actually proven about the paper market.',
+    blogPath: '../blogs/19_paper_gold_problem.md'
+  }
+];
+
 const EducationalHub = () => {
   const [selectedArticle, setSelectedArticle] = useState(null);
-
-  const articles = [
-    { 
-      id: '7stop',
-      title: 'The 7 Stops to Generational Wealth', 
-      icon: Map, 
-      category: 'Premium Strategy',
-      desc: 'The definitive 7-step journey from fragile paper assets to an unbreakable family legacy.',
-      blogPath: '../blogs/7stop.md'
-    },
-    {
-      id: 'fiat-trap',
-      title: 'Fiat vs. Hard Money™',
-      icon: Landmark,
-      category: 'Sound Money',
-      desc: 'Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor.',
-      blogPath: '../blogs/1_fiat_vs_hard_money.md',
-      image: BlogImg01
-    },
-    {
-      id: 'budgeting',
-      title: 'The 10% Wealth Shield™',
-      icon: Wallet,
-      category: 'Sound Money',
-      desc: "How to budget for your family's financial citadel by converting paper into physical protection.",
-      blogPath: '../blogs/2_budgeting_10_percent_shield.md',
-      image: BlogImg06
-    },
-    {
-      id: 'gold-vs-silver',
-      title: 'Gold vs. Silver Comparison',
-      icon: Scale,
-      category: 'Sound Money',
-      desc: "Settle the debate: critical differences and strategic advantages of both gold and silver.",
-      blogPath: '../blogs/3_gold_vs_silver_comparison.md',
-      image: BlogImg03
-    },
-    { 
-      id: 'dca-superpower',
-      title: 'The DCA Stacking Superpower',
-      icon: TrendingUp,
-      category: 'Sound Money',
-      desc: 'Why timing the market is a losing game and how consistent stackers win in the long run.',
-      blogPath: '../blogs/4_dca_stacking_superpower.md',
-      image: BlogImg05
-    },
-    { 
-      id: 'legacy-passing',
-      title: 'Passing the Torch',
-      icon: Users,
-      category: 'Family',
-      desc: 'How physical metals bypass bureaucratic gridlock and estate delays for private wealth transfer.',
-      blogPath: '../blogs/5_legacy_passing_wealth.md',
-      image: BlogImg04
-    },
-    { 
-      id: 'ratio-trading',
-      title: 'The Gold-to-Silver Ratio',
-      icon: Gem,
-      category: 'Sound Money',
-      desc: 'The mathematical secret to multiplying your ounces for free without spending new capital.',
-      blogPath: '../blogs/6_gold_silver_ratio_trading.md',
-      image: BlogImg07
-    },
-    { 
-      id: 'iraq-gold',
-      title: 'The $20M Smuggled Gold Scandal',
-      icon: Shield,
-      category: 'High Intrigue',
-      desc: 'The true story of covert operatives and looted vaults during the 2003 invasion of Baghdad.',
-      blogPath: '../blogs/8_cia_iraq_gold_heist.md',
-      image: BlogImg02
-    },
-    { 
-      id: 'hunt-brothers',
-      title: 'The Day the Silver Market Broke',
-      icon: History,
-      category: 'High Intrigue',
-      desc: 'How two Texas oil billionaires nearly cornered the global silver supply in 1980.',
-      blogPath: '../blogs/9_hunt_brothers_silver_thursday.md',
-      image: BlogImg08
-    },
-    {
-      id: 'nazi-gold',
-      title: 'The Shadow of Nazi Gold',
-      icon: History,
-      category: 'High Intrigue',
-      desc: 'The dark history of WWII looted bullion, secret vaults, and the Swiss connection.',
-      blogPath: '../blogs/10_nazi_gold_secret_vaults.md'
-    },
-    {
-      id: 'fort-knox',
-      title: 'Inside Fort Knox',
-      icon: Landmark,
-      category: 'High Intrigue',
-      desc: 'Separating myths from reality at the US Bullion Depository and the sovereign truth.',
-      blogPath: '../blogs/11_fort_knox_conspiracy.md',
-      videoUrl: 'https://video.pictory.ai/embed/202606261718046644e21711497c44bbcb9e1201746e2465f/202606261723519319l2MpNDLHFLXK8n'
-    },
-    { 
-      id: 'brinks-mat',
-      title: 'The Brink\'s-MAT Gold Robbery', 
-      icon: History, 
-      category: 'High Intrigue',
-      desc: 'How a simple warehouse robbery accidentally scored three tons of solid gold in 1983.',
-      blogPath: '../blogs/12_brinks_mat_gold_heist.md'
-    },
-    { 
-      id: 'bre-x-fraud',
-      title: 'The $6 Billion Bre-X Mirage', 
-      icon: Shield, 
-      category: 'High Intrigue',
-      desc: 'The massive gold mine fraud of the 1990s that fooled Wall Street with ring shavings.',
-      blogPath: '../blogs/13_bre_x_gold_mine_fraud.md'
-    },
-    {
-      id: 'el-dorado',
-      title: 'The Ocean of Gold',
-      icon: Anchor,
-      category: 'High Intrigue',
-      desc: 'Shipwreck treasure and the mythical quest for golden cities that shaped the Americas.',
-      blogPath: '../blogs/14_el_dorado_sunken_galleons.md'
-    },
-    {
-      id: 'rotation',
-      title: 'The Great Rotation',
-      icon: TrendingUp,
-      category: 'Premium Strategy',
-      desc: 'Fundamentals, conspiracy, and history — why the truth about precious metals is always in motion.',
-      blogPath: '../blogs/15_rotation.md'
-    },
-    {
-      id: 'gold-confiscation-1933',
-      title: 'The 1933 Gold Confiscation',
-      icon: Landmark,
-      category: 'High Intrigue',
-      desc: 'How Executive Order 6102 made private gold ownership a crime — and the question every stacker asks about it.',
-      blogPath: '../blogs/16_gold_confiscation_1933.md'
-    },
-    {
-      id: 'central-bank-gold-rush',
-      title: 'The Central Bank Gold Rush',
-      icon: Landmark,
-      category: 'Sound Money',
-      desc: 'Why central banks are buying gold at the fastest pace in modern history — and what it means for you.',
-      blogPath: '../blogs/17_central_bank_gold_rush.md'
-    },
-    {
-      id: 'spot-counterfeits',
-      title: 'How to Spot Counterfeit Gold & Silver',
-      icon: Shield,
-      category: 'High Intrigue',
-      desc: 'Five DIY tests plus professional verification methods to make sure your stack is real.',
-      blogPath: '../blogs/18_spot_counterfeits.md'
-    },
-    {
-      id: 'paper-gold-problem',
-      title: 'The Paper Gold Problem',
-      icon: Scale,
-      category: 'High Intrigue',
-      desc: 'How Wall Street trades gold it doesn\'t own — and what the courts have actually proven about the paper market.',
-      blogPath: '../blogs/19_paper_gold_problem.md'
-    }
-  ];
 
   const handleOpenArticle = (article) => {
     if (article && article.blogPath) {
@@ -196,7 +196,7 @@ const EducationalHub = () => {
   };
 
   const featuredArticle1 = articles.find(a => a.id === 'fiat-trap');
-  const featuredArticle2 = articles.find(a => a.id === 'fort-knox');
+  const featuredArticle2 = articles.find(a => a.id === '7stop');
 
   return (
     <section id="education" className="py-24 bg-surface/10 border-t border-border relative">
@@ -244,7 +244,7 @@ const EducationalHub = () => {
                     <div>
                       <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block mb-2">{featuredArticle1?.category || 'SOUND MONEY'}</span>
                       <h3 className="text-2xl font-black text-white group-hover:text-primary transition-colors leading-tight mb-3">
-                        {featuredArticle1?.title || 'Fiat vs. Hard Money'}
+                        {featuredArticle1?.title || 'Fiat vs. Hard Money™'}
                       </h3>
                       <p className="text-text-muted text-sm leading-relaxed mb-4">
                         {featuredArticle1?.desc || 'Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor.'}
@@ -261,7 +261,7 @@ const EducationalHub = () => {
                     className="relative overflow-hidden group bg-gradient-to-br from-border/10 to-surface/20 border border-border p-8 rounded-3xl transition-all shadow-xl hover:border-primary/40 cursor-pointer flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-6"
                   >
                     <div className="absolute top-0 right-0 bg-border/20 text-text-muted text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-bl-xl border-l border-b border-border/20">
-                      CONSPIRACY & HISTORY
+                      STRATEGY SELECTION
                     </div>
                     <div className="w-16 h-16 bg-surface border border-border rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-inner overflow-hidden">
                       {featuredArticle2?.image ? (
@@ -271,12 +271,12 @@ const EducationalHub = () => {
                       )}
                     </div>
                     <div>
-                      <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block mb-2">{featuredArticle2?.category || 'HIGH INTRIGUE'}</span>
+                      <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] block mb-2">{featuredArticle2?.category || 'PREMIUM STRATEGY'}</span>
                       <h3 className="text-2xl font-black text-white group-hover:text-primary transition-colors leading-tight mb-3">
-                        {featuredArticle2?.title || 'Inside Fort Knox'}
+                        {featuredArticle2?.title || 'The 7 Stops to Generational Wealth™'}
                       </h3>
                       <p className="text-text-muted text-sm leading-relaxed mb-4">
-                        {featuredArticle2?.desc || "Separating myths from reality at the US Bullion Depository. Read the historical audits and conspiracy theories that follow the world's most guarded vault."}
+                        {featuredArticle2?.desc || "The definitive 7-step journey from fragile paper assets to an unbreakable family legacy."}
                       </p>
                       <span className="text-xs font-bold text-primary group-hover:underline flex items-center">
                         READ ARTICLE <ChevronRight size={14} className="ml-1 group-hover:translate-x-1 transition-transform" />
