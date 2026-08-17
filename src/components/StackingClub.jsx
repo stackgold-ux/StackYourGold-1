@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Check, ArrowRight, Sliders, DollarSign, Zap, Award, Shield } from 'lucide-react';
 import LogoGold from '../assets/logo-gold.jpg';
 import LogoSilver from '../assets/logo-silver.jpg';
-import ImgGold from '../assets/IMG_0596.jpeg';
-import ImgSilver from '../assets/IMG_0597.jpeg';
+import ImgGold from '../assets/products/gold-fractional-hero.png';
+import ImgSilver from '../assets/products/silver-american-eagle.png';
 import ImgPlatinum from '../assets/IMG_0598.jpeg';
 import ImgStrategist from '../assets/IMG_0600.jpeg';
 
-import ImgSurprise from '../assets/IMG_0605.jpeg';
+import ImgSurprise from '../assets/products/surprise-sack-copper-mockup.png';
 
 const StackingClub = ({ addToCart }) => {
   const [selectedPlan, setSelectedPlan] = useState(null);

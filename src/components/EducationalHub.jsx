@@ -35,77 +35,77 @@ const EducationalHub = () => {
     },
     { 
       id: 'fiat-trap',
-      title: 'Fiat vs. Hard Money', 
-      icon: Landmark, 
+      title: 'Fiat vs. Hard Money',
+      icon: Landmark,
       category: 'Sound Money',
       desc: 'Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor.',
       blogPath: '../blogs/1_fiat_vs_hard_money.md',
       image: BlogImg01
-    },
-    { 
+      },
+      {
       id: 'budgeting',
-      title: 'The 10% Wealth Shield', 
-      icon: Wallet, 
+      title: 'The 10% Wealth Shield',
+      icon: Wallet,
       category: 'Sound Money',
       desc: "How to budget for your family's financial citadel by converting paper into physical protection.",
       blogPath: '../blogs/2_budgeting_10_percent_shield.md',
       image: BlogImg06
-    },
-    { 
+      },
+      {
       id: 'gold-vs-silver',
-      title: 'Gold vs. Silver Comparison', 
-      icon: Scale, 
+      title: 'Gold vs. Silver Comparison',
+      icon: Scale,
       category: 'Sound Money',
       desc: "Settle the debate: critical differences and strategic advantages of both gold and silver.",
       blogPath: '../blogs/3_gold_vs_silver_comparison.md',
       image: BlogImg03
-    },
-    { 
+      },
+      {
       id: 'dca-superpower',
-      title: 'The DCA Stacking Superpower', 
-      icon: TrendingUp, 
+      title: 'The DCA Stacking Superpower',
+      icon: TrendingUp,
       category: 'Sound Money',
       desc: 'Why timing the market is a losing game and how consistent stackers win in the long run.',
       blogPath: '../blogs/4_dca_stacking_superpower.md',
       image: BlogImg05
-    },
-    { 
+      },
+      {
       id: 'legacy-passing',
-      title: 'Passing the Torch', 
-      icon: Users, 
+      title: 'Passing the Torch',
+      icon: Users,
       category: 'Family',
       desc: 'How physical metals bypass bureaucratic gridlock and estate delays for private wealth transfer.',
       blogPath: '../blogs/5_legacy_passing_wealth.md',
       image: BlogImg04
-    },
-    { 
+      },
+      {
       id: 'ratio-trading',
-      title: 'The Gold-to-Silver Ratio', 
-      icon: Gem, 
+      title: 'The Gold-to-Silver Ratio',
+      icon: Gem,
       category: 'Sound Money',
       desc: 'The mathematical secret to multiplying your ounces for free without spending new capital.',
       blogPath: '../blogs/6_gold_silver_ratio_trading.md',
       image: BlogImg07
-    },
-    { 
+      },
+      {
       id: 'iraq-gold',
-      title: 'The $20M Smuggled Gold Scandal', 
-      icon: Shield, 
+      title: 'The $20M Smuggled Gold Scandal',
+      icon: Shield,
       category: 'High Intrigue',
       desc: 'The true story of covert operatives and looted vaults during the 2003 invasion of Baghdad.',
       blogPath: '../blogs/8_cia_iraq_gold_heist.md',
       image: BlogImg02
-    },
-    { 
+      },
+      {
       id: 'hunt-brothers',
-      title: 'The Day the Silver Market Broke', 
-      icon: History, 
+      title: 'The Day the Silver Market Broke',
+      icon: History,
       category: 'High Intrigue',
       desc: 'How two Texas oil billionaires nearly cornered the global silver supply in 1980.',
       blogPath: '../blogs/9_hunt_brothers_silver_thursday.md',
       image: BlogImg08
-    },
-    { 
+      },
+
       id: 'nazi-gold',
       title: 'The Shadow of Nazi Gold', 
       icon: History, 
@@ -288,15 +288,15 @@ const EducationalHub = () => {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {articles.map((article, i) => (
+                {articles.map((article) => (
                   <div 
-                    key={i} 
+                    key={article.id} 
                     onClick={() => handleOpenArticle(article)}
                     className={`group bg-surface border border-border p-6 rounded-2xl transition-all flex flex-col items-start space-y-4 shadow-lg hover:border-primary/50 cursor-pointer`}
                   >
                     <div className="w-14 h-14 bg-background rounded-xl border border-border flex items-center justify-center group-hover:scale-110 transition-transform shrink-0 shadow-inner overflow-hidden">
                       {article.image ? (
-                        <img src={article.image} className="w-full h-full object-cover" alt="" />
+                        <img src={article.image} className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-500" alt="" />
                       ) : (
                         <article.icon className="text-primary" size={28} />
                       )}

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, ShieldCheck, ChevronDown, ChevronUp, DollarSign, Info, Play, Image as ImageIcon, Box } from 'lucide-react';
 import { shopifyClient } from '../utils/shopifyClient';
-import ImgGold from '../assets/IMG_0596.jpeg';
-import ImgSilver from '../assets/IMG_0597.jpeg';
+import ImgGold from '../assets/products/gold-fractional-hero.png';
+import ImgSilver from '../assets/products/silver-american-eagle.png';
 import ImgPlatinum from '../assets/IMG_0598.jpeg';
 
 const BullionShop = ({ spotPrices, addToCart }) => {
