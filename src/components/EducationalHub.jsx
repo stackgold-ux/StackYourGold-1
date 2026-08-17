@@ -50,7 +50,7 @@ const EducationalHub = () => {
       blogPath: '../blogs/2_budgeting_10_percent_shield.md',
       image: BlogImg06
     },
-
+    {
       id: 'gold-vs-silver',
       title: 'Gold vs. Silver Comparison',
       icon: Scale,
