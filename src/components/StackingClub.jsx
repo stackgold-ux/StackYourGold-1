@@ -26,8 +26,8 @@ const StackingClub = ({ addToCart }) => {
       const profiles = JSON.parse(localStorage.getItem('syg_squad_profiles') || '[]');
       // For the "Road to 99" simulation/campaign, we might want to start from a base number 
       // or just show the real count. The previous agent used 42 as a baseline or hardcoded it.
-      // Let's use real profiles count + a base of 42 to show "Early Momentum" if profiles are few.
-      const count = Math.max(42, profiles.length);
+      // Let's use real profiles count + a base of 2 to show actual active stackers.
+      const count = Math.max(2, profiles.length);
       setSubscriberCount(count);
     };
 

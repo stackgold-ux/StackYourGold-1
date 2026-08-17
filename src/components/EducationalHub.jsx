@@ -32,25 +32,25 @@ const EducationalHub = () => {
       desc: 'The definitive 7-step journey from fragile paper assets to an unbreakable family legacy.',
       blogPath: '../blogs/7stop.md'
     },
-    { 
+    {
       id: 'fiat-trap',
-      title: 'Fiat vs. Hard Money',
+      title: 'Fiat vs. Hard Money™',
       icon: Landmark,
       category: 'Sound Money',
       desc: 'Why paper currencies historically always return to zero and why precious metals remain the ultimate anchor.',
       blogPath: '../blogs/1_fiat_vs_hard_money.md',
       image: BlogImg01
     },
-    { 
+    {
       id: 'budgeting',
-      title: 'The 10% Wealth Shield',
+      title: 'The 10% Wealth Shield™',
       icon: Wallet,
       category: 'Sound Money',
       desc: "How to budget for your family's financial citadel by converting paper into physical protection.",
       blogPath: '../blogs/2_budgeting_10_percent_shield.md',
       image: BlogImg06
     },
-    { 
+
       id: 'gold-vs-silver',
       title: 'Gold vs. Silver Comparison',
       icon: Scale,
@@ -210,7 +210,7 @@ const EducationalHub = () => {
               exit={{ opacity: 0, y: -20 }}
             >
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-6">Stack School</h2>
+                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-6">Your Stack School</h2>
                 <p className="text-text-muted max-w-2xl mx-auto text-lg">
                   Master the art of physical stacking. No confusing jargon, just actionable financial literacy for the modern family.
                 </p>
