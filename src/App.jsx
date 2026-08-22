@@ -119,66 +119,7 @@ function App() {
       case 'home':
         return (
           <>
-            {/* Hero Section */}
-            <section className="relative py-24 md:py-32 px-4 overflow-hidden">
-              <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-                <div className="max-w-2xl text-center md:text-left">
-                  <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8">
-                    From Grams to Kilos, You're in control.
-                  </h1>
-                  <p className="text-xl text-text-muted mb-12 max-w-xl mx-auto md:mx-0">
-                    Your Stack, Your Way, Always
-                  </p>
-                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
-                    <button onClick={() => navigateTo('vault')} className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all shadow-xl">
-                      Start Stacking <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                    <button onClick={() => navigateTo('home')} className="border border-border bg-surface/50 backdrop-blur px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center hover:bg-surface transition-all">
-                      Join the Squad
-                    </button>
-                  </div>
-                  <div className="mt-12 flex items-center space-x-6 justify-center md:justify-start">
-                    <img src={LogoGold} alt="SYG" className="w-10 h-10 object-contain" />
-                    <span className="text-primary font-black tracking-[0.4em] text-[10px] uppercase italic">.999 Fine</span>
-                    <img src={LogoSilver} alt="SYS" className="w-10 h-10 object-contain" />
-                  </div>
-                </div>
-                <div className="relative w-full max-w-md hidden md:block">
-                  <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full"></div>
-                  <img src={HeroLogoGif} alt="SYG Premium Gold" className="w-full h-auto object-contain relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]" />
-                </div>
-              </div>
-              <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent blur-3xl rounded-full"></div>
-            </section>
-
-            {/* Value Props */}
-            <section className="py-12 border-y border-border bg-surface/5">
-              <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Shield size={24} /></div>
-                  <div>
-                    <h4 className="font-bold uppercase tracking-wider mb-1">Insured Shipping</h4>
-                    <p className="text-sm text-text-muted">Every order is fully insured and tracked to your door.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Award size={24} /></div>
-                  <div>
-                    <h4 className="font-bold uppercase tracking-wider mb-1">Authenticity Guaranteed</h4>
-                    <p className="text-sm text-text-muted">Direct from sovereign mints and certified refineries.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
-                  <div>
-                    <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
-                    <p className="text-sm text-text-muted">Transparent 20% margin over real-time spot.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <ReceiptWall />
+            <StackingClub spotPrices={spotPrices} addToCart={addToCart} />
 
             {/* Featured Section */}
             <section className="py-24 bg-surface/5 border-y border-border">
@@ -237,6 +178,67 @@ function App() {
               </div>
             </section>
 
+            {/* Hero Section */}
+            <section className="relative py-24 md:py-32 px-4 overflow-hidden">
+              <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                <div className="max-w-2xl text-center md:text-left">
+                  <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8">
+                    From Grams to Kilos, You're in control.
+                  </h1>
+                  <p className="text-xl text-text-muted mb-12 max-w-xl mx-auto md:mx-0">
+                    Your Stack, Your Way, Always
+                  </p>
+                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
+                    <button onClick={() => navigateTo('vault')} className="bg-primary text-background px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center group hover:scale-105 transition-all shadow-xl">
+                      Start Stacking <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                    <button onClick={() => navigateTo('home')} className="border border-border bg-surface/50 backdrop-blur px-10 py-5 rounded-xl font-black uppercase tracking-widest flex items-center justify-center hover:bg-surface transition-all">
+                      Join the Squad
+                    </button>
+                  </div>
+                  <div className="mt-12 flex items-center space-x-6 justify-center md:justify-start">
+                    <img src={LogoGold} alt="SYG" className="w-10 h-10 object-contain" />
+                    <span className="text-primary font-black tracking-[0.4em] text-[10px] uppercase italic">.999 Fine</span>
+                    <img src={LogoSilver} alt="SYS" className="w-10 h-10 object-contain" />
+                  </div>
+                </div>
+                <div className="relative w-full max-w-md hidden md:block">
+                  <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full"></div>
+                  <img src={HeroLogoGif} alt="SYG Premium Gold" className="w-full h-auto object-contain relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]" />
+                </div>
+              </div>
+              <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent blur-3xl rounded-full"></div>
+            </section>
+
+            {/* Value Props */}
+            <section className="py-12 border-y border-border bg-surface/5">
+              <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Shield size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Insured Shipping</h4>
+                    <p className="text-sm text-text-muted">Every order is fully insured and tracked to your door.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Award size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Authenticity Guaranteed</h4>
+                    <p className="text-sm text-text-muted">Direct from sovereign mints and certified refineries.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
+                    <p className="text-sm text-text-muted">Shopify-synced market pricing.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <ReceiptWall />
+
             {/* The Problem Section */}
             <section className="py-24 bg-surface/20 border-b border-border relative overflow-hidden">
               <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -278,8 +280,6 @@ function App() {
                 </div>
               </div>
             </section>
-
-            <StackingClub spotPrices={spotPrices} addToCart={addToCart} />
           </>
         );
       case 'instock':
