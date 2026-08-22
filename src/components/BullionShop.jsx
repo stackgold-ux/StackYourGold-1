@@ -296,18 +296,15 @@ const BullionShop = ({ spotPrices, addToCart }) => {
 const ProductCard = ({ product, addToCart, spotPrices }) => {
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0] || {});
   
-  // Calculate dynamic price if it's a bullion product with weight
-  const metal = product.tags?.find(t => ['gold', 'silver', 'platinum', 'palladium'].includes(t));
-  const currentPrice = (metal && spotPrices?.[metal] && selectedVariant?.weightOz)
-    ? spotPrices[metal] * selectedVariant.weightOz * 1.20 // Updated margin to 20% (1.20) as per Lead's request
-    : (selectedVariant?.price || 0);
+  // Use the price directly from Shopify variant as per owner instructions (Aug 16)
+  const currentPrice = selectedVariant?.price || 0;
 
   // Initialize with first available image or video
   const initialMedia = (product.images?.length > 0) 
-    ? { type: 'IMAGE', url: product.images[0].url }
+    ? { type: 'IMAGE', url: product.images[0].url, altText: product.images[0].altText }
     : (product.media?.length > 0)
-      ? { type: 'VIDEO', url: product.media[0].sources[0].url }
-      : { type: 'IMAGE', url: null };
+      ? { type: 'VIDEO', url: product.media[0].sources[0].url, altText: product.name }
+      : { type: 'IMAGE', url: null, altText: product.name };
 
   const [activeMedia, setActiveMedia] = useState(initialMedia);
 
@@ -320,8 +317,8 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
     addToCart({
       id: `${product.id}-${selectedVariant.id}`,
       name: `${product.name} - ${selectedVariant.title}`,
-      price: currentPrice.toFixed(2),
-      image: product.images[0]?.url || '',
+      price: selectedVariant.price,
+      image: product.images?.[0]?.url || '',
       type: 'bullion',
       weight: selectedVariant.title,
       description: product.description
@@ -336,7 +333,7 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
           {activeMedia.type === 'IMAGE' ? (
             <img 
               src={activeMedia.url} 
-              alt={product.name} 
+              alt={activeMedia.altText || product.name} 
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             />
           ) : (
@@ -355,10 +352,10 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
             {product.images?.map((img, i) => (
               <button
                 key={i}
-                onClick={() => setActiveMedia({ type: 'IMAGE', url: img.url })}
+                onClick={() => setActiveMedia({ type: 'IMAGE', url: img.url, altText: img.altText })}
                 className={`w-10 h-10 rounded-lg border-2 overflow-hidden transition-all ${activeMedia.url === img.url ? 'border-primary scale-110' : 'border-white/20 hover:border-white/50'}`}
               >
-                <img src={img.url} className="w-full h-full object-cover" alt="thumb" />
+                <img src={img.url} className="w-full h-full object-cover" alt={img.altText || "thumb"} />
               </button>
             ))}
             {product.media?.filter(m => m.type === 'VIDEO').map((v, i) => (
