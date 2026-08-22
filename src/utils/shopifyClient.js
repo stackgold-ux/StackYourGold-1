@@ -4,9 +4,9 @@
  */
 
 const SHOPIFY_CONFIG = {
-  storeUrl: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SHOPIFY_STORE_DOMAIN) || 
+  storeUrl: (typeof import.meta !== 'undefined' && (import.meta.env?.VITE_SHOPIFY_STORE_DOMAIN || import.meta.env?.VITE_SHOPIFY_DOMAIN)) || 
             (typeof process !== 'undefined' && process.env?.SHOPIFY_STORE_DOMAIN) || 
-            'stackyourgold.myshopify.com',
+            'vercel-store-a8184ee5.myshopify.com',
   storefrontToken: (typeof import.meta !== 'undefined' && (import.meta.env?.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || import.meta.env?.VITE_SHOPIFY_STOREFRONT_TOKEN)) || 
                    (typeof process !== 'undefined' && process.env?.SHOPIFY_STOREFRONT_ACCESS_TOKEN) || 
                    'f538c8684ee0765417ec9295342822da',

@@ -299,11 +299,8 @@ const ProductCard = ({ product, addToCart, spotPrices }) => {
   const isSoldOut = product.totalInventory <= 0;
   const isVariantSoldOut = selectedVariant.inventory <= 0 || !selectedVariant.available;
   
-  // Calculate dynamic price if it's a bullion product with weight
-  const metal = product.tags?.find(t => ['gold', 'silver', 'platinum', 'palladium'].includes(t));
-  const currentPrice = (metal && spotPrices?.[metal] && selectedVariant?.weightOz)
-    ? spotPrices[metal] * selectedVariant.weightOz * 1.20 // Updated margin to 20% (1.20) as per Lead's request
-    : (selectedVariant?.price || 0);
+  // Use the price directly from Shopify variant as per owner instructions (Aug 16)
+  const currentPrice = selectedVariant?.price || 0;
 
   // Initialize with first available image or video
   const initialMedia = (product.images?.length > 0) 
