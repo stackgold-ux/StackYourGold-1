@@ -82,7 +82,6 @@ class ShopifyClient {
                     id
                     title
                     availableForSale
-                    quantityAvailable
                     price {
                       amount
                     }
@@ -146,7 +145,7 @@ class ShopifyClient {
             price: parseFloat(v.node.price?.amount || 0),
             weightOz: weightOz,
             available: v.node.availableForSale,
-            inventory: v.node.quantityAvailable || 0
+            inventory: v.node.availableForSale ? 1 : 0
           };
         }) || [];
         
