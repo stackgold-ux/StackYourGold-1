@@ -59,14 +59,10 @@ function App() {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const products = await shopifyClient.getProducts('featured');
-        // Fallback if no 'featured' tag exists
-        if (products.length === 0) {
-          const all = await shopifyClient.getProducts('swag');
-          setFeaturedProducts(all.slice(0, 3));
-        } else {
-          setFeaturedProducts(products.slice(0, 3));
-        }
+        // Pull real in-stock Shopify products so the homepage inventory section is never empty.
+        const silver = await shopifyClient.getProducts('silver');
+        const inStock = (silver || []).filter(p => p.totalInventory > 0);
+        setFeaturedProducts(inStock.slice(0, 3));
       } catch (error) {
         console.error('Failed to fetch featured items:', error);
       } finally {
