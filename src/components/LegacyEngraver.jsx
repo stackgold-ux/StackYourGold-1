@@ -1,20 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Type, Image as ImageIcon, RotateCw, Download } from 'lucide-react';
+import { shopifyClient } from '../utils/shopifyClient';
 
-const LegacyEngraver = ({ spotPrices, addToCart }) => {
+const LegacyEngraver = ({ addToCart }) => {
   const [text, setText] = useState('SMITH FAMILY');
   const [font, setFont] = useState('serif');
-  const [metal, setMetal] = useState('gold');
+  const [metal, setMetal] = useState('silver');
+  const [basePrice, setBasePrice] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+    const fetchBasePrice = async () => {
+      try {
+        const silver = await shopifyClient.getProducts('silver');
+        const bar = (silver || []).find(p => /1 oz \.999 silver/i.test(p.name)) || (silver && silver[0]);
+        if (mounted && bar) setBasePrice(parseFloat(bar.price) || null);
+      } catch (e) {
+        console.warn('Could not load base metal price from Shopify:', e);
+      }
+    };
+    fetchBasePrice();
+    return () => { mounted = false; };
+  }, []);
 
   const engravingFees = {
     gold: 100,
     silver: 25
   };
 
+  // Shopify has a 1oz silver bar listing; gold engraving is disabled until a gold bar is listed.
+  const basePrices = { silver: basePrice, gold: null };
+  const currentBase = basePrices[metal];
+  const price = currentBase != null ? currentBase + engravingFees[metal] : null;
+
   const handleAddToCart = () => {
-    const spot = spotPrices[metal] || 0;
-    const price = spot * 1.20 + engravingFees[metal];
-    
+    if (price == null) return;
+
     const product = {
       id: `legacy-${metal}-${Date.now()}`,
       name: `Custom Engraved ${metal.charAt(0).toUpperCase() + metal.slice(1)} Bar`,
@@ -49,7 +70,9 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
             <div className="flex space-x-4 mb-8">
               <button 
                 onClick={() => setMetal('gold')}
-                className={`flex-1 py-3 rounded-xl font-black uppercase tracking-widest border-2 transition-all ${metal === 'gold' ? 'border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(212,175,55,0.3)]' : 'border-border bg-surface text-text-muted hover:border-primary/50'}`}
+                disabled
+                title="Gold engraving available once a gold bar is listed in Shopify"
+                className={`flex-1 py-3 rounded-xl font-black uppercase tracking-widest border-2 transition-all ${metal === 'gold' ? 'border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(212,175,55,0.3)]' : 'border-border bg-surface text-text-muted opacity-40 cursor-not-allowed'}`}
               >
                 Gold Bar
               </button>
@@ -93,17 +116,22 @@ const LegacyEngraver = ({ spotPrices, addToCart }) => {
             
             <div className="bg-surface/50 p-6 rounded-2xl border border-border">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-xs font-bold uppercase tracking-widest text-text-muted">Dynamic Price</span>
-                <span className="text-2xl font-black text-primary">${((spotPrices[metal] || 0) * 1.20 + engravingFees[metal]).toFixed(2)}</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-text-muted">Price</span>
+                <span className="text-2xl font-black text-primary">
+                  {price != null ? `$${price.toFixed(2)}` : '—'}
+                </span>
               </div>
               <p className="text-[10px] text-text-muted uppercase tracking-widest leading-relaxed">
-                Includes 1oz .9999 physical {metal} at competitive transparent pricing + ${engravingFees[metal]} precision laser fee.
+                {price != null
+                  ? `Shopify base bar price + ${engravingFees[metal]} precision laser fee.`
+                  : 'Gold engraving is available once a gold bar is listed in Shopify.'}
               </p>
             </div>
 
             <button 
               onClick={handleAddToCart}
-              className="w-full bg-primary hover:bg-primary-dark text-background font-black uppercase py-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-primary/20"
+              disabled={price == null}
+              className={`w-full font-black uppercase py-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg ${price != null ? 'bg-primary hover:bg-primary-dark text-background shadow-primary/20' : 'bg-muted text-text-muted cursor-not-allowed'}`}
             >
               <Download size={20} />
               <span>Save Design & Add to Cart</span>

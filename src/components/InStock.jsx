@@ -131,7 +131,7 @@ const InStock = ({ addToCart }) => {
       {/* Disclaimer */}
       <div className="mt-16 pt-8 border-t border-border/50 text-center">
           <p className="text-[10px] text-text-muted font-bold uppercase tracking-widest max-w-2xl mx-auto leading-relaxed">
-              * Live inventory data is updated every 60 seconds. Physical weights for custom bullion orders are mathematically optimized based on real-time spot prices + a fixed 20% transparency margin.
+              * Live inventory, prices, and images are synced directly from our Shopify catalog and updated every 60 seconds.
           </p>
       </div>
     </section>

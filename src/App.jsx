@@ -413,7 +413,7 @@ function App() {
               {[
                 { 
                   q: "How is your pricing calculated?", 
-                  a: "We believe in complete transparency. We pull live spot prices from major global mints and add a 20% margin. This covers our secure sourcing, fully-insured delivery, and operational costs. Stack Squad members enjoy exclusive discounted rates." 
+                  a: "All product prices come directly from our Shopify catalog — what you see is the exact price at checkout, no hidden fees or dealer premiums. Stack Squad members enjoy exclusive discounted rates." 
                 },
                 { 
                   q: "Is shipping safe? What if my package is lost?", 
