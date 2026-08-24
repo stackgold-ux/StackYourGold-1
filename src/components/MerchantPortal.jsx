@@ -588,7 +588,7 @@ const MerchantPortal = () => {
                   <label className="text-[10px] font-black uppercase tracking-[0.2em] text-text-muted block">Access Token (Masked)</label>
                   <div className="bg-background/50 border border-border rounded-2xl p-6 flex items-center justify-between">
                     <div className="font-mono text-xs text-white/50 tracking-tighter">
-                      shpat_01a3cf8d742b918f654b9d••••••
+                      shpat_••••••••••••••••••••••••••••
                     </div>
                     <div className="px-3 py-1 rounded-full bg-accent/10 text-accent text-[8px] font-black uppercase tracking-widest border border-accent/20">
                       SHOPIFY_STOREFRONT_TOKEN
