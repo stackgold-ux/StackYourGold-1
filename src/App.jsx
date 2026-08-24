@@ -373,10 +373,20 @@ function App() {
       </nav>
 
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background pt-24 p-6 xl:hidden font-black uppercase italic">
+        <div className="fixed inset-0 z-[70] bg-background p-6 xl:hidden font-black uppercase italic overflow-y-auto">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center space-x-2 min-w-0">
+              <img src={LogoGold} alt="SYG" className="w-8 h-8 object-contain shrink-0" />
+              <img src={LogoSilver} alt="SYS" className="w-7 h-7 object-contain -ml-2 border-2 border-background rounded-full shrink-0" />
+              <span className="text-xs font-black uppercase italic tracking-tighter whitespace-nowrap">Stack Your Gold | Silver™</span>
+            </div>
+            <button className="p-2 hover:bg-surface rounded-full transition-colors" onClick={() => setIsMenuOpen(false)} aria-label="Close menu">
+              <X size={24} />
+            </button>
+          </div>
           <div className="flex flex-col space-y-6 text-2xl">
             {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
-              <button key={view} className="text-left" onClick={() => navigateTo(view)}>
+              <button key={view} className="text-left" onClick={() => { navigateTo(view); setIsMenuOpen(false); }}>
                 {view === 'home' ? 'Stack Squad' : 
                  view === 'instock' ? 'In Stock' :
                  view === 'vault' ? 'Bullion' :
