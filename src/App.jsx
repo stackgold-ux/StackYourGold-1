@@ -323,18 +323,21 @@ function App() {
 
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 h-24 flex items-center justify-between">
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigateTo('home')}>
-            <div className="relative flex items-center">
-              <img src={LogoGold} alt="SYG Gold Logo" className="w-12 h-12 object-contain" />
-              <img src={LogoSilver} alt="SYS Silver Logo" className="w-10 h-10 object-contain -ml-4 mt-4 border-2 border-background rounded-full" />
+          <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer min-w-0" onClick={() => navigateTo('home')}>
+            <div className="relative flex items-center shrink-0">
+              <img src={LogoGold} alt="SYG Gold Logo" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+              <img src={LogoSilver} alt="SYS Silver Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain -ml-3 sm:-ml-4 mt-3 sm:mt-4 border-2 border-background rounded-full" />
             </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-black uppercase italic tracking-tighter leading-none">Stack Your Gold | Stack Your Silver™</span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Solidify Your Family's Legacy</span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-base sm:text-lg xl:text-xl font-black uppercase italic tracking-tighter leading-none whitespace-nowrap">
+                <span className="md:hidden">Stack Your Gold | Silver™</span>
+                <span className="hidden md:inline">Stack Your Gold | Stack Your Silver™</span>
+              </span>
+              <span className="hidden sm:block text-[10px] font-bold uppercase tracking-[0.2em] text-primary whitespace-nowrap">Solidify Your Family's Legacy</span>
             </div>
           </div>
 
-          <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
+          <div className="hidden xl:flex items-center space-x-6 2xl:space-x-8 font-bold text-sm uppercase tracking-widest">
             {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button
                 key={view}
@@ -362,7 +365,7 @@ function App() {
                 </span>
               )}
             </button>
-            <button className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <button className="xl:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
@@ -370,7 +373,7 @@ function App() {
       </nav>
 
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden font-black uppercase italic">
+        <div className="fixed inset-0 z-40 bg-background pt-24 p-6 xl:hidden font-black uppercase italic">
           <div className="flex flex-col space-y-6 text-2xl">
             {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button key={view} className="text-left" onClick={() => navigateTo(view)}>
