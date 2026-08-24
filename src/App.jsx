@@ -329,7 +329,7 @@ function App() {
               <img src={LogoSilver} alt="SYS Silver Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain -ml-3 sm:-ml-4 mt-3 sm:mt-4 border-2 border-background rounded-full" />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-base sm:text-lg xl:text-xl font-black uppercase italic tracking-tighter leading-none whitespace-nowrap">
+              <span className="text-sm sm:text-lg xl:text-xl font-black uppercase italic tracking-tighter leading-none whitespace-nowrap">
                 <span className="md:hidden">Stack Your Gold | Silver™</span>
                 <span className="hidden md:inline">Stack Your Gold | Stack Your Silver™</span>
               </span>
