@@ -8,9 +8,8 @@ const SHOPIFY_CONFIG = {
             (typeof process !== 'undefined' && process.env?.SHOPIFY_STORE_DOMAIN) || 
             'vercel-store-a8184ee5.myshopify.com',
   storefrontToken: (typeof import.meta !== 'undefined' && (import.meta.env?.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || import.meta.env?.VITE_SHOPIFY_STOREFRONT_TOKEN)) || 
-                   (typeof process !== 'undefined' && process.env?.SHOPIFY_STOREFRONT_ACCESS_TOKEN) || 
-                   'f538c8684ee0765417ec9295342822da',
-  apiVersion: '2024-04'
+                   (typeof process !== 'undefined' && process.env?.SHOPIFY_STOREFRONT_ACCESS_TOKEN) || '',
+  apiVersion: '2024-01'
 };
 
 class ShopifyClient {
