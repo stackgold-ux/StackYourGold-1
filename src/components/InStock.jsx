@@ -244,7 +244,7 @@ const ProductGridCard = ({ product, addToCart }) => {
         <div className="mt-auto pt-6 border-t border-border/30 flex items-center justify-between">
             <div className="flex items-center text-[9px] font-bold text-text-muted uppercase tracking-widest">
                 <div className={`w-2 h-2 rounded-full mr-2 ${isVariantSoldOut ? 'bg-red-500' : 'bg-green-500 animate-pulse'}`}></div>
-                {isVariantSoldOut ? 'Unavailable' : `${selectedVariant.inventory} in stock`}
+                {isVariantSoldOut ? 'Out of Stock' : 'In Stock'}
             </div>
 
             <button

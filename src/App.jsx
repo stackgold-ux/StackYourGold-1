@@ -150,6 +150,9 @@ function App() {
                           <div className="absolute top-4 left-4 bg-primary text-background text-[10px] font-black px-2 py-1 rounded shadow-lg backdrop-blur-md">
                             ${product.price.toFixed(2)}
                           </div>
+                          <div className="absolute top-4 right-4 bg-green-500 text-white text-[10px] font-black px-2 py-1 rounded shadow-lg backdrop-blur-md flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> In Stock
+                          </div>
                         </div>
                         <h4 className="text-xl font-black uppercase italic tracking-tighter mb-2 line-clamp-1">{product.name}</h4>
                         <p className="text-xs text-text-muted mb-6 line-clamp-2 leading-relaxed flex-grow">{product.description}</p>
