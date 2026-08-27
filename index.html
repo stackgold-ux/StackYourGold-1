@@ -163,6 +163,15 @@
       ]
     }
     </script>
+    <!-- Google Merchant Center widget -->
+    <script id="merchantWidgetScript" src="https://www.gstatic.com/shopping/merchant/merchantwidget.js" defer></script>
+    <script>
+      merchantWidgetScript.addEventListener('load', function () {
+        merchantwidget.start({
+          merchant_id: 5843381908
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
