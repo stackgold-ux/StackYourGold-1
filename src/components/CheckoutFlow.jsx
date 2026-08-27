@@ -16,6 +16,24 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
     }
   }, []);
 
+  // Google Customer Reviews opt-in — fire once a real order is confirmed on our site.
+  // (Shopify and Stripe checkouts complete off-site, so this only runs for the
+  // local wire/check confirmation path.)
+  useEffect(() => {
+    if (step !== 4) return;
+    const allOrders = JSON.parse(localStorage.getItem('syg_orders') || '[]');
+    const lastOrder = allOrders[allOrders.length - 1];
+    if (!lastOrder || !lastOrder.orderId || !lastOrder.customerEmail) return;
+    const delivery = new Date(Date.now() + 14 * 86400000);
+    window.__SYG_ORDER__ = {
+      order_id: lastOrder.orderId,
+      email: lastOrder.customerEmail,
+      delivery_country: 'US',
+      estimated_delivery_date: delivery.toISOString().slice(0, 10)
+    };
+    if (typeof window.renderGoogleOptIn === 'function') window.renderGoogleOptIn();
+  }, [step]);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

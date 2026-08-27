@@ -172,6 +172,31 @@
         });
       });
     </script>
+
+    <!-- Google Customer Reviews survey opt-in -->
+    <script src="https://apis.google.com/js/platform.js?onload=renderGoogleOptIn" async defer></script>
+    <script>
+      // Renders the survey opt-in ONLY when a completed order's real data is present
+      // (set on the order confirmation step), so no placeholder data is ever sent.
+      window.renderGoogleOptIn = function () {
+        var order = window.__SYG_ORDER__;
+        if (!order || !order.order_id || !order.email) return;
+        if (window.__SYG_OPTOPTIN_RENDERED__) return;
+        if (!window.gapi || !window.gapi.load) return;
+        window.__SYG_OPTOPTIN_RENDERED__ = true;
+        window.gapi.load('surveyoptin', function () {
+          var payload = {
+            merchant_id: 5843381908,
+            order_id: order.order_id,
+            email: order.email,
+            delivery_country: order.delivery_country || 'US',
+            estimated_delivery_date: order.estimated_delivery_date
+          };
+          if (order.products && order.products.length) payload.products = order.products;
+          window.gapi.surveyoptin.render(payload);
+        });
+      };
+    </script>
   </head>
   <body>
     <div id="root"></div>
