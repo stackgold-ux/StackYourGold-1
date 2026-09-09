@@ -10,7 +10,6 @@ import AboutUs from './components/AboutUs';
 import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
-import Rules from './components/Rules';
 import InStock from './components/InStock';
 import ReceiptWall from './components/ReceiptWall';
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
@@ -24,7 +23,6 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cart, setCart] = useState([]);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  const [isRulesOpen, setIsRulesOpen] = useState(false);
   const [showMerchantPortal, setShowMerchantPortal] = useState(false);
   const [isMerchantActive, setIsMerchantActive] = useState(false);
   const [currentView, setCurrentView] = useState('home');
@@ -300,25 +298,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-text-main gritty-bg selection:bg-primary selection:text-background relative">
-      <div className="bg-accent text-background py-3 px-4 text-center relative overflow-hidden group z-[60]">
-        <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 relative z-10">
-          <div className="flex items-center space-x-2">
-            <Zap size={16} className="fill-current animate-pulse" />
-            <span className="font-black uppercase italic tracking-tighter text-sm md:text-base">Road to 99 Campaign is Live!</span>
-          </div>
-          <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest">
-            Every 9th Subscriber Wins a <span className="underline underline-offset-4 decoration-2">Surprise Stack</span> of Real Gold & Silver! 🎁
-          </p>
-          <div className="flex items-center space-x-4">
-            <span className="hidden lg:block text-[10px] font-black opacity-50 italic">9/9/26 Grand Giveaway Challenge</span>
-            <button onClick={() => navigateTo('home')} className="bg-background text-accent px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
-              Claim Your Spot
-            </button>
-          </div>
-        </div>
-      </div>
-
       <SpotTicker spotPrices={spotPrices} />
 
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -408,7 +387,6 @@ function App() {
                 setIsCheckoutOpen(false);
               }}
               onCancel={() => setIsCheckoutOpen(false)}
-              onOpenRules={() => setIsRulesOpen(true)}
             />
           </div>
         </div>
@@ -482,7 +460,6 @@ function App() {
       </footer>
 
       <CookieConsent />
-      <Rules isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
     </div>
   );
 }

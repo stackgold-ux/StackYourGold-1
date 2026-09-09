@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck, Zap } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck } from 'lucide-react';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
 import { trackPurchase } from '../utils/tracking';
 
-const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
+const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
   const containerRef = useRef(null);
   const [step, setStep] = useState(1);
 
@@ -178,29 +177,11 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
     const lastOrder = allOrders[allOrders.length - 1];
     const orderId = lastOrder?.orderId || 'SYS-XXXX';
     
-    const subscriptionOrders = allOrders.filter(o => o.isSubscription);
-    const isWinner = lastOrder?.isSubscription && subscriptionOrders.length % 9 === 0;
 
     return (
       <div ref={containerRef} className="bg-surface p-12 rounded-3xl border border-primary/30 text-center max-w-2xl mx-auto shadow-2xl relative overflow-hidden">
-        {isWinner && (
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <div className="absolute inset-0 bg-primary/10 animate-pulse"></div>
-            <div className="absolute -top-12 -left-12 w-48 h-48 bg-primary/20 blur-[80px] rounded-full"></div>
-          </div>
-        )}
         
         <div className="relative z-10">
-          {isWinner && (
-            <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="mb-8 inline-block">
-              <div className="bg-primary text-background px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm flex items-center shadow-xl shadow-primary/40 animate-bounce">
-                <Zap size={16} className="mr-2 fill-current" />
-                Surprise Stack Winner!
-                <Zap size={16} className="ml-2 fill-current" />
-              </div>
-              <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em] mt-3">Subscriber #{subscriptionOrders.length}</p>
-            </motion.div>
-          )}
 
           <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="text-primary" size={48} />
@@ -208,13 +189,6 @@ const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
           <h2 className="text-3xl font-black uppercase italic mb-2">Wealth Secured</h2>
           <div className="text-primary font-mono font-bold mb-6 uppercase tracking-widest text-lg">Order #{orderId}</div>
           
-          {isWinner && (
-            <div className="mb-8 p-6 bg-primary/10 border-2 border-primary/30 rounded-2xl text-left">
-              <p className="text-sm text-white font-bold leading-relaxed">
-                As our {subscriptionOrders.length}th subscriber, you've won a <span className="text-primary italic">Surprise Stack</span> of real physical gold & silver!
-              </p>
-            </div>
-          )}
 
           <div className="bg-background/50 p-6 rounded-2xl border border-border mb-8 text-left">
             {formData.paymentMethod === 'wire' && (

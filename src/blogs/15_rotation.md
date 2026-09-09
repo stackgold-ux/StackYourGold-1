@@ -122,8 +122,6 @@ But the opportunity to accumulate at reasonable prices is **right now**.
 
 **Flat 15% margin.** No dealer games. No hidden fees.
 
-**🎁 The "Road to 99" is live.** Every 9th subscriber gets a FREE Surprise Stack of precious metals. Every dollar = 1 entry into our 9/9/26 Grand Giveaway.
-
 **Your Future. Your Stack. Your Legacy.™**
 
 👉 [Join the Stack Squad Today]
