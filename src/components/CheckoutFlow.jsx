@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck } from 'lucide-react';
+import { CreditCard, Truck, CheckCircle2, ArrowRight, ArrowLeft, Building2, CheckSquare, Info, ShieldCheck, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { wixClient } from '../utils/wixClient';
 import { shopifyClient } from '../utils/shopifyClient';
 import { trackPurchase } from '../utils/tracking';
 
-const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
+const CheckoutFlow = ({ cart, onComplete, onCancel, onOpenRules }) => {
   const containerRef = useRef(null);
   const [step, setStep] = useState(1);
 
@@ -15,24 +16,6 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
     }
   }, []);
 
-  // Google Customer Reviews opt-in — fire once a real order is confirmed on our site.
-  // (Shopify and Stripe checkouts complete off-site, so this only runs for the
-  // local wire/check confirmation path.)
-  useEffect(() => {
-    if (step !== 4) return;
-    const allOrders = JSON.parse(localStorage.getItem('syg_orders') || '[]');
-    const lastOrder = allOrders[allOrders.length - 1];
-    if (!lastOrder || !lastOrder.orderId || !lastOrder.customerEmail) return;
-    const delivery = new Date(Date.now() + 14 * 86400000);
-    window.__SYG_ORDER__ = {
-      order_id: lastOrder.orderId,
-      email: lastOrder.customerEmail,
-      delivery_country: 'US',
-      estimated_delivery_date: delivery.toISOString().slice(0, 10)
-    };
-    if (typeof window.renderGoogleOptIn === 'function') window.renderGoogleOptIn();
-  }, [step]);
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -40,7 +23,6 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
     address: '',
     city: '',
     zip: '',
-    dob: '',
     cardNumber: '',
     expiry: '',
     cvc: '',
@@ -88,7 +70,7 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
 
   const nextStep = async () => {
     if (step === 1) {
-      if (!formData.name || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.zip || !formData.dob) {
+      if (!formData.name || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.zip) {
         alert('Please fill out all details.');
         return;
       }
@@ -177,11 +159,29 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
     const lastOrder = allOrders[allOrders.length - 1];
     const orderId = lastOrder?.orderId || 'SYS-XXXX';
     
+    const subscriptionOrders = allOrders.filter(o => o.isSubscription);
+    const isWinner = lastOrder?.isSubscription && subscriptionOrders.length % 9 === 0;
 
     return (
       <div ref={containerRef} className="bg-surface p-12 rounded-3xl border border-primary/30 text-center max-w-2xl mx-auto shadow-2xl relative overflow-hidden">
+        {isWinner && (
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <div className="absolute inset-0 bg-primary/10 animate-pulse"></div>
+            <div className="absolute -top-12 -left-12 w-48 h-48 bg-primary/20 blur-[80px] rounded-full"></div>
+          </div>
+        )}
         
         <div className="relative z-10">
+          {isWinner && (
+            <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="mb-8 inline-block">
+              <div className="bg-primary text-background px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm flex items-center shadow-xl shadow-primary/40 animate-bounce">
+                <Zap size={16} className="mr-2 fill-current" />
+                Surprise Stack Winner!
+                <Zap size={16} className="ml-2 fill-current" />
+              </div>
+              <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em] mt-3">Subscriber #{subscriptionOrders.length}</p>
+            </motion.div>
+          )}
 
           <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="text-primary" size={48} />
@@ -189,15 +189,19 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
           <h2 className="text-3xl font-black uppercase italic mb-2">Wealth Secured</h2>
           <div className="text-primary font-mono font-bold mb-6 uppercase tracking-widest text-lg">Order #{orderId}</div>
           
+          {isWinner && (
+            <div className="mb-8 p-6 bg-primary/10 border-2 border-primary/30 rounded-2xl text-left">
+              <p className="text-sm text-white font-bold leading-relaxed">
+                As our {subscriptionOrders.length}th subscriber, you've won a <span className="text-primary italic">Surprise Stack</span> of real physical gold & silver!
+              </p>
+            </div>
+          )}
 
           <div className="bg-background/50 p-6 rounded-2xl border border-border mb-8 text-left">
             {formData.paymentMethod === 'wire' && (
               <div className="space-y-2 text-[10px] uppercase font-bold text-text-muted">
                 <p>Wire transfer required within 24h. Include Order #{orderId}.</p>
-                <div className="border-t border-border/50 pt-2 grid grid-cols-2">
-                  <span>Bank:</span><span className="text-white text-right">JPMorgan Chase</span>
-                  <span>Account:</span><span className="text-white text-right">8273491024</span>
-                </div>
+                <p className="normal-case font-normal text-white/80">Wire instructions will be emailed to you after order confirmation.</p>
               </div>
             )}
             {formData.paymentMethod === 'card' && <p className="text-text-muted text-sm">Receipt sent to your email.</p>}
@@ -232,7 +236,6 @@ const CheckoutFlow = ({ cart, onComplete, onCancel }) => {
               <input name="address" placeholder="Address" onChange={handleInputChange} value={formData.address} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
               <input name="city" placeholder="City" onChange={handleInputChange} value={formData.city} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary text-white" />
               <input name="zip" placeholder="Zip" onChange={handleInputChange} value={formData.zip} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary text-white" />
-              <input name="dob" placeholder="DOB (MM/DD/YYYY)" onChange={handleInputChange} value={formData.dob} className="bg-background border border-border p-4 rounded-xl outline-none focus:border-primary col-span-2 text-white" />
             </div>
           </div>
         )}
