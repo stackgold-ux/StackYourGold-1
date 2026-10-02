@@ -1,5 +1,5 @@
 /* SYG Web App - Multi-Tab Platform Architecture */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SpotTicker from './components/SpotTicker';
 import BullionShop from './components/BullionShop';
 import StackingClub from './components/StackingClub';
@@ -10,8 +10,11 @@ import AboutUs from './components/AboutUs';
 import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
+import Rules from './components/Rules';
 import InStock from './components/InStock';
 import ReceiptWall from './components/ReceiptWall';
+import Policies from './components/Policies';
+// (Newsletter posts to /api/newsletter — see subscribeNewsletter)
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
 import { shopifyClient } from './utils/shopifyClient';
 import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap, ArrowRight, Loader2 } from 'lucide-react';
@@ -23,11 +26,16 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cart, setCart] = useState([]);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isRulesOpen, setIsRulesOpen] = useState(false);
   const [showMerchantPortal, setShowMerchantPortal] = useState(false);
   const [isMerchantActive, setIsMerchantActive] = useState(false);
   const [currentView, setCurrentView] = useState('home');
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loadingFeatured, setLoadingFeatured] = useState(true);
+  const [toast, setToast] = useState(null);
+  const toastTimer = useRef(null);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -38,7 +46,7 @@ function App() {
     // Handle hash-based routing for direct links
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (['home', 'instock', 'club', 'shop', 'swag', 'legacy', 'education', 'about'].includes(hash)) {
+      if (['home', 'instock', 'club', 'shop', 'swag', 'legacy', 'education', 'about', 'shipping', 'returns', 'terms', 'privacy', 'contact'].includes(hash)) {
         if (hash === 'club') setCurrentView('home');
         else if (hash === 'shop') setCurrentView('vault');
         else if (hash === 'education') setCurrentView('school');
@@ -57,10 +65,14 @@ function App() {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        // Pull real in-stock Shopify products so the homepage inventory section is never empty.
-        const silver = await shopifyClient.getProducts('silver');
-        const inStock = (silver || []).filter(p => p.totalInventory > 0);
-        setFeaturedProducts(inStock.slice(0, 3));
+        const products = await shopifyClient.getProducts('featured');
+        // Fallback if no 'featured' tag exists
+        if (products.length === 0) {
+          const all = await shopifyClient.getProducts('swag');
+          setFeaturedProducts(all.slice(0, 3));
+        } else {
+          setFeaturedProducts(products.slice(0, 3));
+        }
       } catch (error) {
         console.error('Failed to fetch featured items:', error);
       } finally {
@@ -104,8 +116,33 @@ function App() {
   const addToCart = (product) => {
     trackAddToCart(product);
     setCart([...cart, product]);
-    setIsCheckoutOpen(true);
-    trackInitiateCheckout([...cart, product]);
+    // Standard cart flow: confirm via toast, keep shopper browsing.
+    // Checkout opens from the nav cart button.
+    setToast(`${product.name} added to your shipment`);
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    toastTimer.current = setTimeout(() => setToast(null), 2600);
+  };
+
+  const subscribeNewsletter = async (e) => {
+    e.preventDefault();
+    if (!newsletterEmail.includes('@')) {
+      setNewsletterStatus('invalid');
+      return;
+    }
+    try {
+      // Server-side endpoint — wire this to your ESP (HubSpot, Klaviyo, etc.)
+      // when the backend is ready. Never send API tokens from the browser.
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+      if (!res.ok) throw new Error('subscribe failed');
+      setNewsletterStatus('success');
+      setNewsletterEmail('');
+    } catch (err) {
+      setNewsletterStatus('unavailable');
+    }
   };
 
   const renderView = () => {
@@ -145,6 +182,35 @@ function App() {
               <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent blur-3xl rounded-full"></div>
             </section>
 
+            {/* Value Props */}
+            <section className="py-12 border-y border-border bg-surface/5">
+              <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Shield size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Insured Shipping</h4>
+                    <p className="text-sm text-text-muted">Every order is fully insured and tracked to your door.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Award size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Authenticity Guaranteed</h4>
+                    <p className="text-sm text-text-muted">Direct from sovereign mints and certified refineries.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
+                    <p className="text-sm text-text-muted">Transparent 20% margin over real-time spot.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <ReceiptWall />
+
             {/* Featured Section */}
             <section className="py-24 bg-surface/5 border-y border-border">
               <div className="max-w-7xl mx-auto px-4 text-center md:text-left flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-6">
@@ -178,9 +244,6 @@ function App() {
                           <div className="absolute top-4 left-4 bg-primary text-background text-[10px] font-black px-2 py-1 rounded shadow-lg backdrop-blur-md">
                             ${product.price.toFixed(2)}
                           </div>
-                          <div className="absolute top-4 right-4 bg-green-500 text-white text-[10px] font-black px-2 py-1 rounded shadow-lg backdrop-blur-md flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> In Stock
-                          </div>
                         </div>
                         <h4 className="text-xl font-black uppercase italic tracking-tighter mb-2 line-clamp-1">{product.name}</h4>
                         <p className="text-xs text-text-muted mb-6 line-clamp-2 leading-relaxed flex-grow">{product.description}</p>
@@ -204,37 +267,6 @@ function App() {
                 )}
               </div>
             </section>
-
-            <StackingClub spotPrices={spotPrices} addToCart={addToCart} />
-
-            {/* Value Props */}
-            <section className="py-12 border-y border-border bg-surface/5">
-              <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Shield size={24} /></div>
-                  <div>
-                    <h4 className="font-bold uppercase tracking-wider mb-1">Insured Shipping</h4>
-                    <p className="text-sm text-text-muted">Every order is fully insured and tracked to your door.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Award size={24} /></div>
-                  <div>
-                    <h4 className="font-bold uppercase tracking-wider mb-1">Authenticity Guaranteed</h4>
-                    <p className="text-sm text-text-muted">Direct from sovereign mints and certified refineries.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary"><Zap size={24} /></div>
-                  <div>
-                    <h4 className="font-bold uppercase tracking-wider mb-1">Live Pricing</h4>
-                    <p className="text-sm text-text-muted">Shopify-synced market pricing.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <ReceiptWall />
 
             {/* The Problem Section */}
             <section className="py-24 bg-surface/20 border-b border-border relative overflow-hidden">
@@ -277,6 +309,8 @@ function App() {
                 </div>
               </div>
             </section>
+
+            <StackingClub spotPrices={spotPrices} addToCart={addToCart} />
           </>
         );
       case 'instock':
@@ -287,6 +321,12 @@ function App() {
         return <div className="pt-8 min-h-screen"><EducationalHub /></div>;
       case 'swag':
         return <div className="pt-8 min-h-screen"><SwagShop addToCart={addToCart} /></div>;
+      case 'shipping':
+      case 'returns':
+      case 'terms':
+      case 'privacy':
+      case 'contact':
+        return <div className="pt-8 min-h-screen"><Policies page={currentView} /></div>;
       case 'legacy':
         return <div className="pt-8 min-h-screen"><LegacyEngraver spotPrices={spotPrices} addToCart={addToCart} /></div>;
       case 'about':
@@ -298,25 +338,41 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-text-main gritty-bg selection:bg-primary selection:text-background relative">
+      <div className="bg-accent text-background py-3 px-4 text-center relative overflow-hidden group z-[60]">
+        <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 relative z-10">
+          <div className="flex items-center space-x-2">
+            <Zap size={16} className="fill-current animate-pulse" />
+            <span className="font-black uppercase italic tracking-tighter text-sm md:text-base">Road to 99 Campaign is Live!</span>
+          </div>
+          <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest">
+            Every 9th Subscriber Wins a <span className="underline underline-offset-4 decoration-2">Surprise Stack</span> of Real Gold & Silver! 🎁
+          </p>
+          <div className="flex items-center space-x-4">
+            <span className="hidden lg:block text-[10px] font-black opacity-50 italic">9/9/26 Grand Giveaway Challenge</span>
+            <button onClick={() => navigateTo('home')} className="bg-background text-accent px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+              Claim Your Spot
+            </button>
+          </div>
+        </div>
+      </div>
+
       <SpotTicker spotPrices={spotPrices} />
 
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 h-24 flex items-center justify-between">
-          <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer min-w-0" onClick={() => navigateTo('home')}>
-            <div className="relative flex items-center shrink-0">
-              <img src={LogoGold} alt="SYG Gold Logo" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
-              <img src={LogoSilver} alt="SYS Silver Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain -ml-3 sm:-ml-4 mt-3 sm:mt-4 border-2 border-background rounded-full" />
+          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigateTo('home')}>
+            <div className="relative flex items-center">
+              <img src={LogoGold} alt="SYG Gold Logo" className="w-12 h-12 object-contain" />
+              <img src={LogoSilver} alt="SYS Silver Logo" className="w-10 h-10 object-contain -ml-4 mt-4 border-2 border-background rounded-full" />
             </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs sm:text-lg xl:text-xl font-black uppercase italic tracking-tighter leading-none whitespace-nowrap">
-                <span className="md:hidden">Stack Your Gold | Silver™</span>
-                <span className="hidden md:inline">Stack Your Gold | Stack Your Silver™</span>
-              </span>
-              <span className="hidden sm:block text-[10px] font-bold uppercase tracking-[0.2em] text-primary whitespace-nowrap">Solidify Your Family's Legacy</span>
+            <div className="flex flex-col">
+              <span className="text-xl font-black uppercase italic tracking-tighter leading-none">Stack Your Gold | Stack Your Silver™</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Solidify Your Family's Legacy</span>
             </div>
           </div>
 
-          <div className="hidden xl:flex items-center space-x-6 2xl:space-x-8 font-bold text-sm uppercase tracking-widest">
+          <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
             {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button
                 key={view}
@@ -344,7 +400,7 @@ function App() {
                 </span>
               )}
             </button>
-            <button className="xl:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <button className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
@@ -352,20 +408,10 @@ function App() {
       </nav>
 
       {isMenuOpen && (
-        <div className="fixed inset-0 z-[70] bg-background p-6 xl:hidden font-black uppercase italic overflow-y-auto">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center space-x-2 min-w-0">
-              <img src={LogoGold} alt="SYG" className="w-8 h-8 object-contain shrink-0" />
-              <img src={LogoSilver} alt="SYS" className="w-7 h-7 object-contain -ml-2 border-2 border-background rounded-full shrink-0" />
-              <span className="text-xs font-black uppercase italic tracking-tighter whitespace-nowrap">Stack Your Gold | Silver™</span>
-            </div>
-            <button className="p-2 hover:bg-surface rounded-full transition-colors" onClick={() => setIsMenuOpen(false)} aria-label="Close menu">
-              <X size={24} />
-            </button>
-          </div>
+        <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden font-black uppercase italic">
           <div className="flex flex-col space-y-6 text-2xl">
             {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
-              <button key={view} className="text-left" onClick={() => { navigateTo(view); setIsMenuOpen(false); }}>
+              <button key={view} className="text-left" onClick={() => navigateTo(view)}>
                 {view === 'home' ? 'Stack Squad' : 
                  view === 'instock' ? 'In Stock' :
                  view === 'vault' ? 'Bullion' :
@@ -387,6 +433,7 @@ function App() {
                 setIsCheckoutOpen(false);
               }}
               onCancel={() => setIsCheckoutOpen(false)}
+              onOpenRules={() => setIsRulesOpen(true)}
             />
           </div>
         </div>
@@ -403,7 +450,7 @@ function App() {
               {[
                 { 
                   q: "How is your pricing calculated?", 
-                  a: "All product prices come directly from our Shopify catalog — what you see is the exact price at checkout, no hidden fees or dealer premiums. Stack Squad members enjoy exclusive discounted rates." 
+                  a: "We believe in complete transparency. We pull live spot prices from major global mints and add a 20% margin. This covers our secure sourcing, fully-insured delivery, and operational costs. Stack Squad members enjoy exclusive discounted rates." 
                 },
                 { 
                   q: "Is shipping safe? What if my package is lost?", 
@@ -452,14 +499,100 @@ function App() {
 
       {showMerchantPortal && <MerchantPortal />}
 
-      <footer className="bg-surface py-24 border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p>© 2026 Stack Your Gold | Stack Your Silver LLC. All rights reserved.</p>
-          <p className="mt-4 italic text-primary/50">Your Future. Your Stack. Your Legacy.™</p>
+      {toast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] bg-primary text-background px-6 py-3 rounded-full font-black uppercase tracking-widest text-xs shadow-2xl whitespace-nowrap">
+          {toast}
+        </div>
+      )}
+
+      <footer className="bg-surface border-t border-border">
+        {/* Newsletter */}
+        <div className="border-b border-border/50">
+          <div className="max-w-7xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl md:text-3xl font-black uppercase italic tracking-tighter text-white">
+                Get pinged when silver dips.
+              </h3>
+              <p className="text-text-muted mt-2 text-sm">
+                Spot-price drop alerts, restock heads-ups, first dibs on limited drops. No spam — just the signal.
+              </p>
+            </div>
+            <form onSubmit={subscribeNewsletter} className="w-full md:w-auto flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                value={newsletterEmail}
+                onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterStatus(null); }}
+                placeholder="you@email.com"
+                className="bg-background border border-border rounded-xl px-5 py-3 text-white font-bold focus:outline-none focus:border-primary w-full sm:w-72"
+              />
+              <button
+                type="submit"
+                className="bg-primary text-background px-8 py-3 rounded-xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-xl whitespace-nowrap"
+              >
+                Join the Stack List
+              </button>
+            </form>
+          </div>
+          {newsletterStatus === 'success' && (
+            <p className="text-center text-green-400 font-bold text-sm pb-8 -mt-8">You're on the list. Watch your inbox.</p>
+          )}
+          {newsletterStatus === 'invalid' && (
+            <p className="text-center text-red-400 font-bold text-sm pb-8 -mt-8">Please enter a valid email address.</p>
+          )}
+          {newsletterStatus === 'unavailable' && (
+            <p className="text-center text-amber-400 font-bold text-sm pb-8 -mt-8">Signups aren't live yet — check back soon.</p>
+          )}
+        </div>
+
+        {/* Link columns */}
+        <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-xs text-primary mb-5">Shop</h4>
+            <ul className="space-y-3 text-sm text-text-muted font-bold">
+              <li><button onClick={() => navigateTo('instock')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">In Stock Now</button></li>
+              <li><button onClick={() => navigateTo('vault')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Bullion</button></li>
+              <li><button onClick={() => navigateTo('swag')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Swag</button></li>
+              <li><button onClick={() => navigateTo('home')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Stack Squad</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-xs text-primary mb-5">Support</h4>
+            <ul className="space-y-3 text-sm text-text-muted font-bold">
+              <li><button onClick={() => navigateTo('shipping')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Shipping Policy</button></li>
+              <li><button onClick={() => navigateTo('returns')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Returns &amp; Refunds</button></li>
+              <li><button onClick={() => navigateTo('contact')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Contact Us</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-xs text-primary mb-5">Company</h4>
+            <ul className="space-y-3 text-sm text-text-muted font-bold">
+              <li><button onClick={() => navigateTo('about')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">About</button></li>
+              <li><button onClick={() => navigateTo('school')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">School</button></li>
+              <li><button onClick={() => navigateTo('terms')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Terms of Service</button></li>
+              <li><button onClick={() => navigateTo('privacy')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Privacy Policy</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-xs text-primary mb-5">Our Promise</h4>
+            <ul className="space-y-3 text-xs text-text-muted font-bold uppercase tracking-wider">
+              <li>Fully insured delivery</li>
+              <li>Authenticity guaranteed</li>
+              <li>Live transparent pricing</li>
+              <li>Discreet packaging</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-border/50">
+          <div className="max-w-7xl mx-auto px-4 py-8 text-center">
+            <p className="text-xs text-text-muted">© 2026 Stack Your Gold | Stack Your Silver LLC. All rights reserved.</p>
+            <p className="mt-2 italic text-primary/50 text-xs">Your Future. Your Stack. Your Legacy.™</p>
+          </div>
         </div>
       </footer>
 
       <CookieConsent />
+      <Rules isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
     </div>
   );
 }
