@@ -4,13 +4,12 @@
  */
 
 const SHOPIFY_CONFIG = {
-  storeUrl: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SHOPIFY_STORE_DOMAIN) || 
+  storeUrl: (typeof import.meta !== 'undefined' && (import.meta.env?.VITE_SHOPIFY_STORE_DOMAIN || import.meta.env?.VITE_SHOPIFY_DOMAIN)) || 
             (typeof process !== 'undefined' && process.env?.SHOPIFY_STORE_DOMAIN) || 
             'stackyourgold.myshopify.com',
   storefrontToken: (typeof import.meta !== 'undefined' && (import.meta.env?.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || import.meta.env?.VITE_SHOPIFY_STOREFRONT_TOKEN)) || 
-                   (typeof process !== 'undefined' && process.env?.SHOPIFY_STOREFRONT_ACCESS_TOKEN) || 
-                   'f538c8684ee0765417ec9295342822da',
-  apiVersion: '2024-04'
+                   (typeof process !== 'undefined' && process.env?.SHOPIFY_STOREFRONT_ACCESS_TOKEN) || '',
+  apiVersion: '2025-10'
 };
 
 class ShopifyClient {
@@ -82,7 +81,6 @@ class ShopifyClient {
                     id
                     title
                     availableForSale
-                    quantityAvailable
                     price {
                       amount
                     }
@@ -146,7 +144,7 @@ class ShopifyClient {
             price: parseFloat(v.node.price?.amount || 0),
             weightOz: weightOz,
             available: v.node.availableForSale,
-            inventory: v.node.quantityAvailable || 0
+            inventory: v.node.availableForSale ? 1 : 0
           };
         }) || [];
         
@@ -363,18 +361,20 @@ class ShopifyClient {
   }
 
   /**
-   * Creates a Shopify checkout and returns the URL
+   * Creates a Shopify cart and returns its checkout URL.
+   * Uses the Cart API (cartCreate) — the deprecated checkoutCreate mutation
+   * no longer works. Never fake an order: returns null on failure so the
+   * caller can show an error instead of a bogus confirmation.
    */
   async createCheckout(variants) {
     const query = `
-      mutation checkoutCreate($input: CheckoutCreateInput!) {
-        checkoutCreate(input: $input) {
-          checkout {
+      mutation cartCreate($input: CartInput!) {
+        cartCreate(input: $input) {
+          cart {
             id
-            webUrl
+            checkoutUrl
           }
-          checkoutUserErrors {
-            code
+          userErrors {
             field
             message
           }
@@ -382,25 +382,29 @@ class ShopifyClient {
       }
     `;
 
-    const lineItems = variants.map(v => ({
-      variantId: v.shopifyVariantId,
-      quantity: 1
+    // Group duplicate variant adds into quantities
+    const qtyByVariant = {};
+    for (const v of variants) {
+      if (!v.shopifyVariantId) continue;
+      qtyByVariant[v.shopifyVariantId] = (qtyByVariant[v.shopifyVariantId] || 0) + 1;
+    }
+    const lines = Object.entries(qtyByVariant).map(([merchandiseId, quantity]) => ({
+      merchandiseId,
+      quantity
     }));
 
-    const data = await this.graphqlFetch(query, {
-      input: {
-        lineItems
-      }
-    });
+    if (lines.length === 0) return null;
 
-    if (data && data.checkoutCreate.checkout) {
-      return data.checkoutCreate.checkout.webUrl;
+    const data = await this.graphqlFetch(query, { input: { lines } });
+
+    if (data?.cartCreate?.cart?.checkoutUrl) {
+      return data.cartCreate.cart.checkoutUrl;
     }
-    
-    if (data && data.checkoutCreate.checkoutUserErrors.length > 0) {
-      console.error('Shopify Checkout Errors:', data.checkoutCreate.checkoutUserErrors);
+
+    if (data?.cartCreate?.userErrors?.length > 0) {
+      console.error('Shopify Cart Errors:', data.cartCreate.userErrors);
     }
-    
+
     return null;
   }
 }
