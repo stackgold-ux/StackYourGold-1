@@ -49,6 +49,133 @@ class ShopifyClient {
   /**
    * Fetches apparel products/swag from Shopify or fallback
    */
+  /**
+   * Maps a Storefront API product node to the app's product shape.
+   * Shared by getProducts and getAllProducts.
+   */
+  mapProductNode(node) {
+    const variants = node.variants?.edges?.map(v => {
+      const title = v.node.title;
+      let weightOz = 0;
+
+      // Try to parse weight from title or options
+      const weightOption = v.node.selectedOptions?.find(o =>
+        o.name.toLowerCase().includes('weight') ||
+        o.name.toLowerCase().includes('size')
+      );
+
+      const textToParse = weightOption ? weightOption.value : title;
+      const match = textToParse.match(/(\d+(?:\.\d+)?)\s*oz/i);
+      if (match) {
+        weightOz = parseFloat(match[1]);
+      } else if (textToParse.toLowerCase().includes('1/10')) {
+        weightOz = 0.1;
+      } else if (textToParse.toLowerCase().includes('1/4')) {
+        weightOz = 0.25;
+      } else if (textToParse.toLowerCase().includes('1/2')) {
+        weightOz = 0.5;
+      } else if (textToParse.toLowerCase().includes('kilo')) {
+        weightOz = 32.15;
+      }
+
+      return {
+        id: v.node.id,
+        title: title,
+        price: parseFloat(v.node.price?.amount || 0),
+        weightOz: weightOz,
+        available: v.node.availableForSale,
+        inventory: v.node.availableForSale ? 1 : 0
+      };
+    }) || [];
+
+    const media = node.media?.edges
+      ?.filter(m => m.node.mediaContentType === 'VIDEO')
+      ?.map(m => ({
+        id: m.node.id,
+        type: 'VIDEO',
+        sources: m.node.sources
+      })) || [];
+
+    const images = node.images?.edges?.map(i => ({
+      url: i.node.url,
+      altText: i.node.altText
+    })) || [];
+
+    return {
+      id: node.id,
+      name: node.title,
+      handle: node.handle,
+      description: node.description,
+      type: node.productType,
+      price: parseFloat(node.priceRange?.minVariantPrice?.amount || 0),
+      currency: node.priceRange?.minVariantPrice?.currencyCode || 'USD',
+      images: images,
+      variants: variants,
+      media: media,
+      tags: node.tags || [],
+      totalInventory: variants.reduce((sum, v) => sum + (v.inventory || 0), 0)
+    };
+  }
+
+  /**
+   * Fetches the full active catalog (no search filter) for client-side
+   * categorization. Returns [] on failure — never mock products, so the
+   * metal views can't show fake "in stock" items.
+   */
+  async getAllProducts() {
+    const query = `
+      query getAllProducts {
+        products(first: 100, sortKey: CREATED_AT, reverse: true) {
+          edges {
+            node {
+              id
+              title
+              description
+              handle
+              productType
+              tags
+              priceRange {
+                minVariantPrice {
+                  amount
+                  currencyCode
+                }
+              }
+              images(first: 5) {
+                edges {
+                  node {
+                    url
+                    altText
+                  }
+                }
+              }
+              variants(first: 10) {
+                edges {
+                  node {
+                    id
+                    title
+                    availableForSale
+                    price {
+                      amount
+                    }
+                    selectedOptions {
+                      name
+                      value
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+    const data = await this.graphqlFetch(query);
+    if (data?.products?.edges?.length > 0) {
+      return data.products.edges.map(edge => this.mapProductNode(edge.node));
+    }
+    return [];
+  }
+
   async getProducts(tag = 'swag') {
     const query = `
       query getProducts($query: String) {
@@ -112,70 +239,7 @@ class ShopifyClient {
     `;
     const data = await this.graphqlFetch(query, { query: tag });
     if (data?.products?.edges?.length > 0) {
-      return data.products.edges.map(edge => {
-        const node = edge.node;
-        const variants = node.variants?.edges?.map(v => {
-          const title = v.node.title;
-          let weightOz = 0;
-          
-          // Try to parse weight from title or options
-          const weightOption = v.node.selectedOptions?.find(o => 
-            o.name.toLowerCase().includes('weight') || 
-            o.name.toLowerCase().includes('size')
-          );
-          
-          const textToParse = weightOption ? weightOption.value : title;
-          const match = textToParse.match(/(\d+(?:\.\d+)?)\s*oz/i);
-          if (match) {
-            weightOz = parseFloat(match[1]);
-          } else if (textToParse.toLowerCase().includes('1/10')) {
-            weightOz = 0.1;
-          } else if (textToParse.toLowerCase().includes('1/4')) {
-            weightOz = 0.25;
-          } else if (textToParse.toLowerCase().includes('1/2')) {
-            weightOz = 0.5;
-          } else if (textToParse.toLowerCase().includes('kilo')) {
-            weightOz = 32.15;
-          }
-
-          return {
-            id: v.node.id,
-            title: title,
-            price: parseFloat(v.node.price?.amount || 0),
-            weightOz: weightOz,
-            available: v.node.availableForSale,
-            inventory: v.node.availableForSale ? 1 : 0
-          };
-        }) || [];
-        
-        const media = node.media?.edges
-          ?.filter(m => m.node.mediaContentType === 'VIDEO')
-          ?.map(m => ({
-            id: m.node.id,
-            type: 'VIDEO',
-            sources: m.node.sources
-          })) || [];
-
-        const images = node.images?.edges?.map(i => ({
-          url: i.node.url,
-          altText: i.node.altText
-        })) || [];
-
-        return {
-          id: node.id,
-          name: node.title,
-          handle: node.handle,
-          description: node.description,
-          type: node.productType,
-          price: parseFloat(node.priceRange?.minVariantPrice?.amount || 0),
-          currency: node.priceRange?.minVariantPrice?.currencyCode || 'USD',
-          images: images,
-          variants: variants,
-          media: media,
-          tags: node.tags || [],
-          totalInventory: variants.reduce((sum, v) => sum + (v.inventory || 0), 0)
-        };
-      });
+      return data.products.edges.map(edge => this.mapProductNode(edge.node));
     }
     
     if (tag === 'silver') return this.getMockSilverProducts();

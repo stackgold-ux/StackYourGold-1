@@ -1,7 +1,8 @@
 /* SYG Web App - Multi-Tab Platform Architecture */
 import { useState, useEffect, useRef } from 'react';
 import SpotTicker from './components/SpotTicker';
-import BullionShop from './components/BullionShop';
+import MetalShop from './components/MetalShop';
+import MetalPreview from './components/MetalPreview';
 import StackingClub from './components/StackingClub';
 import LegacyEngraver from './components/LegacyEngraver';
 import SwagShop from './components/SwagShop';
@@ -10,12 +11,10 @@ import AboutUs from './components/AboutUs';
 import CheckoutFlow from './components/CheckoutFlow';
 import MerchantPortal from './components/MerchantPortal';
 import CookieConsent from './components/CookieConsent';
-import InStock from './components/InStock';
 import ReceiptWall from './components/ReceiptWall';
 import Policies from './components/Policies';
 // (Newsletter posts to /api/newsletter — see subscribeNewsletter)
 import { trackAddToCart, trackInitiateCheckout } from './utils/tracking';
-import { shopifyClient } from './utils/shopifyClient';
 import { ShoppingCart, Menu, X, ChevronRight, Shield, Award, Zap, ArrowRight, Loader2 } from 'lucide-react';
 import LogoGold from './assets/logo-gold.jpg';
 import LogoSilver from './assets/logo-silver.jpg';
@@ -28,8 +27,6 @@ function App() {
   const [showMerchantPortal, setShowMerchantPortal] = useState(false);
   const [isMerchantActive, setIsMerchantActive] = useState(false);
   const [currentView, setCurrentView] = useState('home');
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [loadingFeatured, setLoadingFeatured] = useState(true);
   const [toast, setToast] = useState(null);
   const toastTimer = useRef(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -44,7 +41,7 @@ function App() {
     // Handle hash-based routing for direct links
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (['home', 'instock', 'club', 'shop', 'swag', 'legacy', 'education', 'about', 'shipping', 'returns', 'terms', 'privacy', 'contact'].includes(hash)) {
+      if (['home', 'gold', 'silver', 'more', 'club', 'shop', 'swag', 'legacy', 'education', 'about', 'shipping', 'returns', 'terms', 'privacy', 'contact'].includes(hash)) {
         if (hash === 'club') setCurrentView('home');
         else if (hash === 'shop') setCurrentView('vault');
         else if (hash === 'education') setCurrentView('school');
@@ -58,26 +55,6 @@ function App() {
     window.addEventListener('hashchange', handleHashChange);
     handleHashChange(); 
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  useEffect(() => {
-    const fetchFeatured = async () => {
-      try {
-        const products = await shopifyClient.getProducts('featured');
-        // Fallback if no 'featured' tag exists
-        if (products.length === 0) {
-          const all = await shopifyClient.getProducts('swag');
-          setFeaturedProducts(all.slice(0, 3));
-        } else {
-          setFeaturedProducts(products.slice(0, 3));
-        }
-      } catch (error) {
-        console.error('Failed to fetch featured items:', error);
-      } finally {
-        setLoadingFeatured(false);
-      }
-    };
-    fetchFeatured();
   }, []);
 
   const navigateTo = (view) => {
@@ -232,62 +209,9 @@ function App() {
 
             <ReceiptWall />
 
-            {/* Featured Section */}
-            <section className="py-24 bg-surface/5 border-y border-border">
-              <div className="max-w-7xl mx-auto px-4 text-center md:text-left flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-6">
-                <div>
-                  <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic leading-none">
-                    Featured <span className="text-primary">Stacks</span>
-                  </h2>
-                  <p className="text-text-muted mt-4 font-bold uppercase tracking-widest text-xs text-glow">Live physical inventory ready for shipment</p>
-                </div>
-                <button onClick={() => navigateTo('instock')} className="flex items-center text-primary font-black uppercase tracking-widest text-sm group">
-                  View Full Vault <ArrowRight size={20} className="ml-2 group-hover:translate-x-2 transition-transform" />
-                </button>
-              </div>
-
-              <div className="max-w-7xl mx-auto px-4">
-                {loadingFeatured ? (
-                  <div className="flex flex-col items-center justify-center py-20 space-y-4">
-                    <Loader2 size={32} className="text-primary animate-spin" />
-                    <p className="text-text-muted text-[10px] font-black uppercase tracking-[0.3em]">Syncing Vault...</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {featuredProducts.map((product) => (
-                      <div key={product.id} className="group bg-background border border-border rounded-3xl p-6 hover:border-primary/40 transition-all duration-500 shadow-2xl relative overflow-hidden flex flex-col">
-                        <div className="aspect-square mb-6 rounded-2xl overflow-hidden bg-surface relative">
-                          <img 
-                            src={product.images[0]?.url} 
-                            alt={product.name} 
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                          />
-                          <div className="absolute top-4 left-4 bg-primary text-background text-[10px] font-black px-2 py-1 rounded shadow-lg backdrop-blur-md">
-                            ${product.price.toFixed(2)}
-                          </div>
-                        </div>
-                        <h4 className="text-xl font-black uppercase italic tracking-tighter mb-2 line-clamp-1">{product.name}</h4>
-                        <p className="text-xs text-text-muted mb-6 line-clamp-2 leading-relaxed flex-grow">{product.description}</p>
-                        <button 
-                          onClick={() => addToCart({
-                            id: `${product.id}-${product.variants[0]?.id}`,
-                            shopifyVariantId: product.variants[0]?.id,
-                            name: product.name,
-                            price: product.price,
-                            image: product.images[0]?.url,
-                            type: product.tags.includes('swag') ? 'swag' : 'bullion',
-                            isShopify: true
-                          })}
-                          className="w-full py-4 bg-surface hover:bg-primary hover:text-background border border-border hover:border-primary rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2"
-                        >
-                          <ShoppingCart size={16} /> Add to Stack
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </section>
+            {/* Sellable Previews — live Shopify inventory by metal */}
+            <MetalPreview metal="gold" targetView="gold" navigateTo={navigateTo} addToCart={addToCart} />
+            <MetalPreview metal="silver" targetView="silver" navigateTo={navigateTo} addToCart={addToCart} />
 
             {/* The Problem Section */}
             <section className="py-24 bg-surface/20 border-b border-border relative overflow-hidden">
@@ -334,10 +258,12 @@ function App() {
             <StackingClub spotPrices={spotPrices} addToCart={addToCart} />
           </>
         );
-      case 'instock':
-        return <div className="pt-8 min-h-screen"><InStock addToCart={addToCart} /></div>;
-      case 'vault':
-        return <div className="pt-8 min-h-screen"><BullionShop spotPrices={spotPrices} addToCart={addToCart} /></div>;
+      case 'gold':
+        return <div className="pt-8 min-h-screen"><MetalShop metal="gold" addToCart={addToCart} /></div>;
+      case 'silver':
+        return <div className="pt-8 min-h-screen"><MetalShop metal="silver" addToCart={addToCart} /></div>;
+      case 'more':
+        return <div className="pt-8 min-h-screen"><MetalShop metal="other" addToCart={addToCart} /></div>;
       case 'school':
         return <div className="pt-8 min-h-screen"><EducationalHub /></div>;
       case 'swag':
@@ -375,15 +301,16 @@ function App() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
-            {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
+            {['home', 'gold', 'silver', 'more', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button
                 key={view}
                 onClick={() => navigateTo(view)}
                 className={`transition-colors py-2 border-b-2 ${currentView === view ? 'text-primary border-primary' : 'border-transparent hover:text-primary'}`}
               >
-                {view === 'home' ? 'Stack Squad' : 
-                 view === 'instock' ? 'In Stock' :
-                 view === 'vault' ? 'Bullion' :
+                {view === 'home' ? 'Stack Squad' :
+                 view === 'gold' ? 'Gold' :
+                 view === 'silver' ? 'Silver' :
+                 view === 'more' ? 'Vault Finds' :
                  view === 'school' ? 'School' :
                  view.charAt(0).toUpperCase() + view.slice(1)}
               </button>
@@ -412,11 +339,12 @@ function App() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden font-black uppercase italic">
           <div className="flex flex-col space-y-6 text-2xl">
-            {['home', 'instock', 'vault', 'swag', 'legacy', 'school', 'about'].map((view) => (
+            {['home', 'gold', 'silver', 'more', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button key={view} className="text-left" onClick={() => navigateTo(view)}>
-                {view === 'home' ? 'Stack Squad' : 
-                 view === 'instock' ? 'In Stock' :
-                 view === 'vault' ? 'Bullion' :
+                {view === 'home' ? 'Stack Squad' :
+                 view === 'gold' ? 'Gold' :
+                 view === 'silver' ? 'Silver' :
+                 view === 'more' ? 'Vault Finds' :
                  view === 'school' ? 'School' :
                  view.charAt(0).toUpperCase() + view.slice(1)}
               </button>
