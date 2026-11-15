@@ -42,7 +42,7 @@ const METAL_CONFIG = {
     headline: 'Holiday Items',
     tagline: 'Seasonal pieces — here for the holidays, gone when they are gone',
     description:
-      'Holiday snap-lock Silver Eagle cases, $6 each — or 5 for $24 with code 5FOR24 at checkout, through November 25. When the season ends, so do these.',
+      'Holiday snap-lock Silver Eagle cases, $6 each — or 5 for $24 with code 5FOR24 at checkout, through December 25. When the season ends, so do these.',
     accentText: 'text-emerald-300',
     accentBg: 'bg-emerald-300',
     accentBorder: 'hover:border-emerald-300/50',
