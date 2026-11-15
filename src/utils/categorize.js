@@ -2,12 +2,15 @@
  * Shared product categorization for the dual-brand storefront.
  *
  * Buckets:
- *  - 'gold'   → Stack Your Gold: in-stock gold products
- *  - 'silver' → Stack Your Silver: in-stock silver products
- *  - 'other'  → everything else: copper, platinum/palladium, and
- *               antique / vintage / certified-collectible items
+ *  - 'gold'    → Stack Your Gold: in-stock gold products
+ *  - 'silver'  → Stack Your Silver: in-stock silver products
+ *  - 'holiday' → seasonal / limited-time items, tagged 'holiday'
+ *  - 'other'   → everything else: copper, platinum/palladium, and
+ *                antique / vintage / certified-collectible items
  *
- * Vintage/antique is checked first so a vintage gold coin lands in
+ * The holiday tag is checked first so a seasonal piece (e.g. a holiday
+ * Silver Eagle) lands in the Holiday tab rather than the silver wall.
+ * Vintage/antique is checked next so a vintage gold coin lands in
  * "Vault Finds" rather than the gold wall.
  */
 
@@ -37,10 +40,20 @@ export function isVintageLike(product) {
 }
 
 /**
- * Returns 'gold' | 'silver' | 'other' for a Shopify-mapped product
+ * Seasonal / limited-time items are tagged 'holiday' in Shopify.
+ * Any future holiday product joins the Holiday tab by carrying the tag.
+ */
+export function isHolidayLike(product) {
+  const tags = (product.tags || []).map((t) => String(t).toLowerCase());
+  return tags.includes('holiday');
+}
+
+/**
+ * Returns 'gold' | 'silver' | 'holiday' | 'other' for a Shopify-mapped product
  * ({ name, tags, type } shape from shopifyClient).
  */
 export function categorizeProduct(product) {
+  if (isHolidayLike(product)) return 'holiday';
   if (isVintageLike(product)) return 'other';
 
   const blob = blobOf(product);

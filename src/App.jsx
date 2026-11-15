@@ -41,7 +41,7 @@ function App() {
     // Handle hash-based routing for direct links
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (['home', 'gold', 'silver', 'more', 'club', 'shop', 'swag', 'legacy', 'education', 'about', 'shipping', 'returns', 'terms', 'privacy', 'contact'].includes(hash)) {
+      if (['home', 'gold', 'silver', 'more', 'holiday', 'club', 'shop', 'swag', 'legacy', 'education', 'about', 'shipping', 'returns', 'terms', 'privacy', 'contact'].includes(hash)) {
         if (hash === 'club') setCurrentView('home');
         else if (hash === 'shop') setCurrentView('vault');
         else if (hash === 'education') setCurrentView('school');
@@ -264,6 +264,8 @@ function App() {
         return <div className="pt-8 min-h-screen"><MetalShop metal="silver" addToCart={addToCart} /></div>;
       case 'more':
         return <div className="pt-8 min-h-screen"><MetalShop metal="other" addToCart={addToCart} /></div>;
+      case 'holiday':
+        return <div className="pt-8 min-h-screen"><MetalShop metal="holiday" addToCart={addToCart} /></div>;
       case 'school':
         return <div className="pt-8 min-h-screen"><EducationalHub /></div>;
       case 'swag':
@@ -301,7 +303,7 @@ function App() {
           </div>
 
           <div className="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-widest">
-            {['home', 'gold', 'silver', 'more', 'swag', 'legacy', 'school', 'about'].map((view) => (
+            {['home', 'gold', 'silver', 'more', 'holiday', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button
                 key={view}
                 onClick={() => navigateTo(view)}
@@ -339,7 +341,7 @@ function App() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background pt-24 p-6 lg:hidden font-black uppercase italic">
           <div className="flex flex-col space-y-6 text-2xl">
-            {['home', 'gold', 'silver', 'more', 'swag', 'legacy', 'school', 'about'].map((view) => (
+            {['home', 'gold', 'silver', 'more', 'holiday', 'swag', 'legacy', 'school', 'about'].map((view) => (
               <button key={view} className="text-left" onClick={() => navigateTo(view)}>
                 {view === 'home' ? 'Stack Squad' :
                  view === 'gold' ? 'Gold' :
@@ -480,6 +482,7 @@ function App() {
             <ul className="space-y-3 text-sm text-text-muted font-bold">
               <li><button onClick={() => navigateTo('instock')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">In Stock Now</button></li>
               <li><button onClick={() => navigateTo('vault')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Bullion</button></li>
+              <li><button onClick={() => navigateTo('holiday')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Holiday</button></li>
               <li><button onClick={() => navigateTo('swag')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Swag</button></li>
               <li><button onClick={() => navigateTo('home')} className="hover:text-primary transition-colors uppercase tracking-wider text-xs">Stack Squad</button></li>
             </ul>

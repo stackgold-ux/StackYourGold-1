@@ -37,6 +37,17 @@ const METAL_CONFIG = {
     accentBorder: 'hover:border-orange-300/50',
     glow: 'bg-orange-300/10',
   },
+  holiday: {
+    brand: 'Limited Time Only',
+    headline: 'Holiday Items',
+    tagline: 'Seasonal pieces — here for the holidays, gone when they are gone',
+    description:
+      'Holiday snap-lock Silver Eagle cases, $6 each — or 5 for $24 with code 5FOR24 at checkout, through December 25. When the season ends, so do these.',
+    accentText: 'text-emerald-300',
+    accentBg: 'bg-emerald-300',
+    accentBorder: 'hover:border-emerald-300/50',
+    glow: 'bg-emerald-300/10',
+  },
 };
 
 const ProductCard = ({ product, addToCart, accent }) => {
